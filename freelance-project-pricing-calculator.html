@@ -622,8 +622,11 @@
         const combinedFeePct = data.platformFeePct + data.paymentFeePct;
         const feeRate = combinedFeePct / 100;
         // Gross up only if fees are charged against the full client invoice.
-        const quote = data.feesOnEntireInvoice ? base / (1 - feeRate) : base;
-        const feeAmount = quote - base;
+        const quote = data.feesOnEntireInvoice
+  ? base / (1 - feeRate)
+  : base;
+
+const feeAmount = quote * feeRate;
         const deposit = quote * data.depositPct / 100;
         const balance = quote - deposit;
         const effectiveHourly = totalHours > 0 ? quote / totalHours : null;
@@ -698,7 +701,7 @@
           "Subtotal before percentage fees: " + amountPlain(result.base),
           "Platform fee rate: " + input.platformFeePct + "%",
           "Payment processing fee rate: " + input.paymentFeePct + "%",
-          "Percentage fees covered in quote: " + amountPlain(result.feeAmount),
+          "Estimated percentage fees in quote: " + amountPlain(result.feeAmount),
           "Total fixed-price quote: " + amountPlain(result.quote),
           "Deposit (" + input.depositPct + "%): " + amountPlain(result.deposit),
           "Remaining balance: " + amountPlain(result.balance),
