@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Extract specific pages from any PDF document online for free. Select pages visually or by range, merge into one PDF or export individually. 100% client-side privacy.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#173d35">
+<link rel="canonical" href="https://toolvantas.pages.dev/extract-pdf-pages.html">
+<title>Extract PDF Pages Online Free — 100% Private &amp; Lossless | Toolvantas</title>
+<link rel="stylesheet" href="/site.css">
+<script src="/site.js" defer></script>
+<!-- Client-side PDF processing engine (Zero server uploads) -->
+<script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.9/dist/pdf-lib.min.js"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Extract PDF Pages Online",
+  "url": "https://toolvantas.pages.dev/extract-pdf-pages.html",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "description": "Extract pages from PDF documents visually or by custom page ranges in-memory with complete client-side privacy.",
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+}
+</script>
+<style>
+.pdf-layout{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:22px;align-items:start}
+.editor-card,.results,.content-card{padding:22px;border:1px solid var(--line);border-radius:14px;background:#fff;min-width:0}
+.editor-card h2,.results h2,.content-card h2{margin:0 0 8px;font-size:1.2rem}
+.muted{color:var(--muted);font-size:.88rem;line-height:1.55}
+.dropzone{border:2px dashed #b7c9be;border-radius:10px;padding:26px 16px;text-align:center;background:#f8faf8;cursor:pointer;transition:border-color .15s,background-color .15s}
+.dropzone:hover,.dropzone.dragover{border-color:var(--green);background:#eef6f1}
+.dropzone-icon{font-size:2rem;margin-bottom:6px;display:block}
+.doc-header{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border:1px solid #d5e5db;border-radius:8px;background:#f4f8f5;margin:14px 0}
+.doc-title{font-weight:750;color:var(--forest);font-size:.9rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:260px}
+.toolbar-wrap{margin:14px 0;padding:14px;border:1px solid var(--line);border-radius:10px;background:#fafcfb}
+.toolbar-heading{font-size:.82rem;font-weight:800;color:var(--forest);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px}
+.tool-buttons{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.tool-btn{padding:7px 11px;border:1px solid var(--line);border-radius:7px;background:#fff;font:inherit;font-size:.8rem;font-weight:750;cursor:pointer;color:var(--ink)}
+.tool-btn:hover{border-color:#b7c9be;background:#f4f8f5}
+.field{margin-bottom:12px}
+.field label{display:block;font-size:.84rem;font-weight:750;margin-bottom:5px}
+.field input[type="text"]{box-sizing:border-box;width:100%;min-height:42px;padding:8px 10px;border:1px solid #cfdad2;border-radius:8px;background:#fff;color:var(--ink);font:inherit}
+.field input:focus-visible,button:focus-visible{outline:3px solid #8bb7a5;outline-offset:2px}
+.field small{display:block;color:var(--muted);font-size:.75rem;line-height:1.45;margin-top:4px}
+.mode-options{margin:14px 0;padding:12px;border:1px solid #e1e9e2;border-radius:8px;background:#f9fbf9}
+.radio-label{display:flex;align-items:center;gap:8px;font-size:.84rem;font-weight:750;color:var(--ink);cursor:pointer;margin-bottom:8px}
+.radio-label:last-child{margin-bottom:0}
+.radio-label input{margin:0}
+.page-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(95px,1fr));gap:10px;margin:16px 0;max-height:380px;overflow-y:auto;padding:4px}
+.page-card{border:2px solid var(--line);border-radius:8px;background:#fff;padding:10px 6px;text-align:center;cursor:pointer;transition:border-color .15s,background-color .15s;position:relative}
+.page-card:hover{border-color:#b7c9be}
+.page-card.selected{border-color:var(--forest);background:#eef6f1}
+.page-sheet{width:46px;height:60px;border:1px solid #c0d1c7;border-radius:3px;background:#fff;margin:0 auto 6px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.75rem;color:var(--forest);box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.page-badge{font-size:.72rem;font-weight:750;color:var(--muted);display:block}
+.page-card.selected .page-badge{color:var(--forest);font-weight:800}
+.page-check{position:absolute;top:5px;right:5px;width:16px;height:16px;border-radius:50%;background:#e0e8e3;display:grid;place-items:center;font-size:.65rem;color:#fff;font-weight:bold}
+.page-card.selected .page-check{background:var(--forest)}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.actions button{cursor:pointer;font:inherit;font-weight:700;min-height:40px}
+.secondary{padding:9px 13px;border:1px solid var(--line);border-radius:8px;background:white;color:var(--ink);font-size:.84rem}
+.tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:16px 0}
+.tile{padding:10px;border:1px solid #e0e9e1;border-radius:8px;background:#fcfdfc;min-width:0}
+.tile span{display:block;color:var(--muted);font-size:.72rem}
+.tile strong{display:block;margin-top:2px;font-size:.9rem}
+.out-list{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-direction:column;gap:8px;max-height:360px;overflow-y:auto}
+.out-item{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border:1px solid #e1e9e2;border-radius:8px;background:#fff;font-size:.85rem}
+.out-meta strong{display:block;color:var(--ink);font-size:.85rem}
+.out-meta span{color:var(--muted);font-size:.75rem}
+.privacy-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border-radius:6px;background:#eef7f1;color:#1e5e3a;font-size:.75rem;font-weight:750;margin-top:6px}
+.content-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.content-card p,.content-card li{color:#52675d;font-size:.93rem;line-height:1.75}
+.content-card ul{padding-left:22px}
+.faq-list details{border-bottom:1px solid var(--line);padding:14px 0}
+.faq-list summary{cursor:pointer;font-weight:750;line-height:1.5}
+.faq-list details p{margin:10px 0 0}
+@media(max-width:760px){.pdf-layout,.content-grid{grid-template-columns:1fr}.doc-title{max-width:180px}}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="container header-inner">
+<a class="brand" href="/" aria-label="Toolvantas home"><span class="brand-mark" aria-hidden="true">T</span><span>Toolvantas</span></a>
+<button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+<nav class="primary-nav" id="primary-nav" aria-label="Main navigation"><a href="/">Home</a><a href="/tools.html">All tools</a><a href="/#about">About</a></nav>
+</div></header>
+<main id="main">
+<section class="page-hero"><div class="container">
+<p class="eyebrow">Client-side PDF tool</p>
+<h1>Extract PDF Pages Online</h1>
+<p>Select and extract specific pages from any PDF document. Merge extracted pages into a single new document or download each page separately. 100% private, client-side, and free.</p>
+</div></section>
+<section class="section"><div class="container"><div class="pdf-layout">
+<div class="editor-card">
+<h2>Select Pages to Extract</h2>
+<p class="muted">Upload your PDF. Click individual pages to select them or type page numbers/ranges into the text field.</p>
+<div class="dropzone" id="dropzone">
+<span class="dropzone-icon" aria-hidden="true">📑</span>
+<label style="cursor:pointer;font-weight:750;color:var(--green)">
+Choose a PDF file or drag it here
+<input type="file" id="pdf-picker" accept="application/pdf" style="display:none">
+</label>
+<div class="muted" style="margin-top:4px;font-size:.78rem">Select 1 PDF document to extract pages from</div>
+</div>
+<div class="privacy-badge">🔒 100% Private — Processed in-memory inside your browser</div>
+<div id="workspace" style="display:none">
+<div class="doc-header">
+<div>
+<div class="doc-title" id="doc-name">document.pdf</div>
+<div class="muted" style="font-size:.75rem" id="doc-meta">0 KB • 0 pages</div>
+</div>
+<button type="button" class="secondary" id="btn-change-file" style="min-height:32px;padding:4px 10px;font-size:.78rem">Change File</button>
+</div>
+<div class="toolbar-wrap">
+<div class="toolbar-heading">Quick Selection Tools</div>
+<div class="tool-buttons">
+<button type="button" class="tool-btn" id="btn-sel-all">Select All</button>
+<button type="button" class="tool-btn" id="btn-sel-none">Deselect All</button>
+<button type="button" class="tool-btn" id="btn-sel-invert">Invert Selection</button>
+<button type="button" class="tool-btn" id="btn-sel-odds">Select Odd Pages</button>
+<button type="button" class="tool-btn" id="btn-sel-evens">Select Even Pages</button>
+</div>
+<div class="field">
+<label for="range-input">Selected Pages / Ranges</label>
+<input type="text" id="range-input" placeholder="e.g. 1-3, 5, 8-10" value="1">
+<small>Use commas for individual pages and hyphens for page ranges.</small>
+</div>
+<div class="mode-options">
+<label class="radio-label"><input type="radio" name="extract-mode" value="merge" checked> Merge all extracted pages into a single PDF document</label>
+<label class="radio-label"><input type="radio" name="extract-mode" value="separate"> Export each extracted page as an individual PDF file</label>
+</div>
+</div>
+<div class="page-grid" id="page-grid"></div>
+<div class="actions">
+<button type="button" class="button button-primary" id="btn-extract">Extract Selected Pages</button>
+<button type="button" class="secondary" id="btn-reset">Reset Selection</button>
+</div>
+<p id="error-msg" style="color:#a12626;font-size:.82rem;font-weight:750;margin-top:10px" role="alert" hidden></p>
+</div>
+</div>
+<div class="results" aria-live="polite">
+<h2>Extracted PDF Output</h2>
+<p class="muted">Overview of your extraction request.</p>
+<div class="tiles">
+<div class="tile"><span>Total Pages</span><strong id="stat-total">0</strong></div>
+<div class="tile"><span>Selected Pages</span><strong id="stat-selected">0</strong></div>
+<div class="tile"><span>Output Files</span><strong id="stat-files">0</strong></div>
+</div>
+<div id="output-container" style="margin-top:18px;padding:16px;border-radius:10px;background:#f4f8f5;border:1px solid #d5e5db">
+<h3 style="font-size:.95rem;margin:0 0 6px;color:var(--forest)">Download Ready</h3>
+<p class="muted" style="font-size:.82rem;margin:0 0 12px" id="download-desc">Make your page selection and click "Extract Selected Pages" to generate your files.</p>
+<button type="button" class="button button-primary" id="btn-download-merged" style="width:100%;display:none">⬇ Download Extracted PDF</button>
+<ul class="out-list" id="out-list" style="display:none"></ul>
+</div>
+</div>
+</div></div></section>
+<section class="section" style="padding-top:0"><div class="container content-grid">
+<article class="content-card"><h2>How to extract pages from a PDF document</h2>
+<p>PDF extraction allows you to pull specific sheets—such as signed signature pages, particular receipts, or executive summaries—out of large documents without having to reprint or re-scan.</p>
+<ul>
+<li><strong>Visual Card Selection:</strong> Click any page card in the interactive grid to toggle it on or off. Selected pages display a green highlight and checkmark.</li>
+<li><strong>Range String Input:</strong> Type comma-separated page numbers or ranges (e.g. <code>1-3, 5, 8-11</code>) into the input box to instantly highlight pages across large documents.</li>
+<li><strong>Batch Shortcuts:</strong> Use the quick-selection buttons to instantly select all odd pages, all even pages, or invert your current selection.</li>
+<li><strong>Non-Destructive Extraction:</strong> Extraction creates brand-new independent PDF files. Your original source document remains untouched.</li>
+</ul>
+</article>
+<article class="content-card"><h2>Single combined document vs. individual page files</h2>
+<p>Depending on your workflow, you can choose how your extracted pages are compiled:</p>
+<ul>
+<li><strong>Merged Document:</strong> Combines all chosen pages into one organized, multi-page PDF document. Ideal for extracting an entire chapter, contract annex, or specific multi-page invoice.</li>
+<li><strong>Individual Page Files:</strong> Splits each chosen page into its own separate 1-page PDF file. Useful when distributing separate certificates, individual tax forms, or distinct work orders to different recipients.</li>
+<li><strong>100% Vector Quality:</strong> Text formatting, embedded fonts, form fields, and vector line graphics are copied losslessly without compression artifacts.</li>
+</ul>
+</article>
+</div></section>
+<section class="section" style="padding-top:0"><div class="container content-card faq-list">
+<h2>Frequently asked questions</h2>
+<details><summary>Are my confidential PDF files uploaded to any server?</summary><p>No. Your files are processed in-memory directly within your web browser using client-side WebAssembly/JavaScript. No document data is ever transmitted to any remote server.</p></details>
+<details><summary>How do I select multiple non-consecutive pages?</summary><p>You can click individual page cards in the visual gallery, or enter them in the range input box separated by commas (for example: <code>1, 4, 7, 9</code>).</p></details>
+<details><summary>Can I export each extracted page as a separate PDF file?</summary><p>Yes. Select the "Export each extracted page as an individual PDF file" radio button before extracting. The tool will provide separate download links for each page.</p></details>
+<details><summary>Does extracting pages reduce image or text quality?</summary><p>No. The extraction uses lossless page copying via <code>pdf-lib</code>. Vector geometry, embedded fonts, and raster images retain their exact original quality.</p></details>
+<details><summary>What happens to my original source PDF document?</summary><p>Your original document remains completely unaltered. Extraction produces a brand new document from memory, leaving your source file intact on your device.</p></details>
+</div></section>
+</main>
+<footer class="site-footer"><div class="container footer-top">
+<a class="brand brand-footer" href="/"><span class="brand-mark" aria-hidden="true">T</span><span>Toolvantas</span></a><p>Practical tools for everyday tasks.</p>
+<nav aria-label="Footer navigation"><a href="/">Home</a><a href="/tools.html">All tools</a><a href="/#about">About</a></nav>
+</div><div class="container footer-bottom"><small>© <span data-current-year>2026</span> Toolvantas</small><small>Built to be useful.</small></div></footer>
+<script>
+(()=> {
+'use strict';
+const $=id=>document.getElementById(id);
+let activeFile=null;
+let totalDocPages=0;
+let selectedPages=new Set();
+let mergedBlob=null;
+let separateBlobs=[];
+
+function formatBytes(bytes){
+  if(bytes<1024)return bytes+' B';
+  const kb=bytes/1024;
+  return kb>=1024?(kb/1024).toFixed(2)+' MB':kb.toFixed(1)+' KB';
+}
+
+function showError(msg){
+  const el=$('error-msg');
+  if(!msg){el.hidden=true;el.textContent='';}
+  else{el.hidden=false;el.textContent=msg;}
+}
+
+function updateStats(){
+  $('stat-total').textContent=totalDocPages;
+  $('stat-selected').textContent=selectedPages.size;
+  const mode=document.querySelector('input[name="extract-mode"]:checked').value;
+  $('stat-files').textContent=selectedPages.size===0?0:(mode==='merge'?1:selectedPages.size);
+  $('btn-extract').disabled=selectedPages.size===0;
+}
+
+function indicesToRangeString(indices){
+  if(indices.length===0)return '';
+  const sorted=[...indices].sort((a,b)=>a-b);
+  const ranges=[];
+  let start=sorted[0];
+  let end=start;
+  for(let i=1;i<sorted.length;i++){
+    if(sorted[i]===end+1){
+      end=sorted[i];
+    }else{
+      ranges.push(start===end?`${start+1}`:`${start+1}-${end+1}`);
+      start=sorted[i];
+      end=start;
+    }
+  }
+  ranges.push(start===end?`${start+1}`:`${start+1}-${end+1}`);
+  return ranges.join(', ');
+}
+
+function parseRangeString(str,max){
+  const parts=str.split(',');
+  const indices=new Set();
+  for(let part of parts){
+    part=part.trim();
+    if(!part)continue;
+    if(part.includes('-')){
+      const bounds=part.split('-');
+      if(bounds.length!==2)continue;
+      const s=parseInt(bounds[0],10);
+      const e=parseInt(bounds[1],10);
+      if(!isNaN(s)&&!isNaN(e)&&s>=1&&e<=max&&s<=e){
+        for(let i=s;i<=e;i++)indices.add(i-1);
+      }
+    }else{
+      const val=parseInt(part,10);
+      if(!isNaN(val)&&val>=1&&val<=max){
+        indices.add(val-1);
+      }
+    }
+  }
+  return indices;
+}
+
+function syncGridFromSet(){
+  for(let i=0;i<totalDocPages;i++){
+    const card=document.getElementById(`page-${i}`);
+    if(card){
+      const isSelected=selectedPages.has(i);
+      card.classList.toggle('selected',isSelected);
+      const check=card.querySelector('.page-check');
+      if(check)check.textContent=isSelected?'✓':'';
+    }
+  }
+  $('range-input').value=indicesToRangeString(selectedPages);
+  updateStats();
+}
+
+function renderGrid(){
+  const grid=$('page-grid');
+  grid.innerHTML='';
+  for(let i=0;i<totalDocPages;i++){
+    const isSelected=selectedPages.has(i);
+    const card=document.createElement('div');
+    card.className=`page-card ${isSelected?'selected':''}`;
+    card.id=`page-${i}`;
+    card.dataset.index=i;
+    card.innerHTML=`
+      <div class="page-check">${isSelected?'✓':''}</div>
+      <div class="page-sheet">P.${i+1}</div>
+      <span class="page-badge">Page ${i+1}</span>
+    `;
+    grid.appendChild(card);
+  }
+  $('range-input').value=indicesToRangeString(selectedPages);
+  updateStats();
+}
+
+async function loadFile(file){
+  if(!file||(!file.type.includes('pdf')&&!file.name.toLowerCase().endsWith('.pdf')))return;
+  activeFile=file;
+  showError('');
+  try{
+    const bytes=await file.arrayBuffer();
+    const doc=await PDFLib.PDFDocument.load(bytes,{ignoreEncryption:true});
+    totalDocPages=doc.getPageCount();
+    selectedPages=new Set([0]); // Default to first page
+    $('doc-name').textContent=file.name;
+    $('doc-meta').textContent=`${formatBytes(file.size)} • ${totalDocPages} pages`;
+    $('dropzone').style.display='none';
+    $('workspace').style.display='block';
+    renderGrid();
+  }catch(err){
+    showError(err.message.includes('encrypt')?'This PDF is password-protected. Please remove encryption before extracting.':'Failed to load PDF. The file may be corrupted.');
+  }
+}
+
+$('pdf-picker').addEventListener('change',e=>{if(e.target.files[0])loadFile(e.target.files[0]);});
+$('btn-change-file').addEventListener('click',()=>{
+  activeFile=null;
+  totalDocPages=0;
+  selectedPages.clear();
+  $('workspace').style.display='none';
+  $('dropzone').style.display='block';
+  $('pdf-picker').value='';
+  $('btn-download-merged').style.display='none';
+  $('out-list').style.display='none';
+  $('download-desc').textContent='Make your page selection and click "Extract Selected Pages" to generate your files.';
+  updateStats();
+});
+
+const dropzone=$('dropzone');
+['dragenter','dragover'].forEach(n=>dropzone.addEventListener(n,e=>{e.preventDefault();dropzone.classList.add('dragover');}));
+['dragleave','drop'].forEach(n=>dropzone.addEventListener(n,e=>{e.preventDefault();dropzone.classList.remove('dragover');}));
+dropzone.addEventListener('drop',e=>{if(e.dataTransfer.files[0])loadFile(e.dataTransfer.files[0]);});
+
+$('page-grid').addEventListener('click',e=>{
+  const card=e.target.closest('.page-card');
+  if(!card)return;
+  const idx=Number(card.dataset.index);
+  if(selectedPages.has(idx)){
+    selectedPages.delete(idx);
+  }else{
+    selectedPages.add(idx);
+  }
+  syncGridFromSet();
+});
+
+$('range-input').addEventListener('input',()=>{
+  const val=$('range-input').value;
+  selectedPages=parseRangeString(val,totalDocPages);
+  for(let i=0;i<totalDocPages;i++){
+    const card=document.getElementById(`page-${i}`);
+    if(card){
+      const isSelected=selectedPages.has(i);
+      card.classList.toggle('selected',isSelected);
+      const check=card.querySelector('.page-check');
+      if(check)check.textContent=isSelected?'✓':'';
+    }
+  }
+  updateStats();
+});
+
+$('btn-sel-all').addEventListener('click',()=>{
+  selectedPages=new Set(Array.from({length:totalDocPages},(_,i)=>i));
+  syncGridFromSet();
+});
+$('btn-sel-none').addEventListener('click',()=>{
+  selectedPages.clear();
+  syncGridFromSet();
+});
+$('btn-sel-invert').addEventListener('click',()=>{
+  const inverted=new Set();
+  for(let i=0;i<totalDocPages;i++){
+    if(!selectedPages.has(i))inverted.add(i);
+  }
+  selectedPages=inverted;
+  syncGridFromSet();
+});
+$('btn-sel-odds').addEventListener('click',()=>{
+  selectedPages=new Set(Array.from({length:totalDocPages},(_,i)=>i).filter(i=>i%2===0));
+  syncGridFromSet();
+});
+$('btn-sel-evens').addEventListener('click',()=>{
+  selectedPages=new Set(Array.from({length:totalDocPages},(_,i)=>i).filter(i=>i%2!==0));
+  syncGridFromSet();
+});
+$('btn-reset').addEventListener('click',()=>{
+  selectedPages=new Set([0]);
+  syncGridFromSet();
+});
+
+document.querySelectorAll('input[name="extract-mode"]').forEach(radio=>{
+  radio.addEventListener('change',updateStats);
+});
+
+$('btn-extract').addEventListener('click',async()=>{
+  if(!activeFile||selectedPages.size===0)return;
+  showError('');
+  if(mergedBlob){URL.revokeObjectURL(mergedBlob);mergedBlob=null;}
+  separateBlobs.forEach(b=>URL.revokeObjectURL(b.url));
+  separateBlobs=[];
+
+  $('btn-download-merged').style.display='none';
+  $('out-list').style.display='none';
+  $('out-list').innerHTML='';
+  $('btn-extract').disabled=true;
+
+  try{
+    const fileBytes=await activeFile.arrayBuffer();
+    const srcDoc=await PDFLib.PDFDocument.load(fileBytes);
+    const mode=document.querySelector('input[name="extract-mode"]:checked').value;
+    const sortedIndices=[...selectedPages].sort((a,b)=>a-b);
+
+    if(mode==='merge'){
+      const newDoc=await PDFLib.PDFDocument.create();
+      const copied=await newDoc.copyPages(srcDoc,sortedIndices);
+      copied.forEach(p=>newDoc.addPage(p));
+      const newBytes=await newDoc.save();
+      mergedBlob=new Blob([newBytes],{type:'application/pdf'});
+      const url=URL.createObjectURL(mergedBlob);
+
+      $('download-desc').textContent=`Extracted ${sortedIndices.length} page(s) compiled into one clean PDF document.`;
+      const btnDl=$('btn-download-merged');
+      btnDl.style.display='block';
+      btnDl.onclick=()=>{
+        const a=document.createElement('a');
+        a.href=url;
+        a.download=`extracted-${activeFile.name.replace(/\.pdf$/i,'')}.pdf`;
+        a.click();
+      };
+      btnDl.scrollIntoView({behavior:'smooth',block:'nearest'});
+    }else{
+      $('download-desc').textContent=`Generated ${sortedIndices.length} individual 1-page PDF file(s). Download each below:`;
+      const list=$('out-list');
+      for(const idx of sortedIndices){
+        const singleDoc=await PDFLib.PDFDocument.create();
+        const [singlePage]=await singleDoc.copyPages(srcDoc,[idx]);
+        singleDoc.addPage(singlePage);
+        const singleBytes=await singleDoc.save();
+        const blob=new Blob([singleBytes],{type:'application/pdf'});
+        const url=URL.createObjectURL(blob);
+        const filename=`page-${idx+1}-${activeFile.name}`;
+        separateBlobs.push({url,filename});
+
+        const li=document.createElement('li');
+        li.className='out-item';
+        li.innerHTML=`
+          <div class="out-meta">
+            <strong>Page ${idx+1}</strong>
+            <span>1 page • ${filename}</span>
+          </div>
+          <a href="${url}" download="${filename}" class="button button-primary" style="padding:6px 12px;font-size:.82rem;min-height:32px">⬇ Download</a>
+        `;
+        list.appendChild(li);
+      }
+      list.style.display='flex';
+      list.scrollIntoView({behavior:'smooth',block:'nearest'});
+    }
+  }catch(err){
+    showError('Error extracting pages: '+err.message);
+  }finally{
+    $('btn-extract').disabled=false;
+  }
+});
+})();
+</script>
+</body>
+</html>
