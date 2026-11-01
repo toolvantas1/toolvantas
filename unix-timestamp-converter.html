@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Convert Unix timestamps (epoch) to human-readable date and time, or convert dates into seconds and milliseconds. Live ticking epoch clock with auto-detection.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#173d35">
+<link rel="canonical" href="https://toolvantas.pages.dev/unix-timestamp-converter.html">
+<title>Unix Timestamp Converter &amp; Epoch Clock | Toolvantas</title>
+<link rel="stylesheet" href="/site.css">
+<script src="/site.js" defer></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Unix Timestamp Converter",
+  "url": "https://toolvantas.pages.dev/unix-timestamp-converter.html",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "description": "Convert epoch timestamps in seconds and milliseconds to UTC and local date formats with live ticking clock.",
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+}
+</script>
+<style>
+.epoch-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;align-items:start}
+.tool-card,.results,.content-card{padding:22px;border:1px solid var(--line);border-radius:14px;background:#fff;min-width:0}
+.tool-card h2,.results h2,.content-card h2{margin:0 0 8px;font-size:1.2rem}
+.muted{color:var(--muted);font-size:.88rem;line-height:1.55}
+.clock-banner{padding:16px 20px;border-radius:12px;background:#f3f8f5;border:1px solid #d5e5db;display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.clock-digits{font-size:1.6rem;font-weight:850;font-family:ui-monospace,Menlo,Consolas,monospace;color:var(--forest)}
+.fields{display:grid;grid-template-columns:1fr;gap:14px}
+.field{min-width:0}
+.field label{display:block;font-size:.84rem;font-weight:750;margin-bottom:5px}
+.field input,.field select{box-sizing:border-box;width:100%;min-height:44px;padding:9px 10px;border:1px solid #cfdad2;border-radius:8px;background:#fff;color:var(--ink);font:inherit}
+.field input:focus-visible,.field select:focus-visible,button:focus-visible{outline:3px solid #8bb7a5;outline-offset:2px}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.actions button{cursor:pointer;font:inherit;font-weight:700;min-height:40px}
+.secondary{padding:9px 13px;border:1px solid var(--line);border-radius:8px;background:white;color:var(--ink);font-size:.84rem}
+.preset-pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.pill{padding:5px 9px;border:1px solid #d0dfd5;border-radius:6px;background:#f9fbf9;font-size:.76rem;font-weight:700;cursor:pointer;color:#2d725e}
+.pill:hover{background:#e8f2ec}
+.breakdown{list-style:none;margin:12px 0 0;padding:0;border-top:1px solid #dce6dd}
+.breakdown li{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #e1e9e2;font-size:.84rem}
+.breakdown span{color:var(--muted);flex:0 0 auto}
+.breakdown strong{text-align:right;font-family:ui-monospace,Menlo,Consolas,monospace;overflow-wrap:anywhere}
+.content-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.content-card p,.content-card li{color:#52675d;font-size:.93rem;line-height:1.75}
+.content-card ul{padding-left:22px}
+.faq-list details{border-bottom:1px solid var(--line);padding:14px 0}
+.faq-list summary{cursor:pointer;font-weight:750;line-height:1.5}
+.faq-list details p{margin:10px 0 0}
+@media(max-width:760px){.epoch-layout,.content-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="container header-inner">
+<a class="brand" href="/" aria-label="Toolvantas home"><span class="brand-mark" aria-hidden="true">T</span><span>Toolvantas</span></a>
+<button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+<nav class="primary-nav" id="primary-nav" aria-label="Main navigation"><a href="/">Home</a><a href="/tools.html">All tools</a><a href="/#about">About</a></nav>
+</div></header>
+<main id="main">
+<section class="page-hero"><div class="container">
+<p class="eyebrow">Developer utility</p>
+<h1>Unix Timestamp Converter</h1>
+<p>Convert Epoch timestamps into human-readable local time, UTC, and ISO 8601 strings, or convert calendar dates back into epoch seconds and milliseconds.</p>
+</div></section>
+<section class="section"><div class="container">
+
+<div class="clock-banner">
+<div>
+<div style="font-size:.78rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.05em">Current Unix Epoch Time</div>
+<div class="clock-digits" id="live-epoch">0000000000</div>
+</div>
+<div style="display:flex;gap:8px">
+<button type="button" class="secondary" id="btn-copy-live">Copy</button>
+<button type="button" class="secondary" id="btn-pause-live">Pause</button>
+</div>
+</div>
+
+<div class="epoch-layout">
+<!-- Card 1: Timestamp to Date -->
+<div class="tool-card">
+<h2>Convert Epoch to Date</h2>
+<p class="muted">Enter a 10-digit (seconds) or 13-digit (milliseconds) timestamp.</p>
+<div class="field">
+<label for="ts-input">Unix Timestamp</label>
+<input type="number" id="ts-input" placeholder="e.g. 1776528000">
+</div>
+<div class="preset-pills">
+<button type="button" class="pill" data-mod="now">Now</button>
+<button type="button" class="pill" data-mod="+1h">+1 Hour</button>
+<button type="button" class="pill" data-mod="+1d">+1 Day</button>
+<button type="button" class="pill" data-mod="+7d">+7 Days</button>
+<button type="button" class="pill" data-mod="+30d">+30 Days</button>
+</div>
+<ul class="breakdown">
+<li><span>Detected Format:</span><strong id="out-type">Seconds</strong></li>
+<li><span>Your Local Time:</span><strong id="out-local">—</strong></li>
+<li><span>UTC / GMT Time:</span><strong id="out-utc">—</strong></li>
+<li><span>ISO 8601 Format:</span><strong id="out-iso">—</strong></li>
+<li><span>Relative Time:</span><strong id="out-rel">—</strong></li>
+</ul>
+</div>
+
+<!-- Card 2: Date to Timestamp -->
+<div class="results">
+<h2>Convert Date to Epoch</h2>
+<p class="muted">Select a date and time to generate Unix epoch values.</p>
+<div class="fields">
+<div class="field">
+<label for="date-input">Select Date &amp; Time</label>
+<input type="datetime-local" id="date-input" step="1">
+</div>
+<div class="field">
+<label for="tz-select">Timezone Reference</label>
+<select id="tz-select">
+<option value="local">Your Device Timezone (Local)</option>
+<option value="utc">Coordinated Universal Time (UTC)</option>
+</select>
+</div>
+</div>
+<ul class="breakdown">
+<li><span>Epoch (Seconds):</span><strong id="out-sec">—</strong></li>
+<li><span>Epoch (Milliseconds):</span><strong id="out-ms">—</strong></li>
+<li><span>Day of Week:</span><strong id="out-dow">—</strong></li>
+<li><span>Day of Year:</span><strong id="out-doy">—</strong></li>
+<li><span>Leap Year:</span><strong id="out-leap">—</strong></li>
+</ul>
+<div class="actions">
+<button type="button" class="button button-primary" id="btn-copy-epoch">Copy Seconds</button>
+<button type="button" class="secondary" id="btn-copy-ms">Copy Milliseconds</button>
+<span id="copy-status" class="muted" style="align-self:center;font-size:.82rem"></span>
+</div>
+</div>
+
+</div></div></section>
+<section class="section" style="padding-top:0"><div class="container content-grid">
+<article class="content-card"><h2>What is Unix epoch time?</h2>
+<p>Unix time (also known as POSIX time or Epoch time) measures the number of seconds that have elapsed since midnight Coordinated Universal Time (UTC) on <strong>January 1, 1970</strong>, not counting leap seconds.</p>
+<ul>
+<li><strong>Universal:</strong> It is identical worldwide regardless of your physical location, timezone, or daylight saving time rules.</li>
+<li><strong>Storage efficient:</strong> Storing a single 32-bit or 64-bit integer takes far less database memory than formatting human date strings.</li>
+<li><strong>Easy arithmetic:</strong> Calculating the difference between two timestamps simply requires subtracting one integer from another.</li>
+</ul>
+</article>
+<article class="content-card"><h2>The Year 2038 Problem</h2>
+<p>Legacy systems storing Unix timestamps as signed 32-bit integers will overflow on <strong>January 19, 2038</strong>, rolling over to negative numbers and misinterpreting the date as December 13, 1901.</p>
+<p>Modern software and 64-bit architectures avoid this limitation entirely, allowing accurate date calculations for approximately 292 billion years into the future.</p>
+</article>
+</div></section>
+<section class="section" style="padding-top:0"><div class="container content-card faq-list">
+<h2>Frequently asked questions</h2>
+<details><summary>Does this converter handle milliseconds?</summary><p>Yes. If you enter an integer greater than 99,999,999,999, it automatically detects that your timestamp is in milliseconds and scales the calculations accordingly.</p></details>
+<details><summary>Why does my timestamp show a different hour than my colleague's?</summary><p>Unix timestamps are always measured relative to UTC. When rendered as "Local Time", your browser converts the UTC value to your operating system's configured timezone and daylight saving offset.</p></details>
+<details><summary>What is the Unix epoch start date?</summary><p>The Unix epoch began at 00:00:00 UTC on January 1, 1970, which serves as the universal reference point for computer time tracking.</p></details>
+<details><summary>What is the Year 2038 problem?</summary><p>It refers to the overflow of 32-bit signed integers storing Unix seconds at 03:14:07 UTC on January 19, 2038. Upgrading systems to 64-bit storage solves this issue permanently.</p></details>
+</div></section>
+</main>
+<footer class="site-footer"><div class="container footer-top">
+<a class="brand brand-footer" href="/"><span class="brand-mark" aria-hidden="true">T</span><span>Toolvantas</span></a><p>Practical tools for everyday tasks.</p>
+<nav aria-label="Footer navigation"><a href="/">Home</a><a href="/tools.html">All tools</a><a href="/#about">About</a></nav>
+</div><div class="container footer-bottom"><small>© <span data-current-year>2026</span> Toolvantas</small><small>Built to be useful.</small></div></footer>
+<script>
+(()=> {
+'use strict';
+const $=id=>document.getElementById(id);
+
+let isTicking=true;
+function tick(){
+  if(isTicking){
+    $('live-epoch').textContent=Math.floor(Date.now()/1000);
+  }
+}
+setInterval(tick,1000);
+tick();
+
+$('btn-pause-live').addEventListener('click',()=>{
+  isTicking=!isTicking;
+  $('btn-pause-live').textContent=isTicking?'Pause':'Resume';
+});
+
+$('btn-copy-live').addEventListener('click',async()=>{
+  try{
+    await navigator.clipboard.writeText($('live-epoch').textContent);
+    $('btn-copy-live').textContent='Copied!';
+    setTimeout(()=>{$('btn-copy-live').textContent='Copy';},1500);
+  }catch{}
+});
+
+function timeAgo(date){
+  const seconds=Math.floor((Date.now()-date.getTime())/1000);
+  const rtf=new Intl.RelativeTimeFormat('en',{numeric:'auto'});
+  if(Math.abs(seconds)<60)return rtf.format(-seconds,'second');
+  const minutes=Math.floor(seconds/60);
+  if(Math.abs(minutes)<60)return rtf.format(-minutes,'minute');
+  const hours=Math.floor(minutes/60);
+  if(Math.abs(hours)<24)return rtf.format(-hours,'hour');
+  const days=Math.floor(hours/24);
+  return rtf.format(-days,'day');
+}
+
+function updateFromTimestamp(){
+  const raw=$('ts-input').value.trim();
+  if(!raw||isNaN(raw)){
+    $('out-type').textContent='—';
+    $('out-local').textContent='—';
+    $('out-utc').textContent='—';
+    $('out-iso').textContent='—';
+    $('out-rel').textContent='—';
+    return;
+  }
+  let num=Number(raw);
+  let isMs=num>99999999999;
+  $('out-type').textContent=isMs?'Milliseconds (13 digits)':'Seconds (10 digits)';
+  const date=new Date(isMs?num:num*1000);
+  if(isNaN(date.getTime())){
+    $('out-local').textContent='Invalid Date Range';
+    return;
+  }
+  $('out-local').textContent=date.toLocaleString();
+  $('out-utc').textContent=date.toUTCString();
+  $('out-iso').textContent=date.toISOString();
+  $('out-rel').textContent=timeAgo(date);
+}
+
+$('ts-input').addEventListener('input',updateFromTimestamp);
+
+document.querySelectorAll('.preset-pills .pill').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const now=Math.floor(Date.now()/1000);
+    const mod=btn.dataset.mod;
+    if(mod==='now') $('ts-input').value=now;
+    else if(mod==='+1h') $('ts-input').value=now+3600;
+    else if(mod==='+1d') $('ts-input').value=now+86400;
+    else if(mod==='+7d') $('ts-input').value=now+604800;
+    else if(mod==='+30d') $('ts-input').value=now+(30*86400);
+    updateFromTimestamp();
+  });
+});
+
+function updateFromDate(){
+  const val=$('date-input').value;
+  if(!val){
+    $('out-sec').textContent='—';
+    $('out-ms').textContent='—';
+    $('out-dow').textContent='—';
+    $('out-doy').textContent='—';
+    $('out-leap').textContent='—';
+    return;
+  }
+  let date=new Date(val);
+  if($('tz-select').value==='utc'){
+    const parts=val.split(/[-T:]/);
+    date=new Date(Date.UTC(parts[0],parts[1]-1,parts[2],parts[3]||0,parts[4]||0,parts[5]||0));
+  }
+  const ms=date.getTime();
+  const sec=Math.floor(ms/1000);
+  $('out-sec').textContent=sec;
+  $('out-ms').textContent=ms;
+  const days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  $('out-dow').textContent=days[date.getDay()];
+  const start=new Date(date.getFullYear(),0,0);
+  const diff=date-start;
+  const oneDay=1000*60*60*24;
+  $('out-doy').textContent=Math.floor(diff/oneDay);
+  const yr=date.getFullYear();
+  $('out-leap').textContent=(yr%4===0&&(yr%100!==0||yr%400===0))?'Yes':'No';
+}
+
+const pad=n=>String(n).padStart(2,'0');
+const nowD=new Date();
+$('date-input').value=`${nowD.getFullYear()}-${pad(nowD.getMonth()+1)}-${pad(nowD.getDate())}T${pad(nowD.getHours())}:${pad(nowD.getMinutes())}:${pad(nowD.getSeconds())}`;
+$('ts-input').value=Math.floor(Date.now()/1000);
+
+$('date-input').addEventListener('input',updateFromDate);
+$('tz-select').addEventListener('change',updateFromDate);
+
+$('btn-copy-epoch').addEventListener('click',async()=>{
+  try{
+    await navigator.clipboard.writeText($('out-sec').textContent);
+    $('copy-status').textContent='Seconds copied!';
+    setTimeout(()=>{$('copy-status').textContent='';},2000);
+  }catch{}
+});
+
+$('btn-copy-ms').addEventListener('click',async()=>{
+  try{
+    await navigator.clipboard.writeText($('out-ms').textContent);
+    $('copy-status').textContent='Milliseconds copied!';
+    setTimeout(()=>{$('copy-status').textContent='';},2000);
+  }catch{}
+});
+
+updateFromTimestamp();
+updateFromDate();
+})();
+</script>
+</body>
+</html>
