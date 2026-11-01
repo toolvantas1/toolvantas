@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Encode and decode text, images, and binary files to and from Base64 online. Full UTF-8 Unicode support with instant Data URI generation and file export.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#173d35">
+<link rel="canonical" href="https://toolvantas.pages.dev/base64-encoder-and-decoder.html">
+<title>Base64 Encoder and Decoder — Text &amp; File Converter | Toolvantas</title>
+<link rel="stylesheet" href="/site.css">
+<script src="/site.js" defer></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Base64 Encoder and Decoder",
+  "url": "https://toolvantas.pages.dev/base64-encoder-and-decoder.html",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "description": "Convert text and binary files to and from Base64 encoding with UTF-8 character support.",
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+}
+</script>
+<style>
+.b64-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;align-items:start}
+.editor-card,.results,.content-card{padding:22px;border:1px solid var(--line);border-radius:14px;background:#fff;min-width:0}
+.editor-card h2,.results h2,.content-card h2{margin:0 0 8px;font-size:1.2rem}
+.muted{color:var(--muted);font-size:.88rem;line-height:1.55}
+.mode-toggle{display:flex;gap:8px;margin:14px 0}
+.mode-btn{flex:1;padding:9px;border:1px solid var(--line);border-radius:8px;background:#fbfcfb;font:inherit;font-weight:750;cursor:pointer;color:var(--muted)}
+.mode-btn.active{background:var(--forest);color:#fff;border-color:var(--forest)}
+.text-area{box-sizing:border-box;width:100%;height:220px;padding:12px;border:1px solid #cfdad2;border-radius:8px;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:.85rem;line-height:1.5;color:var(--ink);resize:vertical}
+.text-area:focus-visible,button:focus-visible{outline:3px solid #8bb7a5;outline-offset:2px}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.actions button{cursor:pointer;font:inherit;font-weight:700;min-height:38px}
+.secondary{padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:white;color:var(--ink);font-size:.84rem}
+.file-dropzone{border:2px dashed #b7c9be;border-radius:8px;padding:14px;text-align:center;background:#f7faf8;margin-bottom:12px}
+.tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:14px 0}
+.tile{padding:10px;border:1px solid #e0e9e1;border-radius:8px;background:#fcfdfc;min-width:0}
+.tile span{display:block;color:var(--muted);font-size:.72rem}
+.tile strong{display:block;margin-top:2px;font-size:.9rem}
+.content-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.content-card p,.content-card li{color:#52675d;font-size:.93rem;line-height:1.75}
+.content-card ul{padding-left:22px}
+.faq-list details{border-bottom:1px solid var(--line);padding:14px 0}
+.faq-list summary{cursor:pointer;font-weight:750;line-height:1.5}
+.faq-list details p{margin:10px 0 0}
+@media(max-width:760px){.b64-layout,.content-grid{grid-template-columns:1fr}.tiles{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="container header-inner">
+<a class="brand" href="/" aria-label="Toolvantas home"><span class="brand-mark" aria-hidden="true">T</span><span>Toolvantas</span></a>
+<button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+<nav class="primary-nav" id="primary-nav" aria-label="Main navigation"><a href="/">Home</a><a href="/tools.html">All tools</a><a href="/#about">About</a></nav>
+</div></header>
+<main id="main">
+<section class="page-hero"><div class="container">
+<p class="eyebrow">Developer utility</p>
+<h1>Base64 Encoder and Decoder</h1>
+<p>Encode plain text or convert images and documents into Base64 strings. Decode Base64 strings back into clean UTF-8 text or downloadable files with zero character corruption.</p>
+</div></section>
+<section class="section"><div class="container"><div class="b64-layout">
+<div class="editor-card">
+<div class="mode-toggle">
+<button type="button" class="mode-btn active" id="btn-mode-encode">Encode Mode</button>
+<button type="button" class="mode-btn" id="btn-mode-decode">Decode Mode</button>
+</div>
+<div class="file-dropzone" id="dropzone-box">
+<label style="cursor:pointer;font-weight:750;color:var(--green)">
+📂 Choose any file to encode to Base64
+<input type="file" id="file-input" style="display:none">
+</label>
+<div id="file-info" class="muted" style="margin-top:4px;font-size:.78rem">PNG, JPG, SVG, PDF, TXT supported (Client-side)</div>
+</div>
+<textarea id="b64-input" class="text-area" placeholder="Enter text or paste Base64 here..." spellcheck="false">Hello, world! Welcome to Toolvantas. 🚀</textarea>
+<div class="actions">
+<button type="button" class="button button-primary" id="btn-convert">Convert</button>
+<button type="button" class="secondary" id="btn-swap">Swap ⇄</button>
+<button type="button" class="secondary" id="btn-sample">Load Sample</button>
+<button type="button" class="secondary" id="btn-clear">Clear</button>
+</div>
+</div>
+<div class="results" aria-live="polite">
+<h2>Converted Output</h2>
+<textarea id="b64-output" class="text-area" readonly placeholder="Output will appear here..." spellcheck="false"></textarea>
+<div class="tiles">
+<div class="tile"><span>Input Size</span><strong id="stat-in">0 B</strong></div>
+<div class="tile"><span>Output Size</span><strong id="stat-out">0 B</strong></div>
+<div class="tile"><span>Size Ratio</span><strong id="stat-ratio">100%</strong></div>
+</div>
+<div class="actions">
+<button type="button" class="button button-primary" id="btn-copy">Copy to Clipboard</button>
+<button type="button" class="secondary" id="btn-download">Download Result</button>
+<span id="copy-status" class="muted" style="align-self:center;font-size:.82rem"></span>
+</div>
+</div>
+</div></div></section>
+<section class="section" style="padding-top:0"><div class="container content-grid">
+<article class="content-card"><h2>What is Base64 encoding?</h2>
+<p>Base64 is a binary-to-text encoding algorithm designed to translate arbitrary binary data into a set of 64 standard ASCII characters (A-Z, a-z, 0-9, +, and /). It is widely used across Internet protocols where binary data needs to be safely transmitted across text-only channels.</p>
+<ul>
+<li><strong>Inline Data URIs:</strong> Allows inlining small icons, fonts, and graphics directly into HTML and CSS files (<code>data:image/png;base64,...</code>) to prevent additional HTTP round-trips.</li>
+<li><strong>API Payloads:</strong> Safely transmitting binary tokens, public keys, and cryptographic hashes inside JSON and XML strings without escaping issues.</li>
+<li><strong>Email Attachments:</strong> Forms the core of the MIME (Multipurpose Internet Mail Extensions) protocol for sending email file attachments.</li>
+</ul>
+</article>
+<article class="content-card"><h2>Full UTF-8 Unicode character support</h2>
+<p>Legacy JavaScript <code>btoa()</code> implementations fail when presented with multibyte UTF-8 characters (such as emojis, accented glyphs, or non-Latin alphabets), throwing a <code>Character out of range</code> error.</p>
+<p>This tool utilizes native <code>TextEncoder</code> and <code>TextDecoder</code> pipelines paired with binary byte buffers, ensuring that all international character sets and emoji symbols encode and decode without data corruption.</p>
+</article>
+</div></section>
+<section class="section" style="padding-top:0"><div class="container content-card faq-list">
+<h2>Frequently asked questions</h2>
+<details><summary>What is Base64 encoding used for?</summary><p>Base64 is primarily used to transmit binary assets (such as images, certificates, or documents) across channels that only reliably accept plain text, such as JSON APIs, XML feeds, and email bodies.</p></details>
+<details><summary>Does Base64 provide encryption or security?</summary><p>No. Base64 is an encoding format, not encryption. Anyone can decode a Base64 string in milliseconds. Never use Base64 to conceal confidential passwords or sensitive credentials.</p></details>
+<details><summary>Why does Base64 increase file size by roughly 33%?</summary><p>Base64 uses 4 characters (6 bits each) to represent every 3 bytes (24 bits) of source binary data. This 4:3 expansion ratio results in an approximate 33% increase in total payload size.</p></details>
+<details><summary>Does this tool support emojis and non-English characters?</summary><p>Yes. Our encoder and decoder uses a complete UTF-8 binary stream pipeline, allowing full preservation of emojis, mathematical notation, and international scripts.</p></details>
+</div></section>
+</main>
+<footer class="site-footer"><div class="container footer-top">
+<a class="brand brand-footer" href="/"><span class="brand-mark" aria-hidden="true">T</span><span>Toolvantas</span></a><p>Practical tools for everyday tasks.</p>
+<nav aria-label="Footer navigation"><a href="/"><span class="brand-mark" aria-hidden="true">T</span><span>Toolvantas</span></a><p>Practical tools for everyday tasks.</p>
+<nav aria-label="Footer navigation"><a href="/">Home</a><a href="/tools.html">All tools</a><a href="/#about">About</a></nav>
+</div><div class="container footer-bottom"><small>© <span data-current-year>2026</span> Toolvantas</small><small>Built to be useful.</small></div></footer>
+<script>
+(()=> {
+'use strict';
+const $=id=>document.getElementById(id);
+let mode='encode';
+const input=$('b64-input'),output=$('b64-output');
+
+function formatBytes(str){
+  const b=new Blob([str]).size;
+  return b>=1024?(b/1024).toFixed(1)+' KB':b+' B';
+}
+
+function utf8ToBase64(str){
+  const bytes=new TextEncoder().encode(str);
+  let bin='';
+  for(let i=0;i<bytes.length;i++){
+    bin+=String.fromCharCode(bytes[i]);
+  }
+  return btoa(bin);
+}
+
+function base64ToUtf8(str){
+  const clean=str.trim().replace(/^data:.*?;base64,/,'');
+  const bin=atob(clean);
+  const bytes=new Uint8Array(bin.length);
+  for(let i=0;i<bin.length;i++){
+    bytes[i]=bin.charCodeAt(i);
+  }
+  return new TextDecoder().decode(bytes);
+}
+
+function convert(){
+  const val=input.value;
+  $('stat-in').textContent=formatBytes(val);
+  if(!val){
+    output.value='';
+    $('stat-out').textContent='0 B';
+    $('stat-ratio').textContent='100%';
+    return;
+  }
+  try{
+    if(mode==='encode'){
+      output.value=utf8ToBase64(val);
+    }else{
+      output.value=base64ToUtf8(val);
+    }
+    const inSize=new Blob([val]).size;
+    const outSize=new Blob([output.value]).size;
+    $('stat-out').textContent=formatBytes(output.value);
+    $('stat-ratio').textContent=inSize>0?Math.round((outSize/inSize)*100)+'%':'100%';
+  }catch(err){
+    output.value='Invalid Base64 sequence: '+err.message;
+    $('stat-out').textContent='0 B';
+    $('stat-ratio').textContent='—';
+  }
+}
+
+$('btn-mode-encode').addEventListener('click',()=>{
+  mode='encode';
+  $('btn-mode-encode').classList.add('active');
+  $('btn-mode-decode').classList.remove('active');
+  $('dropzone-box').style.display='block';
+  convert();
+});
+
+$('btn-mode-decode').addEventListener('click',()=>{
+  mode='decode';
+  $('btn-mode-decode').classList.add('active');
+  $('btn-mode-encode').classList.remove('active');
+  $('dropzone-box').style.display='none';
+  convert();
+});
+
+input.addEventListener('input',convert);
+$('btn-convert').addEventListener('click',convert);
+
+$('btn-swap').addEventListener('click',()=>{
+  const temp=input.value;
+  input.value=output.value;
+  output.value=temp;
+  mode=mode==='encode'?'decode':'encode';
+  $('btn-mode-encode').classList.toggle('active',mode==='encode');
+  $('btn-mode-decode').classList.toggle('active',mode==='decode');
+  $('dropzone-box').style.display=mode==='encode'?'block':'none';
+  convert();
+});
+
+$('btn-clear').addEventListener('click',()=>{
+  input.value='';
+  output.value='';
+  $('file-info').textContent='PNG, JPG, SVG, PDF, TXT supported (Client-side)';
+  $('stat-in').textContent='0 B';
+  $('stat-out').textContent='0 B';
+  $('stat-ratio').textContent='100%';
+});
+
+$('btn-sample').addEventListener('click',()=>{
+  input.value='Toolvantas developer utilities: Fast, reliable, and secure! 🚀✨';
+  convert();
+});
+
+$('file-input').addEventListener('change',e=>{
+  const file=e.target.files[0];
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=evt=>{
+    output.value=evt.target.result;
+    input.value=`[Loaded File: ${file.name}]`;
+    $('file-info').textContent=`Loaded ${file.name} (${(file.size/1024).toFixed(1)} KB)`;
+    $('stat-in').textContent=formatBytes(input.value);
+    $('stat-out').textContent=formatBytes(output.value);
+    $('stat-ratio').textContent=Math.round((new Blob([output.value]).size/file.size)*100)+'%';
+  };
+  reader.readAsDataURL(file);
+});
+
+$('btn-copy').addEventListener('click',async()=>{
+  if(!output.value)return;
+  try{
+    await navigator.clipboard.writeText(output.value);
+    $('copy-status').textContent='Copied to clipboard!';
+    setTimeout(()=>{$('copy-status').textContent='';},2000);
+  }catch{
+    alert('Copy failed. Please copy manually.');
+  }
+});
+
+$('btn-download').addEventListener('click',()=>{
+  if(!output.value)return;
+  const blob=new Blob([output.value],{type:'text/plain;charset=utf-8'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download=mode==='encode'?'encoded-base64.txt':'decoded-output.txt';
+  a.click();
+});
+
+convert();
+})();
+</script>
+</body>
+</html>
