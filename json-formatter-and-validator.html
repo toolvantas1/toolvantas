@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Format, beautify, validate, and minify JSON data online in real time. Inspect parse errors with line numbers, view file size statistics, and download clean JSON.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#173d35">
+<link rel="canonical" href="https://toolvantas.pages.dev/json-formatter-and-validator.html">
+<title>JSON Formatter &amp; Validator — Beautify &amp; Minify | Toolvantas</title>
+<link rel="stylesheet" href="/site.css">
+<script src="/site.js" defer></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "JSON Formatter and Validator",
+  "url": "https://toolvantas.pages.dev/json-formatter-and-validator.html",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "description": "Clean, validate, beautify, and compress JSON payloads with line error detection and file stats.",
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+}
+</script>
+<style>
+.tool-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;align-items:start}
+.editor-box,.results,.content-card{padding:22px;border:1px solid var(--line);border-radius:14px;background:#fff;min-width:0}
+.editor-box h2,.results h2,.content-card h2{margin:0 0 8px;font-size:1.2rem}
+.muted{color:var(--muted);font-size:.88rem;line-height:1.55}
+.toolbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+.tool-select{min-height:36px;padding:4px 8px;border:1px solid #cfdad2;border-radius:7px;font:inherit;font-size:.82rem;background:#fff}
+.code-area{box-sizing:border-box;width:100%;height:380px;padding:12px;border:1px solid #cfdad2;border-radius:8px;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:.85rem;line-height:1.5;background:#fff;color:var(--ink);resize:vertical;white-space:pre}
+.code-area:focus-visible,button:focus-visible,.tool-select:focus-visible{outline:3px solid #8bb7a5;outline-offset:2px}
+.code-area.has-error{border-color:#d9534f;background:#fffcfc}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.actions button{cursor:pointer;font:inherit;font-weight:700;min-height:38px}
+.secondary{padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:white;color:var(--ink);font-size:.84rem}
+.secondary:hover{border-color:#b9d1c1}
+.status-bar{margin-top:12px;padding:10px 14px;border-radius:8px;font-size:.84rem;font-weight:700;display:flex;align-items:center;justify-content:space-between}
+.status-valid{background:#eaf5ee;color:#1e5e3a;border:1px solid #bce1c7}
+.status-invalid{background:#fdf0f0;color:#9e2a2b;border:1px solid #f5c2c2}
+.tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:16px 0}
+.tile{padding:10px;border:1px solid #e0e9e1;border-radius:8px;background:#fcfdfc;min-width:0}
+.tile span{display:block;color:var(--muted);font-size:.72rem}
+.tile strong{display:block;margin-top:2px;font-size:.9rem}
+.content-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.content-card p,.content-card li{color:#52675d;font-size:.93rem;line-height:1.75}
+.content-card ul{padding-left:22px}
+.faq-list details{border-bottom:1px solid var(--line);padding:14px 0}
+.faq-list summary{cursor:pointer;font-weight:750;line-height:1.5}
+.faq-list details p{margin:10px 0 0}
+@media(max-width:820px){.tool-layout,.content-grid{grid-template-columns:1fr}}
+@media(max-width:480px){.tiles{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="container header-inner">
+<a class="brand" href="/" aria-label="Toolvantas home"><span class="brand-mark" aria-hidden="true">T</span><span>Toolvantas</span></a>
+<button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+<nav class="primary-nav" id="primary-nav" aria-label="Main navigation"><a href="/">Home</a><a href="/tools.html">All tools</a><a href="/#about">About</a></nav>
+</div></header>
+<main id="main">
+<section class="page-hero"><div class="container">
+<p class="eyebrow">Developer utility</p>
+<h1>JSON Formatter and Validator</h1>
+<p>Clean, indent, validate, and minify your JSON data instantly. Detect syntax errors with exact line descriptions, inspect payload size metrics, and export clean JSON without leaving your browser.</p>
+</div></section>
+<section class="section"><div class="container"><div class="tool-layout">
+<div class="editor-box">
+<div class="toolbar">
+<h2>JSON Input</h2>
+<div style="display:flex;gap:6px">
+<button type="button" class="secondary" id="btn-sample">Load sample</button>
+<button type="button" class="secondary" id="btn-clear">Clear</button>
+</div>
+</div>
+<textarea class="code-area" id="json-input" placeholder="Paste your raw JSON code here..." spellcheck="false"></textarea>
+<div class="actions">
+<label class="secondary" style="display:inline-flex;align-items:center;cursor:pointer"><input type="file" id="file-upload" accept=".json,.txt" style="display:none">📂 Upload File</label>
+<select id="indent-style" class="tool-select">
+<option value="2">2 Spaces Indent</option>
+<option value="4">4 Spaces Indent</option>
+<option value="\t">1 Tab Indent</option>
+</select>
+<button class="button button-primary" type="button" id="btn-format">Format JSON</button>
+<button class="secondary" type="button" id="btn-minify">Minify</button>
+</div>
+</div>
+<div class="results" aria-live="polite">
+<div class="toolbar">
+<h2>Formatted Output</h2>
+<div style="display:flex;gap:6px">
+<button class="secondary" type="button" id="btn-copy">Copy JSON</button>
+<button class="secondary" type="button" id="btn-download">Download</button>
+</div>
+</div>
+<textarea class="code-area" id="json-output" readonly placeholder="Formatted JSON will appear here..." spellcheck="false"></textarea>
+<div id="status-box" class="status-bar status-valid"><span>Valid JSON ready</span><span id="char-count">0 chars</span></div>
+<div class="tiles">
+<div class="tile"><span>Original Size</span><strong id="stat-orig">0 B</strong></div>
+<div class="tile"><span>Output Size</span><strong id="stat-out">0 B</strong></div>
+<div class="tile"><span>Object Keys</span><strong id="stat-keys">0</strong></div>
+</div>
+</div>
+</div></div></section>
+<section class="section" style="padding-top:0"><div class="container content-grid">
+<article class="content-card"><h2>What is JSON formatting and validation?</h2>
+<p>JavaScript Object Notation (JSON) is the universal data interchange format for modern APIs, application configurations, and document databases. When transferred across networks, JSON is typically minified into a continuous string to preserve bandwidth.</p>
+<ul>
+<li><strong>Beautification:</strong> Re-introduces readable hierarchy, structured line breaks, and consistent indentation (2 spaces, 4 spaces, or tabs) so teams can audit and debug payloads efficiently.</li>
+<li><strong>Validation:</strong> Ensures strict compliance with RFC 8259 syntax specifications (e.g., double-quoted keys, no trailing commas, valid escapes).</li>
+<li><strong>Minification:</strong> Strips all non-essential whitespace, line feeds, and tabs to produce the smallest payload possible for production APIs.</li>
+</ul>
+</article>
+<article class="content-card"><h2>Common JSON syntax mistakes</h2>
+<ul>
+<li><strong>Single quotes:</strong> Standard JSON strictly requires double quotes (<code>"key": "value"</code>) for all strings and keys. Single quotes are invalid.</li>
+<li><strong>Trailing commas:</strong> Placing a comma after the final item in an array (<code>[1, 2,]</code>) or object will cause strict parsers to reject the payload.</li>
+<li><strong>Unquoted keys:</strong> Unlike JavaScript object literals, every JSON property name must be enclosed in double quotes.</li>
+<li><strong>Leading zeros:</strong> Numeric literals formatted like <code>0123</code> are invalid in standard JSON syntax.</li>
+</ul>
+</article>
+</div></section>
+<section class="section" style="padding-top:0"><div class="container content-card faq-list">
+<h2>Frequently asked questions</h2>
+<details><summary>Is my JSON data secure?</summary><p>Yes. All parsing, validation, formatting, and compression takes place exclusively inside your browser's local JavaScript runtime. Your data is never transmitted to any external server.</p></details>
+<details><summary>What does the minifier do?</summary><p>Minification strips all unnecessary spaces, line returns, and indentation, creating a single-line string that minimizes payload transmission size and lowers server bandwidth consumption.</p></details>
+<details><summary>Can I upload a .json file directly?</summary><p>Yes. Click "Upload File" to browse and load any local <code>.json</code> or <code>.txt</code> file directly into the input workspace.</p></details>
+<details><summary>What causes the "Unexpected token" error in JSON?</summary><p>This occurs when the parser encounters a character that violates RFC 8259, such as an unquoted property, a trailing comma, single quotation marks, or an unmatched brace or bracket.</p></details>
+</div></section>
+</main>
+<footer class="site-footer"><div class="container footer-top">
+<a class="brand brand-footer" href="/"><span class="brand-mark" aria-hidden="true">T</span><span>Toolvantas</span></a><p>Practical tools for everyday tasks.</p>
+<nav aria-label="Footer navigation"><a href="/">Home</a><a href="/tools.html">All tools</a><a href="/#about">About</a></nav>
+</div><div class="container footer-bottom"><small>© <span data-current-year>2026</span> Toolvantas</small><small>Built to be useful.</small></div></footer>
+<script>
+(()=> {
+'use strict';
+const $=id=>document.getElementById(id);
+const input=$('json-input'),output=$('json-output'),statusBox=$('status-box');
+
+function bytes(str){
+  const b=new Blob([str]).size;
+  return b>=1024?(b/1024).toFixed(1)+' KB':b+' B';
+}
+
+function countKeys(obj){
+  if(typeof obj!=='object'||obj===null)return 0;
+  let c=0;
+  for(const k in obj){
+    c++;
+    if(typeof obj[k]==='object')c+=countKeys(obj[k]);
+  }
+  return c;
+}
+
+function process(minify=false){
+  const raw=input.value.trim();
+  if(!raw){
+    output.value='';
+    statusBox.className='status-bar status-valid';
+    statusBox.innerHTML='<span>Ready for input</span><span>0 chars</span>';
+    $('stat-orig').textContent='0 B';
+    $('stat-out').textContent='0 B';
+    $('stat-keys').textContent='0';
+    input.classList.remove('has-error');
+    return;
+  }
+  try{
+    const parsed=JSON.parse(raw);
+    const indent=$('indent-style').value==='\\t'?'\t':Number($('indent-style').value);
+    const formatted=minify?JSON.stringify(parsed):JSON.stringify(parsed,null,indent);
+    output.value=formatted;
+    input.classList.remove('has-error');
+    statusBox.className='status-bar status-valid';
+    statusBox.innerHTML=`<span>✓ Valid JSON (${minify?'Minified':'Formatted'})</span><span>${formatted.length} chars</span>`;
+    $('stat-orig').textContent=bytes(raw);
+    $('stat-out').textContent=bytes(formatted);
+    $('stat-keys').textContent=countKeys(parsed);
+  }catch(err){
+    output.value='';
+    input.classList.add('has-error');
+    statusBox.className='status-bar status-invalid';
+    statusBox.innerHTML=`<span>✕ Invalid JSON: ${err.message}</span><span>Error</span>`;
+    $('stat-orig').textContent=bytes(raw);
+    $('stat-out').textContent='0 B';
+    $('stat-keys').textContent='0';
+  }
+}
+
+$('btn-format').addEventListener('click',()=>process(false));
+$('btn-minify').addEventListener('click',()=>process(true));
+input.addEventListener('input',()=>process(false));
+$('indent-style').addEventListener('change',()=>process(false));
+
+$('btn-clear').addEventListener('click',()=>{
+  input.value='';
+  output.value='';
+  process(false);
+});
+
+$('btn-sample').addEventListener('click',()=>{
+  input.value=JSON.stringify({
+    appName:"Toolvantas",
+    version:2.5,
+    features:["Rate Calculator","Invoice Maker","JSON Tools"],
+    settings:{theme:"emerald",autoSave:true,maxTokens:8000},
+    metrics:{uptime:99.98,activeUsers:1420}
+  },null,2);
+  process(false);
+});
+
+$('file-upload').addEventListener('change',e=>{
+  const file=e.target.files[0];
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=event=>{
+    input.value=event.target.result;
+    process(false);
+  };
+  reader.readAsText(file);
+});
+
+$('btn-copy').addEventListener('click',async()=>{
+  if(!output.value)return;
+  try{
+    await navigator.clipboard.writeText(output.value);
+    const orig=statusBox.innerHTML;
+    statusBox.innerHTML='<span>Copied formatted JSON to clipboard!</span>';
+    setTimeout(()=>{statusBox.innerHTML=orig;},2000);
+  }catch{
+    alert('Failed to copy. Please copy manually.');
+  }
+});
+
+$('btn-download').addEventListener('click',()=>{
+  if(!output.value)return;
+  const blob=new Blob([output.value],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='toolvantas-formatted.json';
+  a.click();
+});
+})();
+</script>
+</body>
+</html>
