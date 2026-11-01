@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Combine multiple PDF files into one document directly in your browser. 100% free and private—files are never uploaded to any server. No size limits.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#173d35">
+<link rel="canonical" href="https://toolvantas.pages.dev/merge-pdf.html">
+<title>Merge PDF Files Online Free — 100% Private &amp; Client-Side | Toolvantas</title>
+<link rel="stylesheet" href="/site.css">
+<script src="/site.js" defer></script>
+<!-- Client-side PDF processing engine (Zero server uploads) -->
+<script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.9/dist/pdf-lib.min.js"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Merge PDF Files Online",
+  "url": "https://toolvantas.pages.dev/merge-pdf.html",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "description": "Combine multiple PDF documents into a single file directly inside your browser with complete privacy.",
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+}
+</script>
+<style>
+.pdf-layout{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:22px;align-items:start}
+.editor-card,.results,.content-card{padding:22px;border:1px solid var(--line);border-radius:14px;background:#fff;min-width:0}
+.editor-card h2,.results h2,.content-card h2{margin:0 0 8px;font-size:1.2rem}
+.muted{color:var(--muted);font-size:.88rem;line-height:1.55}
+.dropzone{border:2px dashed #b7c9be;border-radius:10px;padding:26px 16px;text-align:center;background:#f8faf8;cursor:pointer;transition:border-color .15s,background-color .15s}
+.dropzone:hover,.dropzone.dragover{border-color:var(--green);background:#eef6f1}
+.dropzone-icon{font-size:2rem;margin-bottom:6px;display:block}
+.file-list{margin:16px 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px}
+.file-item{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border:1px solid #e1e9e2;border-radius:8px;background:#fff;font-size:.85rem}
+.file-meta{display:flex;align-items:center;gap:10px;min-width:0}
+.file-badge{display:grid;place-items:center;width:24px;height:24px;border-radius:6px;background:#eef5f0;color:var(--forest);font-weight:800;font-size:.75rem;flex:0 0 auto}
+.file-name{font-weight:700;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:260px}
+.file-details{font-size:.75rem;color:var(--muted)}
+.file-controls{display:flex;align-items:center;gap:4px;flex:0 0 auto}
+.btn-icon{border:1px solid var(--line);background:#fff;border-radius:6px;width:28px;height:28px;display:grid;place-items:center;cursor:pointer;font-size:.8rem;color:var(--ink)}
+.btn-icon:hover{border-color:#b7c9be;background:#f3f7f4}
+.btn-del{color:#a82d2d;background:#fdf2f2;border-color:#f5caca}
+.btn-del:hover{background:#fae5e5}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.actions button{cursor:pointer;font:inherit;font-weight:700;min-height:40px}
+.secondary{padding:9px 13px;border:1px solid var(--line);border-radius:8px;background:white;color:var(--ink);font-size:.84rem}
+.tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:16px 0}
+.tile{padding:10px;border:1px solid #e0e9e1;border-radius:8px;background:#fcfdfc;min-width:0}
+.tile span{display:block;color:var(--muted);font-size:.72rem}
+.tile strong{display:block;margin-top:2px;font-size:.9rem}
+.progress-bar-wrap{height:8px;border-radius:4px;background:#e9f0eb;overflow:hidden;margin:14px 0;display:none}
+.progress-bar{height:100%;width:0%;background:var(--forest);transition:width .2s}
+.privacy-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border-radius:6px;background:#eef7f1;color:#1e5e3a;font-size:.75rem;font-weight:750;margin-top:6px}
+.content-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.content-card p,.content-card li{color:#52675d;font-size:.93rem;line-height:1.75}
+.content-card ul{padding-left:22px}
+.faq-list details{border-bottom:1px solid var(--line);padding:14px 0}
+.faq-list summary{cursor:pointer;font-weight:750;line-height:1.5}
+.faq-list details p{margin:10px 0 0}
+@media(max-width:760px){.pdf-layout,.content-grid{grid-template-columns:1fr}.file-name{max-width:140px}}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="container header-inner">
+<a class="brand" href="/" aria-label="Toolvantas home"><span class="brand-mark" aria-hidden="true">T</span><span>Toolvantas</span></a>
+<button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+<nav class="primary-nav" id="primary-nav" aria-label="Main navigation"><a href="/">Home</a><a href="/tools.html">All tools</a><a href="/#about">About</a></nav>
+</div></header>
+<main id="main">
+<section class="page-hero"><div class="container">
+<p class="eyebrow">Client-side PDF tool</p>
+<h1>Merge PDF Files Online</h1>
+<p>Combine multiple PDF documents into a single organized file in seconds. 100% private and client-side: your files are processed locally and never uploaded to any server.</p>
+</div></section>
+<section class="section"><div class="container"><div class="pdf-layout">
+<div class="editor-card">
+<h2>Arrange Your PDF Documents</h2>
+<p class="muted">Add two or more PDF files. Use the arrow buttons to arrange them in the exact order you want them merged.</p>
+<div class="dropzone" id="dropzone">
+<span class="dropzone-icon" aria-hidden="true">📑</span>
+<label style="cursor:pointer;font-weight:750;color:var(--green)">
+Choose PDF files or drag them here
+<input type="file" id="pdf-picker" accept="application/pdf" multiple style="display:none">
+</label>
+<div class="muted" style="margin-top:4px;font-size:.78rem">Select 2 or more PDF documents</div>
+</div>
+<div class="privacy-badge">🔒 100% Private — Processed in-memory inside your browser</div>
+<ul class="file-list" id="file-list"></ul>
+<div class="actions">
+<button type="button" class="button button-primary" id="btn-merge" disabled>Merge PDFs</button>
+<label class="secondary" style="display:inline-flex;align-items:center;cursor:pointer"><input type="file" id="pdf-add-more" accept="application/pdf" multiple style="display:none">+ Add More Files</label>
+<button type="button" class="secondary" id="btn-clear">Clear All</button>
+</div>
+<div class="progress-bar-wrap" id="progress-wrap"><div class="progress-bar" id="progress-bar"></div></div>
+<p id="status-msg" class="muted" style="margin-top:10px;font-size:.82rem" aria-live="polite"></p>
+</div>
+<div class="results" aria-live="polite">
+<h2>Merged Document Summary</h2>
+<p class="muted">Overview of your combined PDF document.</p>
+<div class="tiles">
+<div class="tile"><span>Total Files</span><strong id="stat-files">0</strong></div>
+<div class="tile"><span>Total Pages</span><strong id="stat-pages">0</strong></div>
+<div class="tile"><span>Total Size</span><strong id="stat-size">0 KB</strong></div>
+</div>
+<div style="margin-top:18px;padding:16px;border-radius:10px;background:#f4f8f5;border:1px solid #d5e5db">
+<h3 style="font-size:.95rem;margin:0 0 6px;color:var(--forest)">Download Ready</h3>
+<p class="muted" style="font-size:.82rem;margin:0 0 12px">Once you click Merge, your merged document will be generated instantly for download.</p>
+<button type="button" class="button button-primary" id="btn-download" style="width:100%" disabled>⬇ Download Merged PDF</button>
+</div>
+</div>
+</div></div></section>
+<section class="section" style="padding-top:0"><div class="container content-grid">
+<article class="content-card"><h2>Why client-side PDF merging protects your privacy</h2>
+<p>Most commercial online PDF mergers upload your documents to third-party cloud servers where they are queued, processed, and temporarily stored. For sensitive contracts, medical records, or tax paperwork, remote uploads create privacy liabilities.</p>
+<ul>
+<li><strong>No Server Uploads:</strong> This tool utilizes the client-side <code>pdf-lib</code> WebAssembly/JS engine. Document binary bytes are processed exclusively within your device's local memory.</li>
+<li><strong>Total Compliance:</strong> Because no data ever leaves your browser, your files remain fully compliant with strict corporate and privacy policies.</li>
+<li><strong>Zero Wait Queues:</strong> Without network bottlenecks or server queues, merging takes place at the speed of your device hardware.</li>
+</ul>
+</article>
+<article class="content-card"><h2>Best practices for merging PDF documents</h2>
+<ul>
+<li><strong>Arrange the order first:</strong> Use the <code>▲</code> and <code>▼</code> buttons to ensure cover pages, tables of contents, and appendices sit in the proper sequence before merging.</li>
+<li><strong>Unlock protected files:</strong> Ensure your source PDF documents are not password-protected before merging, as encrypted files cannot be read without authentication.</li>
+<li><strong>Retain your source files:</strong> Merging creates a separate, new PDF document without altering or deleting your original source files.</li>
+</ul>
+</article>
+</div></section>
+<section class="section" style="padding-top:0"><div class="container content-card faq-list">
+<h2>Frequently asked questions</h2>
+<details><summary>Are my confidential PDF files uploaded to any server?</summary><p>No. None of your PDF documents are ever uploaded to any external server. All merging, page extraction, and compilation happens in-memory directly on your device.</p></details>
+<details><summary>Is there a limit on how many PDF files I can merge?</summary><p>There is no arbitrary software limit. You can merge as many documents as your computer or smartphone's available memory can accommodate.</p></details>
+<details><summary>Can I change the order of the files before merging?</summary><p>Yes. Simply click the up (▲) or down (▼) arrow buttons next to any document in the list to rearrange the merge sequence.</p></details>
+<details><summary>What happens if one of my PDFs is password-protected?</summary><p>Password-protected or encrypted PDFs cannot be opened by the browser engine for security reasons. You must decrypt the document before combining it with other files.</p></details>
+</div></section>
+</main>
+<footer class="site-footer"><div class="container footer-top">
+<a class="brand brand-footer" href="/"><span class="brand-mark" aria-hidden="true">T</span><span>Toolvantas</span></a><p>Practical tools for everyday tasks.</p>
+<nav aria-label="Footer navigation"><a href="/">Home</a><a href="/tools.html">All tools</a><a href="/#about">About</a></nav>
+</div><div class="container footer-bottom"><small>© <span data-current-year>2026</span> Toolvantas</small><small>Built to be useful.</small></div></footer>
+<script>
+(()=> {
+'use strict';
+const $=id=>document.getElementById(id);
+let filesList=[];
+let mergedPdfBlob=null;
+
+function formatSize(bytes){
+  if(bytes<1024)return bytes+' B';
+  const kb=bytes/1024;
+  return kb>=1024?(kb/1024).toFixed(2)+' MB':kb.toFixed(1)+' KB';
+}
+
+function updateStats(){
+  $('stat-files').textContent=filesList.length;
+  const totalBytes=filesList.reduce((acc,item)=>acc+item.file.size,0);
+  $('stat-size').textContent=formatSize(totalBytes);
+  const totalPages=filesList.reduce((acc,item)=>acc+(item.pages||0),0);
+  $('stat-pages').textContent=totalPages>0?totalPages:'Calculating...';
+  $('btn-merge').disabled=filesList.length<2;
+}
+
+function renderList(){
+  const ul=$('file-list');
+  ul.innerHTML='';
+  filesList.forEach((item,index)=>{
+    const li=document.createElement('li');
+    li.className='file-item';
+    li.innerHTML=`
+      <div class="file-meta">
+        <span class="file-badge">${index+1}</span>
+        <div>
+          <div class="file-name" title="${item.file.name}">${item.file.name}</div>
+          <div class="file-details">${formatSize(item.file.size)} • ${item.pages?item.pages+' pages':'Inspecting...'}</div>
+        </div>
+      </div>
+      <div class="file-controls">
+        <button type="button" class="btn-icon" data-action="up" data-index="${index}" title="Move Up" ${index===0?'disabled':''}>▲</button>
+        <button type="button" class="btn-icon" data-action="down" data-index="${index}" title="Move Down" ${index===filesList.length-1?'disabled':''}>▼</button>
+        <button type="button" class="btn-icon btn-del" data-action="del" data-index="${index}" title="Remove file">×</button>
+      </div>
+    `;
+    ul.appendChild(li);
+  });
+  updateStats();
+}
+
+async function inspectPages(item){
+  try{
+    const arrayBuf=await item.file.arrayBuffer();
+    const pdfDoc=await PDFLib.PDFDocument.load(arrayBuf,{ignoreEncryption:true});
+    item.pages=pdfDoc.getPageCount();
+  }catch(e){
+    item.pages='Encrypted / Error';
+  }
+  renderList();
+}
+
+function handleAddFiles(newFiles){
+  for(const file of newFiles){
+    if(file.type==='application/pdf'||file.name.toLowerCase().endsWith('.pdf')){
+      const item={file,pages:null};
+      filesList.push(item);
+      inspectPages(item);
+    }
+  }
+  renderList();
+}
+
+$('pdf-picker').addEventListener('change',e=>handleAddFiles(e.target.files));
+$('pdf-add-more').addEventListener('change',e=>handleAddFiles(e.target.files));
+
+const dropzone=$('dropzone');
+['dragenter','dragover'].forEach(eventName=>{
+  dropzone.addEventListener(eventName,e=>{e.preventDefault();dropzone.classList.add('dragover');});
+});
+['dragleave','drop'].forEach(eventName=>{
+  dropzone.addEventListener(eventName,e=>{e.preventDefault();dropzone.classList.remove('dragover');});
+});
+dropzone.addEventListener('drop',e=>{
+  if(e.dataTransfer.files)handleAddFiles(e.dataTransfer.files);
+});
+
+$('file-list').addEventListener('click',e=>{
+  const btn=e.target.closest('button');
+  if(!btn)return;
+  const index=Number(btn.dataset.index);
+  const action=btn.dataset.action;
+  if(action==='up'&&index>0){
+    const temp=filesList[index];filesList[index]=filesList[index-1];filesList[index-1]=temp;renderList();
+  }else if(action==='down'&&index<filesList.length-1){
+    const temp=filesList[index];filesList[index]=filesList[index+1];filesList[index+1]=temp;renderList();
+  }else if(action==='del'){
+    filesList.splice(index,1);renderList();
+  }
+});
+
+$('btn-clear').addEventListener('click',()=>{
+  filesList=[];
+  if(mergedPdfBlob){URL.revokeObjectURL(mergedPdfBlob);mergedPdfBlob=null;}
+  $('btn-download').disabled=true;
+  $('status-msg').textContent='';
+  renderList();
+});
+
+$('btn-merge').addEventListener('click',async()=>{
+  if(filesList.length<2)return;
+  const progressWrap=$('progress-wrap');
+  const progressBar=$('progress-bar');
+  const statusMsg=$('status-msg');
+  progressWrap.style.display='block';
+  progressBar.style.width='10%';
+  statusMsg.textContent='Initializing client-side PDF merger engine...';
+  $('btn-merge').disabled=true;
+  try{
+    const mergedDoc=await PDFLib.PDFDocument.create();
+    for(let i=0;i<filesList.length;i++){
+      const fileItem=filesList[i];
+      statusMsg.textContent=`Merging document ${i+1} of ${filesList.length}: ${fileItem.file.name}...`;
+      progressBar.style.width=`${Math.round(((i+1)/filesList.length)*80)}%`;
+      const bytes=await fileItem.file.arrayBuffer();
+      const pdf=await PDFLib.PDFDocument.load(bytes);
+      const copiedPages=await mergedDoc.copyPages(pdf,pdf.getPageIndices());
+      copiedPages.forEach(p=>mergedDoc.addPage(p));
+    }
+    statusMsg.textContent='Compiling final merged PDF...';
+    progressBar.style.width='95%';
+    const mergedBytes=await mergedDoc.save();
+    if(mergedPdfBlob)URL.revokeObjectURL(mergedPdfBlob);
+    mergedPdfBlob=new Blob([mergedBytes],{type:'application/pdf'});
+    progressBar.style.width='100%';
+    statusMsg.textContent='Merge complete! Click below to download your combined document.';
+    $('btn-download').disabled=false;
+    $('btn-download').scrollIntoView({behavior:'smooth',block:'nearest'});
+  }catch(err){
+    statusMsg.textContent='Error during merge: '+(err.message.includes('encrypt')?'One or more PDFs are password-protected. Please remove password encryption first.':err.message);
+    progressBar.style.width='0%';
+  }finally{
+    $('btn-merge').disabled=filesList.length<2;
+  }
+});
+
+$('btn-download').addEventListener('click',()=>{
+  if(!mergedPdfBlob)return;
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(mergedPdfBlob);
+  a.download='merged-document.pdf';
+  a.click();
+});
+})();
+</script>
+</body>
+</html>
