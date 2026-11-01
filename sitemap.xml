@@ -1,5 +1,10 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- PLACEHOLDER: replace example.invalid with the verified production domain before deployment/submission. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://example.invalid/</loc></url>
+  <url>
+    <loc>https://toolvantas.pages.dev/</loc>
+  </url>
+  <url>
+    <loc>https://toolvantas.pages.dev/tools.html</loc>
+  </url>
 </urlset>
