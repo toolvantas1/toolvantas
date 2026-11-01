@@ -1,59 +1,266 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Calculate a sustainable freelance hourly rate and day rate from income goals, expenses, tax reserve, billable time and platform fees.">
-<meta name="robots" content="index,follow"><meta name="theme-color" content="#173d35">
-<title>Freelance Hourly Rate Calculator — Toolvantas</title>
-<link rel="stylesheet" href="/site.css"><script src="/site.js" defer></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Calculate your freelance hourly rate, day rate, project quote, and annual billing target using income goals, business expenses, taxes, billable hours, and payment fees.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#173d35">
+<link rel="canonical" href="https://toolvantas.pages.dev/freelance-rate-calculator.html">
+<title>Freelance Hourly Rate Calculator &amp; Day Rate | Toolvantas</title>
+<link rel="stylesheet" href="/site.css">
+<script src="/site.js" defer></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Freelance Hourly & Day Rate Calculator",
+  "url": "https://toolvantas.pages.dev/freelance-rate-calculator.html",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Any",
+  "description": "Estimate freelance hourly and day rates from income goals, expenses, taxes, billable time, and payment fees.",
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+}
+</script>
 <style>
-.rate-layout{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(280px,.95fr);gap:22px;align-items:start}.rate-card,.results{padding:22px;border:1px solid var(--line);border-radius:14px;background:#fff;min-width:0}.rate-card h2,.results h2{margin:0 0 6px;font-size:1.2rem}.muted{color:var(--muted);font-size:.85rem}.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.field{min-width:0}.field label{display:block;font-size:.82rem;font-weight:750;margin-bottom:5px}.field input,.field select{width:100%;min-height:43px;padding:9px;border:1px solid #cfdad2;border-radius:8px;background:#fff;color:var(--ink);font:inherit}.field small{display:block;color:var(--muted);font-size:.72rem;line-height:1.45;margin-top:4px}.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}.actions button{cursor:pointer;font:inherit;font-weight:700}.secondary{padding:10px 14px;border:1px solid var(--line);border-radius:9px;background:white;color:var(--ink)}.results{background:#f7faf7;border-color:#dbe8dd}.big{display:block;font-size:clamp(2rem,4vw,2.8rem);font-weight:850;letter-spacing:-.06em;color:var(--forest);overflow-wrap:anywhere}.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:16px 0}.tile{padding:11px;border:1px solid #e0e9e1;border-radius:9px;background:#fff;min-width:0}.tile span{display:block;color:var(--muted);font-size:.72rem}.tile strong{display:block;margin-top:4px;overflow-wrap:anywhere}.breakdown{list-style:none;margin:0;padding:0;border-top:1px solid #dce6dd}.breakdown li{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid #e1e9e2;font-size:.8rem}.breakdown span{color:var(--muted)}.breakdown strong{text-align:right;overflow-wrap:anywhere}.error{color:#a12626;font-weight:700;font-size:.83rem}.extra{max-width:820px}.extra p,.extra li{color:#5e7067;font-size:.91rem;line-height:1.75}.extra ul{padding-left:22px}@media(max-width:760px){.rate-layout{grid-template-columns:1fr}.rate-card,.results{padding:18px}}@media(max-width:420px){.fields{grid-template-columns:1fr}.rate-card,.results{padding:15px}}
+.rate-layout{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(280px,.95fr);gap:22px;align-items:start}
+.rate-card,.results,.content-card{padding:22px;border:1px solid var(--line);border-radius:14px;background:#fff;min-width:0}
+.rate-card h2,.results h2,.content-card h2{margin:0 0 8px;font-size:1.2rem}
+.muted{color:var(--muted);font-size:.88rem;line-height:1.55}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.field{min-width:0}
+.field label{display:block;font-size:.84rem;font-weight:750;margin-bottom:5px}
+.field input,.field select{box-sizing:border-box;width:100%;min-height:44px;padding:9px 10px;border:1px solid #cfdad2;border-radius:8px;background:#fff;color:var(--ink);font:inherit}
+.field input:focus-visible,.field select:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #8bb7a5;outline-offset:2px}
+.field small{display:block;color:var(--muted);font-size:.75rem;line-height:1.45;margin-top:4px}
+.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}
+.actions button{cursor:pointer;font:inherit;font-weight:700;min-height:42px}
+.secondary{padding:10px 14px;border:1px solid var(--line);border-radius:9px;background:white;color:var(--ink)}
+.results{background:#f7faf7;border-color:#dbe8dd}
+.big{display:block;font-size:clamp(2rem,4vw,2.8rem);font-weight:850;letter-spacing:-.06em;color:var(--forest);overflow-wrap:anywhere}
+.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:16px 0}
+.tile{padding:11px;border:1px solid #e0e9e1;border-radius:9px;background:#fff;min-width:0}
+.tile span{display:block;color:var(--muted);font-size:.75rem;line-height:1.4}
+.tile strong{display:block;margin-top:4px;overflow-wrap:anywhere}
+.breakdown{list-style:none;margin:0;padding:0;border-top:1px solid #dce6dd}
+.breakdown li{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid #e1e9e2;font-size:.82rem}
+.breakdown span{color:var(--muted)}
+.breakdown strong{text-align:right;overflow-wrap:anywhere}
+.error{color:#a12626;font-weight:700;font-size:.85rem}
+.status{min-height:1.3em}
+.content-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.content-card p,.content-card li{color:#52675d;font-size:.93rem;line-height:1.75}
+.content-card ul{padding-left:22px}
+.faq-list details{border-bottom:1px solid var(--line);padding:14px 0}
+.faq-list summary{cursor:pointer;font-weight:750;line-height:1.5}
+.faq-list details p{margin:10px 0 0}
+@media(max-width:760px){.rate-layout,.content-grid{grid-template-columns:1fr}.rate-card,.results,.content-card{padding:18px}}
+@media(max-width:420px){.fields{grid-template-columns:1fr}.rate-card,.results,.content-card{padding:15px}.tiles{gap:7px}.tile{padding:9px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 </style>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
-<header class="site-header"><div class="container header-inner"><a class="brand" href="/" aria-label="Toolvantas home"><span class="brand-mark" aria-hidden="true">T</span><span>Toolvantas</span></a><button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu</button><nav class="primary-nav" id="primary-nav" aria-label="Main navigation"><a href="/">Home</a><a href="/tools.html">All tools</a><a href="/#about">About</a></nav></div></header>
+<header class="site-header"><div class="container header-inner">
+<a class="brand" href="/" aria-label="Toolvantas home"><span class="brand-mark" aria-hidden="true">T</span><span>Toolvantas</span></a>
+<button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+<nav class="primary-nav" id="primary-nav" aria-label="Main navigation"><a href="/">Home</a><a href="/tools.html">All tools</a><a href="/#about">About</a></nav>
+</div></header>
 <main id="main">
-<section class="page-hero"><div class="container"><p class="eyebrow">Freelance calculator</p><h1>Freelance Hourly &amp; Day Rate Calculator</h1><p>Estimate the rate you need to charge for your income goal, expenses, tax reserve, billable time, and platform fees. Calculations run in your browser.</p></div></section>
+<section class="page-hero"><div class="container">
+<p class="eyebrow">Free freelance pricing tool</p>
+<h1>Freelance Hourly Rate Calculator</h1>
+<p>Estimate a sustainable freelance hourly rate, day rate, and project quote from your income goal, business expenses, tax reserve, billable time, and payment fees. Your calculations run in this browser.</p>
+</div></section>
 <section class="section"><div class="container"><div class="rate-layout">
-<form class="rate-card" id="rate-form"><h2>Your rate plan</h2><p class="muted">Enter annual figures and a realistic estimate of your billable time.</p>
+<form class="rate-card" id="rate-form">
+<h2>Your rate plan</h2><p class="muted">Use annual amounts and realistic estimates. You can change any value and calculate again.</p>
 <div class="fields">
-<div class="field"><label for="currency">Currency</label><select id="currency"><option value="USD">USD — US Dollar</option><option value="BDT">BDT — Bangladeshi Taka</option><option value="GBP">GBP — British Pound</option><option value="EUR">EUR — Euro</option><option value="CAD">CAD — Canadian Dollar</option><option value="AUD">AUD — Australian Dollar</option><option value="INR">INR — Indian Rupee</option><option value="PKR">PKR — Pakistani Rupee</option></select></div>
-<div class="field"><label for="income">Target annual income</label><input id="income" type="number" min="0" step="any" value="50000" required><small>Target income after the tax reserve, before expenses.</small></div>
-<div class="field"><label for="expenses">Annual business expenses</label><input id="expenses" type="number" min="0" step="any" value="6000" required><small>Software, equipment, insurance and other costs.</small></div>
-<div class="field"><label for="tax">Tax reserve (%)</label><input id="tax" type="number" min="0" max="99.9" step=".1" value="0" required><small>Optional estimate; actual taxes depend on location.</small></div>
-<div class="field"><label for="fee">Platform fee (%)</label><input id="fee" type="number" min="0" max="99.9" step=".1" value="0" required><small>Commission charged on client billings.</small></div>
-<div class="field"><label for="payoutFee">Payout/conversion fee (%)</label><input id="payoutFee" type="number" min="0" max="99.9" step=".1" value="0" required><small>Withdrawal or currency-conversion percentage, if applicable.</small></div>
-<div class="field"><label for="overhead">Overhead markup on expenses (%)</label><input id="overhead" type="number" min="0" max="500" step="1" value="0" required><small>Optional allowance for variable overhead beyond listed costs.</small></div>
-<div class="field"><label for="weeksOff">Weeks off per year</label><input id="weeksOff" type="number" min="0" max="51" step="1" value="4" required></div>
-<div class="field"><label for="workHours">Working hours per week</label><input id="workHours" type="number" min="1" max="100" step=".5" value="40" required></div>
-<div class="field"><label for="billable">Billable share of time (%)</label><input id="billable" type="number" min="1" max="100" step="1" value="60" required><small>Time that can actually be invoiced to clients.</small></div>
-<div class="field"><label for="dayHours">Billable hours per day</label><input id="dayHours" type="number" min=".5" max="24" step=".5" value="6" required></div>
-<div class="field"><label for="buffer">Profit/slow-month buffer (%)</label><input id="buffer" type="number" min="0" max="500" step="1" value="0" required></div>
-<div class="field"><label for="projectHours">Project estimate (hours)</label><input id="projectHours" type="number" min="0" max="100000" step=".5" value="10" required></div>
-<div class="field"><label for="marketRate">Optional market benchmark (per hour)</label><input id="marketRate" type="number" min="0" step="any" placeholder="Enter a rate to compare"><small>Use a benchmark you trust for your own skill, market and experience. No market average is assumed.</small></div>
+<div class="field"><label for="currency">Currency</label><select id="currency" name="currency"><option value="USD">USD — US Dollar</option><option value="BDT">BDT — Bangladeshi Taka</option><option value="GBP">GBP — British Pound</option><option value="EUR">EUR — Euro</option><option value="CAD">CAD — Canadian Dollar</option><option value="AUD">AUD — Australian Dollar</option><option value="INR">INR — Indian Rupee</option><option value="PKR">PKR — Pakistani Rupee</option></select></div>
+<div class="field"><label for="income">Target annual take-home income</label><input id="income" name="income" type="number" min="0" step="any" value="50000" required><small>Income you want to retain after the tax reserve, before business expenses.</small></div>
+<div class="field"><label for="expenses">Annual business expenses</label><input id="expenses" name="expenses" type="number" min="0" step="any" value="6000" required><small>Software, equipment, insurance, workspace, and other business costs.</small></div>
+<div class="field"><label for="tax">Estimated tax reserve (%)</label><input id="tax" name="tax" type="number" min="0" max="99.9" step=".1" value="0" required><small>A planning percentage, not a calculation of your actual tax bill.</small></div>
+<div class="field"><label for="fee">Platform fee (%)</label><input id="fee" name="fee" type="number" min="0" max="99.9" step=".1" value="0" required><small>Marketplace or platform commission on client billings.</small></div>
+<div class="field"><label for="payoutFee">Payout / conversion fee (%)</label><input id="payoutFee" name="payoutFee" type="number" min="0" max="99.9" step=".1" value="0" required><small>Percentage lost to payment processing, withdrawal, or currency conversion.</small></div>
+<div class="field"><label for="overhead">Extra overhead markup on expenses (%)</label><input id="overhead" name="overhead" type="number" min="0" max="500" step="1" value="0" required><small>Optional extra allowance applied to your listed expenses.</small></div>
+<div class="field"><label for="weeksOff">Weeks off per year</label><input id="weeksOff" name="weeksOff" type="number" min="0" max="51" step="1" value="4" required></div>
+<div class="field"><label for="workHours">Working hours per week</label><input id="workHours" name="workHours" type="number" min=".5" max="100" step=".5" value="40" required><small>Total working time, including non-billable work.</small></div>
+<div class="field"><label for="billable">Billable share of working time (%)</label><input id="billable" name="billable" type="number" min="1" max="100" step="1" value="60" required><small>Time you realistically expect to invoice to clients.</small></div>
+<div class="field"><label for="dayHours">Billable hours in a day</label><input id="dayHours" name="dayHours" type="number" min=".5" max="24" step=".5" value="6" required><small>Used to convert your hourly rate into a day rate.</small></div>
+<div class="field"><label for="buffer">Profit / slow-month buffer (%)</label><input id="buffer" name="buffer" type="number" min="0" max="500" step="1" value="10" required><small>Optional margin added to the calculated minimum rate.</small></div>
+<div class="field"><label for="projectHours">Project estimate (hours)</label><input id="projectHours" name="projectHours" type="number" min="0" max="100000" step=".5" value="10" required></div>
+<div class="field"><label for="marketRate">Optional market benchmark (per hour)</label><input id="marketRate" name="marketRate" type="number" min="0" step="any" placeholder="Enter a comparable hourly rate"><small>Compare with a rate relevant to your skill, experience, client type, and market.</small></div>
 </div>
-<div class="actions"><button class="button button-primary" type="submit">Calculate my rate</button><button class="secondary" type="reset">Reset</button><button class="secondary" type="button" id="copy">Copy results</button></div><p class="error" id="error" role="alert" hidden></p><p id="copy-status" class="muted" aria-live="polite"></p>
+<div class="actions"><button class="button button-primary" type="submit">Calculate my rate</button><button class="secondary" type="reset">Reset defaults</button><button class="secondary" type="button" id="copy">Copy results</button></div>
+<p class="error" id="error" role="alert" hidden></p><p id="copy-status" class="muted status" aria-live="polite"></p>
 </form>
-<section class="results" aria-live="polite" aria-labelledby="results-title"><h2 id="results-title">Your estimated rates</h2><p class="muted">Recommended hourly rate</p><output class="big" id="hourly">$0.00/hr</output>
-<div class="tiles"><div class="tile"><span>Minimum break-even rate</span><strong id="minimum">$0.00/hr</strong></div><div class="tile"><span>Day rate</span><strong id="day">$0.00</strong></div><div class="tile"><span>Weekly billings</span><strong id="weekly">$0.00</strong></div><div class="tile"><span>Monthly billings</span><strong id="monthly">$0.00</strong></div><div class="tile"><span>Annual billings</span><strong id="annual">$0.00</strong></div><div class="tile"><span>Project quote</span><strong id="project">$0.00</strong></div><div class="tile"><span>Market comparison</span><strong id="market-out">Add a benchmark</strong></div></div>
-<ul class="breakdown"><li><span>Available working weeks</span><strong id="weeks-out">48</strong></li><li><span>Annual working hours</span><strong id="working-out">1,920</strong></li><li><span>Annual billable hours</span><strong id="hours-out">1,152</strong></li><li><span>Target income</span><strong id="income-out">$50,000</strong></li><li><span>Business expenses</span><strong id="expenses-out">$6,000</strong></li><li><span>Tax reserve</span><strong id="tax-out">$0</strong></li><li><span>Platform fee allowance</span><strong id="fee-out">$0</strong></li><li><span>Payout/conversion fee</span><strong id="payout-out">$0</strong></li><li><span>Expenses plus overhead markup</span><strong id="costs-out">$0</strong></li><li><span>Profit buffer</span><strong id="buffer-out">$0</strong></li></ul><p class="muted" id="formula">Results update when you calculate.</p>
-</section></div></div></section>
-<section class="section" style="padding-top:0"><div class="container extra"><h2>How the calculator works</h2><p>Your rate needs to cover your income goal, business expenses, the tax reserve you choose, and platform fees. It must also account for time spent on admin, marketing and other non-billable work.</p><ul><li><strong>Annual billable hours:</strong> working hours per week × (52 − weeks off) × billable share.</li><li><strong>Income after tax reserve:</strong> target income ÷ (1 − estimated tax rate).</li><li><strong>Costs:</strong> annual expenses × (1 + overhead markup).</li><li><strong>Revenue before fees:</strong> tax-adjusted income + costs.</li><li><strong>Revenue needed:</strong> revenue before fees ÷ ((1 − platform fee) × (1 − payout/conversion fee)).</li><li><strong>Minimum hourly rate:</strong> revenue needed ÷ annual billable hours.</li><li><strong>Recommended rate:</strong> minimum rate × (1 + optional buffer).</li><li><strong>Day rate:</strong> recommended hourly rate × billable hours per day.</li></ul><p><strong>Important:</strong> This is a planning estimate, not tax or financial advice. The tax reserve is a simplified estimate, not a jurisdiction-specific tax calculation. Check your actual tax and payment fees. Market rates vary by skills, experience, client, location and project scope.</p></div></section>
+<section class="results" aria-live="polite" aria-labelledby="results-title">
+<h2 id="results-title">Your estimated rates</h2><p class="muted">Recommended hourly rate, including your chosen buffer</p>
+<output class="big" id="hourly" for="income expenses tax fee payoutFee overhead weeksOff workHours billable buffer">$0.00/hr</output>
+<div class="tiles">
+<div class="tile"><span>Minimum required hourly rate</span><strong id="minimum">$0.00/hr</strong></div>
+<div class="tile"><span>Day rate</span><strong id="day">$0.00</strong></div>
+<div class="tile"><span>Weekly billings at billable capacity</span><strong id="weekly">$0.00</strong></div>
+<div class="tile"><span>Average monthly billings</span><strong id="monthly">$0.00</strong></div>
+<div class="tile"><span>Annual billings at recommended rate</span><strong id="annual">$0.00</strong></div>
+<div class="tile"><span>Estimated project quote</span><strong id="project">$0.00</strong></div>
+<div class="tile"><span>Rate vs. your benchmark</span><strong id="market-out">Add a benchmark</strong></div>
+</div>
+<h3>Annual estimate breakdown</h3>
+<ul class="breakdown">
+<li><span>Available working weeks</span><strong id="weeks-out">48 weeks</strong></li>
+<li><span>Annual working hours</span><strong id="working-out">1,920 hours</strong></li>
+<li><span>Annual billable hours</span><strong id="hours-out">1,152 hours</strong></li>
+<li><span>Target take-home income</span><strong id="income-out">$50,000</strong></li>
+<li><span>Business expenses entered</span><strong id="expenses-out">$6,000</strong></li>
+<li><span>Expenses plus overhead markup</span><strong id="costs-out">$6,000</strong></li>
+<li><span>Estimated tax reserve allowance</span><strong id="tax-out">$0</strong></li>
+<li><span>Estimated platform fee allowance</span><strong id="fee-out">$0</strong></li>
+<li><span>Estimated payout / conversion fee</span><strong id="payout-out">$0</strong></li>
+<li><span>Extra amount from rate buffer</span><strong id="buffer-out">$0</strong></li>
+</ul>
+<p class="muted" id="formula">Results update when you calculate.</p>
+<p class="muted">These are estimates based on the values you enter, not guaranteed earnings or market-rate recommendations.</p>
+</section>
+</div></div></section>
+<section class="section" style="padding-top:0"><div class="container content-grid">
+<article class="content-card"><h2>How to calculate your freelance rate</h2>
+<p>A sustainable freelance rate needs to cover your desired income, business costs, estimated tax reserve, and fees while accounting for unpaid time spent finding clients, doing administration, and managing projects.</p>
+<ul>
+<li><strong>Annual billable hours:</strong> (52 − weeks off) × working hours per week × billable share.</li>
+<li><strong>Income before tax reserve:</strong> target take-home income ÷ (1 − tax reserve rate).</li>
+<li><strong>Adjusted expenses:</strong> annual expenses × (1 + overhead markup).</li>
+<li><strong>Required billings before your buffer:</strong> (income before tax reserve + adjusted expenses) ÷ ((1 − platform fee) × (1 − payout/conversion fee)).</li>
+<li><strong>Minimum hourly rate:</strong> required billings ÷ annual billable hours.</li>
+<li><strong>Recommended hourly rate:</strong> minimum hourly rate × (1 + buffer).</li>
+<li><strong>Day rate:</strong> recommended hourly rate × billable hours per day.</li>
+</ul>
+</article>
+<article class="content-card"><h2>Tips for setting a realistic rate</h2>
+<ul>
+<li>Count only the hours you can reasonably bill, not every hour you work.</li>
+<li>Include recurring software, equipment, insurance, accounting, and workspace costs.</li>
+<li>Check the actual platform and payment-provider fees you pay.</li>
+<li>Choose a tax reserve based on reliable guidance for your location; tax rules vary.</li>
+<li>Use market benchmarks for comparable skills, experience, project scope, and client type.</li>
+<li>Review your rates when your expenses, demand, skills, or available working hours change.</li>
+</ul>
+<p><strong>Important:</strong> This calculator is for general planning and education. It is not tax, accounting, legal, or financial advice. The tax reserve is a simplified percentage estimate and does not model tax brackets, deductions, or local rules.</p>
+</article>
+</div></section>
+<section class="section" style="padding-top:0"><div class="container content-card faq-list">
+<h2>Frequently asked questions</h2>
+<details><summary>How much should I charge as a freelancer per hour?</summary><p>Start with your desired take-home income, business expenses, estimated taxes and fees, then divide the required billings by your realistic annual billable hours. Your experience, specialist skills, client type, and market also affect the rate you can charge.</p></details>
+<details><summary>What is the difference between a minimum rate and a recommended rate?</summary><p>The minimum rate estimates the hourly amount needed to cover the inputs you entered. The recommended rate adds the optional buffer you choose for profit margin or slower periods.</p></details>
+<details><summary>How many hours should I count as billable?</summary><p>Count hours you can invoice to clients. Prospecting, proposals, bookkeeping, training, administration, and business development often take time but may not be billable. Use a conservative estimate if you are unsure.</p></details>
+<details><summary>How do platform and payout fees affect my rate?</summary><p>Fees reduce the share of client billings you keep. This calculator increases the required billings to account for the platform fee and payout or conversion percentage you enter.</p></details>
+<details><summary>Does this calculator calculate my actual taxes?</summary><p>No. It applies a single percentage as a simplified tax reserve estimate. Actual tax depends on your jurisdiction, income, business structure, deductions, and other circumstances. Consult official guidance or a qualified tax professional.</p></details>
+<details><summary>Can I use this calculator for a day rate or project quote?</summary><p>Yes. The day rate multiplies your recommended hourly rate by the billable hours per day you enter. The project quote multiplies it by your estimated project hours; adjust for scope risk, revisions, and deliverables as needed.</p></details>
+</div></section>
 </main>
-<footer class="site-footer"><div class="container footer-top"><a class="brand brand-footer" href="/"><span class="brand-mark" aria-hidden="true">T</span><span>Toolvantas</span></a><p>Practical tools for everyday tasks.</p><nav aria-label="Footer navigation"><a href="/">Home</a><a href="/tools.html">All tools</a><a href="/#about">About</a></nav></div><div class="container footer-bottom"><small>© <span data-current-year>2026</span> Toolvantas</small><small>Built to be useful.</small></div></footer>
+<footer class="site-footer"><div class="container footer-top">
+<a class="brand brand-footer" href="/"><span class="brand-mark" aria-hidden="true">T</span><span>Toolvantas</span></a><p>Practical tools for everyday tasks.</p>
+<nav aria-label="Footer navigation"><a href="/">Home</a><a href="/tools.html">All tools</a><a href="/#about">About</a></nav>
+</div><div class="container footer-bottom"><small>© <span data-current-year>2026</span> Toolvantas</small><small>Built to be useful.</small></div></footer>
 <script>
-(()=>{const form=document.querySelector('#rate-form'),$=id=>document.getElementById(id),error=$('error');
-const ids=['currency','income','expenses','tax','fee','payoutFee','overhead','weeksOff','workHours','billable','dayHours','buffer','projectHours','marketRate'];
-const defaults={currency:'USD',income:50000,expenses:6000,tax:0,fee:0,payoutFee:0,overhead:0,weeksOff:4,workHours:40,billable:60,dayHours:6,buffer:0,projectHours:10,marketRate:''};
-const v=id=>Number($(id).value),fmt=n=>new Intl.NumberFormat('en-US',{style:'currency',currency:$('currency').value,maximumFractionDigits:2}).format(n),num=n=>new Intl.NumberFormat('en-US',{maximumFractionDigits:1}).format(n),put=(id,x)=>$(id).textContent=x;
-function calc(e){if(e)e.preventDefault();if(!form.reportValidity())return;
-const income=v('income'),expenses=v('expenses'),tax=v('tax')/100,fee=v('fee')/100,payoutFee=v('payoutFee')/100,overhead=v('overhead')/100,weeksOff=v('weeksOff'),work=v('workHours'),bill=v('billable')/100,dayHours=v('dayHours'),buffer=v('buffer')/100,projectHours=v('projectHours'),marketRate=v('marketRate');
-if([income,expenses,tax,fee,payoutFee,overhead,weeksOff,work,bill,dayHours,buffer,projectHours,marketRate].some(n=>!Number.isFinite(n)||n<0)||tax>=1||fee>=1||payoutFee>=1||weeksOff>=52||work<=0||bill<=0||bill>1||dayHours<=0||dayHours>24){error.hidden=false;error.textContent='Check your inputs. Tax, platform and payout fees must each be below 100%; weeks off must be below 52; working hours must be greater than zero.';return}
-const weeks=52-weeksOff,working=weeks*work,hours=working*bill;if(hours<=0){error.hidden=false;error.textContent='These settings leave no annual billable hours. Adjust your work schedule.';return}
-error.hidden=true;const taxAdjusted=income/(1-tax),costs=expenses*(1+overhead),beforeFees=taxAdjusted+costs,retention=(1-fee)*(1-payoutFee),revenue=beforeFees/retention,minimum=revenue/hours,recommended=minimum*(1+buffer),taxAmount=taxAdjusted-income,bufferAmount=(recommended-minimum)*hours,annualRecommended=recommended*hours,feeAmount=annualRecommended*fee,payoutAmount=annualRecommended*(1-fee)*payoutFee;
-put('hourly',fmt(recommended)+'/hr');put('minimum',fmt(minimum)+'/hr');put('day',fmt(recommended*dayHours));put('weekly',fmt(recommended*work*bill));put('monthly',fmt(annualRecommended/12));put('annual',fmt(annualRecommended));put('project',fmt(recommended*projectHours));put('market-out',marketRate>0?(recommended/marketRate).toFixed(2)+'× benchmark': 'Add a benchmark');put('weeks-out',num(weeks)+' weeks');put('working-out',num(working)+' hours');put('hours-out',num(hours)+' hours');put('income-out',fmt(income));put('expenses-out',fmt(expenses));put('tax-out',fmt(taxAmount));put('fee-out',fmt(feeAmount));put('buffer-out',fmt(bufferAmount));put('formula','Minimum rate = (income ÷ (1 − tax reserve) + expenses) ÷ (1 − platform fee) ÷ annual billable hours. The optional buffer is added to the minimum rate. Tax is an estimate, not a tax calculation.')}
-form.addEventListener('submit',calc);form.addEventListener('reset',()=>setTimeout(()=>{Object.entries(defaults).forEach(([id,value])=>$(id).value=value);$('copy-status').textContent='';calc()},0));$('currency').addEventListener('change',calc);
-$('copy').addEventListener('click',async()=>{const text=`Toolvantas Freelance Rate Estimate\nHourly: ${$('hourly').textContent}\nMinimum: ${$('minimum').textContent}\nDay: ${$('day').textContent}\nWeekly: ${$('weekly').textContent}\nMonthly: ${$('monthly').textContent}\nAnnual: ${$('annual').textContent}\nProject: ${$('project').textContent}\nMarket comparison: ${$('market-out').textContent}\nAnnual billable hours: ${$('hours-out').textContent}`;try{await navigator.clipboard.writeText(text);$('copy-status').textContent='Results copied.'}catch{$('copy-status').textContent='Clipboard unavailable; select and copy the results manually.'}});calc()})();
+(()=> {
+'use strict';
+const form=document.querySelector('#rate-form');
+const $=id=>document.getElementById(id);
+const error=$('error');
+const defaults={currency:'USD',income:'50000',expenses:'6000',tax:'0',fee:'0',payoutFee:'0',overhead:'0',weeksOff:'4',workHours:'40',billable:'60',dayHours:'6',buffer:'10',projectHours:'10',marketRate:''};
+const number=id=>Number($(id).value);
+const currency=()=> $('currency').value;
+const fmt=n=>new Intl.NumberFormat('en-US',{style:'currency',currency:currency(),maximumFractionDigits:2}).format(n);
+const num=n=>new Intl.NumberFormat('en-US',{maximumFractionDigits:1}).format(n);
+const put=(id,value)=>{$(id).textContent=value;};
+function showError(message){error.hidden=!message;error.textContent=message||'';}
+function calc(event){
+ if(event)event.preventDefault();
+ if(!form.reportValidity())return;
+ const income=number('income'),expenses=number('expenses'),tax=number('tax')/100,fee=number('fee')/100,
+ payoutFee=number('payoutFee')/100,overhead=number('overhead')/100,weeksOff=number('weeksOff'),
+ work=number('workHours'),bill=number('billable')/100,dayHours=number('dayHours'),
+ buffer=number('buffer')/100,projectHours=number('projectHours'),
+ marketText=$('marketRate').value.trim(),marketRate=marketText===''?null:Number(marketText);
+ const values=[income,expenses,tax,fee,payoutFee,overhead,weeksOff,work,bill,dayHours,buffer,projectHours];
+ if(values.some(n=>!Number.isFinite(n)||n<0)|| (marketRate!==null&&(!Number.isFinite(marketRate)||marketRate<0)) ||
+ tax>=1||fee>=1||payoutFee>=1||overhead>5||buffer>5||weeksOff>=52||work<=0||work>100||
+ bill<=0||bill>1||dayHours<=0||dayHours>24||projectHours>100000){
+  showError('Check your inputs. Values must be non-negative; tax, platform and payout fees must each be below 100%; overhead and buffer must not exceed 500%; weeks off must be below 52; and working hours must be greater than zero and no more than 100 per week.');
+  return;
+ }
+ const weeks=52-weeksOff;
+ const working=weeks*work;
+ const hours=working*bill;
+ if(!Number.isFinite(hours)||hours<=0){showError('These settings leave no annual billable hours. Adjust your work schedule.');return;}
+ const taxAdjusted=income/(1-tax);
+ const costs=expenses*(1+overhead);
+ const beforeFees=taxAdjusted+costs;
+ const retention=(1-fee)*(1-payoutFee);
+ const revenue=beforeFees/retention;
+ const minimum=revenue/hours;
+ const recommended=minimum*(1+buffer);
+ const annualRecommended=recommended*hours;
+ const taxAmount=taxAdjusted-income;
+ const feeAmount=annualRecommended*fee;
+ const payoutAmount=annualRecommended*(1-fee)*payoutFee;
+ const bufferAmount=(recommended-minimum)*hours;
+ const valuesToCheck=[taxAdjusted,costs,beforeFees,retention,revenue,minimum,recommended,annualRecommended,taxAmount,feeAmount,payoutAmount,bufferAmount];
+ if(valuesToCheck.some(n=>!Number.isFinite(n))){showError('These inputs create a result too large to calculate reliably. Reduce the values and try again.');return;}
+ showError('');
+ put('hourly',fmt(recommended)+'/hr');
+ put('minimum',fmt(minimum)+'/hr');
+ put('day',fmt(recommended*dayHours));
+ put('weekly',fmt(recommended*work*bill));
+ put('monthly',fmt(annualRecommended/12));
+ put('annual',fmt(annualRecommended));
+ put('project',fmt(recommended*projectHours));
+ put('market-out',marketRate!==null&&marketRate>0?(recommended/marketRate).toFixed(2)+'× your benchmark':marketRate===0?'Benchmark must be greater than zero':'Add a benchmark');
+ put('weeks-out',num(weeks)+' weeks');
+ put('working-out',num(working)+' hours');
+ put('hours-out',num(hours)+' hours');
+ put('income-out',fmt(income));
+ put('expenses-out',fmt(expenses));
+ put('costs-out',fmt(costs));
+ put('tax-out',fmt(taxAmount));
+ put('fee-out',fmt(feeAmount));
+ put('payout-out',fmt(payoutAmount));
+ put('buffer-out',fmt(bufferAmount));
+ put('formula','Minimum rate = (income ÷ (1 − tax reserve) + expenses × (1 + overhead markup)) ÷ ((1 − platform fee) × (1 − payout/conversion fee) × annual billable hours). The optional buffer is added to the minimum rate. Tax is an estimate, not a tax calculation.');
+}
+form.addEventListener('submit',calc);
+form.addEventListener('reset',()=>{
+ setTimeout(()=>{
+  Object.entries(defaults).forEach(([id,value])=>{$(id).value=value;});
+  $('copy-status').textContent='';
+  calc();
+ },0);
+});
+$('currency').addEventListener('change',()=>calc());
+$('copy').addEventListener('click',async()=>{
+ const resultText=`Toolvantas Freelance Rate Estimate
+Currency: ${currency()}
+Recommended hourly rate: ${$('hourly').textContent}
+Minimum hourly rate: ${$('minimum').textContent}
+Day rate: ${$('day').textContent}
+Weekly billings: ${$('weekly').textContent}
+Average monthly billings: ${$('monthly').textContent}
+Annual billings: ${$('annual').textContent}
+Project quote: ${$('project').textContent}
+Market comparison: ${$('market-out').textContent}
+Annual billable hours: ${$('hours-out').textContent}
+Business expenses plus overhead: ${$('costs-out').textContent}`;
+ try{
+  if(!navigator.clipboard||!navigator.clipboard.writeText)throw new Error('Clipboard unavailable');
+  await navigator.clipboard.writeText(resultText);
+  $('copy-status').textContent='Results copied to clipboard.';
+ }catch{
+  $('copy-status').textContent='Clipboard access is unavailable in this browser or context. You can select and copy the results manually.';
+ }
+});
+calc();
+})();
 </script>
-</body></html>
+</body>
+</html>
