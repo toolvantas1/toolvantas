@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Rotate PDF pages permanently online for free. Rotate all pages or specific pages 90 or 180 degrees directly in your browser. 100% private, client-side.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#173d35">
+<link rel="canonical" href="https://toolvantas.pages.dev/rotate-pdf.html">
+<title>Rotate PDF Pages Online Free — Permanent &amp; Private | Toolvantas</title>
+<link rel="stylesheet" href="/site.css">
+<script src="/site.js" defer></script>
+<!-- Client-side PDF processing engine (Zero server uploads) -->
+<script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.9/dist/pdf-lib.min.js"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Rotate PDF Pages Online",
+  "url": "https://toolvantas.pages.dev/rotate-pdf.html",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "description": "Rotate PDF pages permanently 90, 180, or 270 degrees in-memory inside your web browser.",
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+}
+</script>
+<style>
+.pdf-layout{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:22px;align-items:start}
+.editor-card,.results,.content-card{padding:22px;border:1px solid var(--line);border-radius:14px;background:#fff;min-width:0}
+.editor-card h2,.results h2,.content-card h2{margin:0 0 8px;font-size:1.2rem}
+.muted{color:var(--muted);font-size:.88rem;line-height:1.55}
+.dropzone{border:2px dashed #b7c9be;border-radius:10px;padding:26px 16px;text-align:center;background:#f8faf8;cursor:pointer;transition:border-color .15s,background-color .15s}
+.dropzone:hover,.dropzone.dragover{border-color:var(--green);background:#eef6f1}
+.dropzone-icon{font-size:2rem;margin-bottom:6px;display:block}
+.doc-header{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border:1px solid #d5e5db;border-radius:8px;background:#f4f8f5;margin:14px 0}
+.doc-title{font-weight:750;color:var(--forest);font-size:.9rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:260px}
+.toolbar-wrap{margin:14px 0;padding:14px;border:1px solid var(--line);border-radius:10px;background:#fafcfb}
+.toolbar-heading{font-size:.82rem;font-weight:800;color:var(--forest);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px}
+.tool-buttons{display:flex;flex-wrap:wrap;gap:8px}
+.tool-btn{padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:#fff;font:inherit;font-size:.82rem;font-weight:750;cursor:pointer;color:var(--ink);display:inline-flex;align-items:center;gap:6px}
+.tool-btn:hover{border-color:#b7c9be;background:#f4f8f5}
+.page-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:12px;margin:16px 0;max-height:420px;overflow-y:auto;padding:4px}
+.page-card{border:1px solid var(--line);border-radius:8px;background:#fff;padding:10px 8px;text-align:center;transition:border-color .15s}
+.page-card:hover{border-color:var(--green)}
+.page-sheet{width:56px;height:72px;border:2px solid #a8c1b3;border-radius:4px;background:#f4f7f5;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.78rem;color:var(--forest);transition:transform .2s ease;box-shadow:0 2px 5px rgba(0,0,0,.04)}
+.page-badge{font-size:.72rem;font-weight:750;color:var(--muted);margin-bottom:6px;display:block}
+.page-actions{display:flex;justify-content:center;gap:4px}
+.btn-rot{border:1px solid var(--line);background:#fff;border-radius:6px;width:28px;height:28px;cursor:pointer;font-size:.82rem;display:grid;place-items:center}
+.btn-rot:hover{border-color:var(--green);background:#eef7f1}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.actions button{cursor:pointer;font:inherit;font-weight:700;min-height:40px}
+.secondary{padding:9px 13px;border:1px solid var(--line);border-radius:8px;background:white;color:var(--ink);font-size:.84rem}
+.tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:16px 0}
+.tile{padding:10px;border:1px solid #e0e9e1;border-radius:8px;background:#fcfdfc;min-width:0}
+.tile span{display:block;color:var(--muted);font-size:.72rem}
+.tile strong{display:block;margin-top:2px;font-size:.9rem}
+.privacy-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border-radius:6px;background:#eef7f1;color:#1e5e3a;font-size:.75rem;font-weight:750;margin-top:6px}
+.content-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.content-card p,.content-card li{color:#52675d;font-size:.93rem;line-height:1.75}
+.content-card ul{padding-left:22px}
+.faq-list details{border-bottom:1px solid var(--line);padding:14px 0}
+.faq-list summary{cursor:pointer;font-weight:750;line-height:1.5}
+.faq-list details p{margin:10px 0 0}
+@media(max-width:760px){.pdf-layout,.content-grid{grid-template-columns:1fr}.doc-title{max-width:180px}}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="container header-inner">
+<a class="brand" href="/" aria-label="Toolvantas home"><span class="brand-mark" aria-hidden="true">T</span><span>Toolvantas</span></a>
+<button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+<nav class="primary-nav" id="primary-nav" aria-label="Main navigation"><a href="/">Home</a><a href="/tools.html">All tools</a><a href="/#about">About</a></nav>
+</div></header>
+<main id="main">
+<section class="page-hero"><div class="container">
+<p class="eyebrow">Client-side PDF tool</p>
+<h1>Rotate PDF Pages Online</h1>
+<p>Rotate entire PDF documents or fix specific upside-down pages permanently. 100% private and client-side: your files are processed in your browser without uploading to any server.</p>
+</div></section>
+<section class="section"><div class="container"><div class="pdf-layout">
+<div class="editor-card">
+<h2>Rotate PDF Document &amp; Pages</h2>
+<p class="muted">Upload your PDF file. Use global tools to rotate all pages, or click the rotation buttons on individual pages.</p>
+<div class="dropzone" id="dropzone">
+<span class="dropzone-icon" aria-hidden="true">🔄</span>
+<label style="cursor:pointer;font-weight:750;color:var(--green)">
+Choose a PDF file or drag it here
+<input type="file" id="pdf-picker" accept="application/pdf" style="display:none">
+</label>
+<div class="muted" style="margin-top:4px;font-size:.78rem">Select 1 PDF document to rotate</div>
+</div>
+<div class="privacy-badge">🔒 100% Private — Processed in-memory inside your browser</div>
+<div id="workspace" style="display:none">
+<div class="doc-header">
+<div>
+<div class="doc-title" id="doc-name">document.pdf</div>
+<div class="muted" style="font-size:.75rem" id="doc-meta">0 KB • 0 pages</div>
+</div>
+<button type="button" class="secondary" id="btn-change-file" style="min-height:32px;padding:4px 10px;font-size:.78rem">Change File</button>
+</div>
+<div class="toolbar-wrap">
+<div class="toolbar-heading">Batch Rotation Controls</div>
+<div class="tool-buttons">
+<button type="button" class="tool-btn" id="btn-all-cw">↻ All +90°</button>
+<button type="button" class="tool-btn" id="btn-all-ccw">↺ All -90°</button>
+<button type="button" class="tool-btn" id="btn-all-180">🔄 All 180°</button>
+<button type="button" class="tool-btn" id="btn-odds">Rotate Odd Pages</button>
+<button type="button" class="tool-btn" id="btn-evens">Rotate Even Pages</button>
+<button type="button" class="tool-btn" id="btn-reset-rot">Reset All to 0°</button>
+</div>
+</div>
+<div class="page-grid" id="page-grid"></div>
+</div>
+</div>
+<div class="results" aria-live="polite">
+<h2>Rotation Summary &amp; Download</h2>
+<p class="muted">Overview of changes applied to your document.</p>
+<div class="tiles">
+<div class="tile"><span>Total Pages</span><strong id="stat-total">0</strong></div>
+<div class="tile"><span>Modified Pages</span><strong id="stat-mod">0</strong></div>
+<div class="tile"><span>Status</span><strong id="stat-status">Waiting for file</strong></div>
+</div>
+<div style="margin-top:18px;padding:16px;border-radius:10px;background:#f4f8f5;border:1px solid #d5e5db">
+<h3 style="font-size:.95rem;margin:0 0 6px;color:var(--forest)">Permanent PDF Download</h3>
+<p class="muted" style="font-size:.82rem;margin:0 0 12px">Click below to apply changes and download your permanently rotated PDF document.</p>
+<button type="button" class="button button-primary" id="btn-save" style="width:100%" disabled>💾 Save &amp; Download Rotated PDF</button>
+</div>
+</div>
+</div></div></section>
+<section class="section" style="padding-top:0"><div class="container content-grid">
+<article class="content-card"><h2>How to permanently rotate PDF pages</h2>
+<p>Scanned documents often end up in mixed orientations, with landscape tables or inverted receipts scattered throughout a portrait report.</p>
+<ul>
+<li><strong>Rotate All Pages:</strong> Use "All +90°" or "All -90°" when an entire document was fed into a scanner sideways.</li>
+<li><strong>Rotate Individual Pages:</strong> Click the <code>↻</code> or <code>↺</code> buttons on specific page cards to adjust only misaligned pages without changing the rest of the document.</li>
+<li><strong>Odd/Even Batching:</strong> Easily fix duplex scanner flips where every alternating page is upside down.</li>
+<li><strong>Permanent Saving:</strong> The output file updates the native PDF rotation dictionary so it opens correctly in all PDF viewers.</li>
+</ul>
+</article>
+<article class="content-card"><h2>Lossless rotation vs. image re-rasterization</h2>
+<p>Many basic online tools convert your PDF pages into bitmap images to rotate them, which causes blurry text, destroys selectable search text, and dramatically inflates file size.</p>
+<ul>
+<li><strong>Lossless Vector Editing:</strong> This tool modifies the underlying PDF <code>/Rotate</code> dictionary directly via <code>pdf-lib</code>.</li>
+<li><strong>Zero Quality Loss:</strong> High-resolution vector typography, embedded TrueType fonts, form fields, and links remain untouched.</li>
+<li><strong>Instant Client-Side Execution:</strong> No waiting for cloud uploads or server rendering queues.</li>
+</ul>
+</article>
+</div></section>
+<section class="section" style="padding-top:0"><div class="container content-card faq-list">
+<h2>Frequently asked questions</h2>
+<details><summary>Does rotating a PDF reduce text or image quality?</summary><p>No. The rotation is 100% lossless. The tool updates the viewing orientation tag in the PDF metadata without recompressing images or altering page vector elements.</p></details>
+<details><summary>Can I rotate only specific upside-down pages while leaving others intact?</summary><p>Yes. You can rotate individual pages independently using the rotation buttons located on each page card.</p></details>
+<details><summary>Are my PDF documents uploaded to any server?</summary><p>No. Your files are processed in-memory directly within your web browser using client-side JavaScript. No document data is ever sent to any remote server.</p></details>
+<details><summary>Is this rotation permanent when opened in Adobe Acrobat or browser viewers?</summary><p>Yes. The orientation changes are written directly into the PDF specification, ensuring the document opens in the intended orientation across all PDF readers.</p></details>
+</div></section>
+</main>
+<footer class="site-footer"><div class="container footer-top">
+<a class="brand brand-footer" href="/"><span class="brand-mark" aria-hidden="true">T</span><span>Toolvantas</span></a><p>Practical tools for everyday tasks.</p>
+<nav aria-label="Footer navigation"><a href="/">Home</a><a href="/tools.html">All tools</a><a href="/#about">About</a></nav>
+</div><div class="container footer-bottom"><small>© <span data-current-year>2026</span> Toolvantas</small><small>Built to be useful.</small></div></footer>
+<script>
+(()=> {
+'use strict';
+const $=id=>document.getElementById(id);
+let currentFile=null;
+let pageAngles=[];
+let initialAngles=[];
+
+function formatBytes(bytes){
+  if(bytes<1024)return bytes+' B';
+  const kb=bytes/1024;
+  return kb>=1024?(kb/1024).toFixed(2)+' MB':kb.toFixed(1)+' KB';
+}
+
+function updateSummary(){
+  $('stat-total').textContent=pageAngles.length;
+  let modCount=0;
+  for(let i=0;i<pageAngles.length;i++){
+    if(pageAngles[i]!==initialAngles[i])modCount++;
+  }
+  $('stat-mod').textContent=modCount;
+  $('stat-status').textContent=modCount>0?`${modCount} page(s) changed`:'Original orientation';
+  $('btn-save').disabled=pageAngles.length===0;
+}
+
+function renderGrid(){
+  const grid=$('page-grid');
+  grid.innerHTML='';
+  pageAngles.forEach((angle,idx)=>{
+    const card=document.createElement('div');
+    card.className='page-card';
+    card.innerHTML=`
+      <div class="page-sheet" id="sheet-${idx}" style="transform:rotate(${angle}deg)">P.${idx+1}</div>
+      <span class="page-badge" id="badge-${idx}">${angle}°</span>
+      <div class="page-actions">
+        <button type="button" class="btn-rot" data-action="ccw" data-index="${idx}" title="Rotate 90° CCW">↺</button>
+        <button type="button" class="btn-rot" data-action="cw" data-index="${idx}" title="Rotate 90° CW">↻</button>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+  updateSummary();
+}
+
+async function handleFile(file){
+  if(!file||(!file.type.includes('pdf')&&!file.name.toLowerCase().endsWith('.pdf')))return;
+  currentFile=file;
+  try{
+    const bytes=await file.arrayBuffer();
+    const doc=await PDFLib.PDFDocument.load(bytes,{ignoreEncryption:true});
+    const pages=doc.getPages();
+    pageAngles=[];
+    initialAngles=[];
+    pages.forEach(p=>{
+      const rot=p.getRotation().angle||0;
+      pageAngles.push(rot);
+      initialAngles.push(rot);
+    });
+    $('doc-name').textContent=file.name;
+    $('doc-meta').textContent=`${formatBytes(file.size)} • ${pageAngles.length} pages`;
+    $('dropzone').style.display='none';
+    $('workspace').style.display='block';
+    renderGrid();
+  }catch(err){
+    alert(err.message.includes('encrypt')?'This PDF is password-protected. Please decrypt it first.':'Error reading PDF document.');
+  }
+}
+
+$('pdf-picker').addEventListener('change',e=>{if(e.target.files[0])handleFile(e.target.files[0]);});
+$('btn-change-file').addEventListener('click',()=>{
+  currentFile=null;
+  pageAngles=[];
+  initialAngles=[];
+  $('workspace').style.display='none';
+  $('dropzone').style.display='block';
+  $('pdf-picker').value='';
+  updateSummary();
+});
+
+const dropzone=$('dropzone');
+['dragenter','dragover'].forEach(n=>dropzone.addEventListener(n,e=>{e.preventDefault();dropzone.classList.add('dragover');}));
+['dragleave','drop'].forEach(n=>dropzone.addEventListener(n,e=>{e.preventDefault();dropzone.classList.remove('dragover');}));
+dropzone.addEventListener('drop',e=>{
+  if(e.dataTransfer.files[0])handleFile(e.dataTransfer.files[0]);
+});
+
+$('page-grid').addEventListener('click',e=>{
+  const btn=e.target.closest('button');
+  if(!btn)return;
+  const idx=Number(btn.dataset.index);
+  const act=btn.dataset.action;
+  if(act==='cw') pageAngles[idx]=(pageAngles[idx]+90)%360;
+  else if(act==='ccw') pageAngles[idx]=(pageAngles[idx]-90+360)%360;
+  const sheet=document.getElementById(`sheet-${idx}`);
+  const badge=document.getElementById(`badge-${idx}`);
+  if(sheet) sheet.style.transform=`rotate(${pageAngles[idx]}deg)`;
+  if(badge) badge.textContent=`${pageAngles[idx]}°`;
+  updateSummary();
+});
+
+function rotateBatch(filterFn,delta){
+  pageAngles=pageAngles.map((angle,idx)=>{
+    if(filterFn(idx)){
+      return (angle+delta+360)%360;
+    }
+    return angle;
+  });
+  renderGrid();
+}
+
+$('btn-all-cw').addEventListener('click',()=>rotateBatch(()=>true,90));
+$('btn-all-ccw').addEventListener('click',()=>rotateBatch(()=>true,-90));
+$('btn-all-180').addEventListener('click',()=>rotateBatch(()=>true,180));
+$('btn-odds').addEventListener('click',()=>rotateBatch(idx=>idx%2===0,90));
+$('btn-evens').addEventListener('click',()=>rotateBatch(idx=>idx%2!==0,90));
+$('btn-reset-rot').addEventListener('click',()=>{
+  pageAngles=[...initialAngles];
+  renderGrid();
+});
+
+$('btn-save').addEventListener('click',async()=>{
+  if(!currentFile||pageAngles.length===0)return;
+  $('btn-save').disabled=true;
+  $('stat-status').textContent='Applying rotation...';
+  try{
+    const fileBytes=await currentFile.arrayBuffer();
+    const doc=await PDFLib.PDFDocument.load(fileBytes);
+    const pages=doc.getPages();
+    pages.forEach((page,idx)=>{
+      page.setRotation(PDFLib.degrees(pageAngles[idx]));
+    });
+    const savedBytes=await doc.save();
+    const blob=new Blob([savedBytes],{type:'application/pdf'});
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(blob);
+    a.download=`rotated-${currentFile.name}`;
+    a.click();
+    $('stat-status').textContent='Document saved successfully!';
+  }catch(err){
+    $('stat-status').textContent='Error: '+err.message;
+  }finally{
+    $('btn-save').disabled=false;
+  }
+});
+
+})();
+</script>
+</body>
+</html>
