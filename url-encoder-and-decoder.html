@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Encode and decode URLs, query strings, and URI components online in real time. Inspect URL components, parse query parameters, and convert special characters.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#173d35">
+<link rel="canonical" href="https://toolvantas.pages.dev/url-encoder-and-decoder.html">
+<title>URL Encoder and Decoder — Percent-Encoding &amp; Parser | Toolvantas</title>
+<link rel="stylesheet" href="/site.css">
+<script src="/site.js" defer></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "URL Encoder and Decoder",
+  "url": "https://toolvantas.pages.dev/url-encoder-and-decoder.html",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "description": "Percent-encode and decode URI strings, inspect query parameters, and validate URL structure.",
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+}
+</script>
+<style>
+.url-layout{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:22px;align-items:start}
+.editor-card,.results,.content-card{padding:22px;border:1px solid var(--line);border-radius:14px;background:#fff;min-width:0}
+.editor-card h2,.results h2,.content-card h2{margin:0 0 8px;font-size:1.2rem}
+.muted{color:var(--muted);font-size:.88rem;line-height:1.55}
+.mode-toggle{display:flex;gap:8px;margin:14px 0}
+.mode-btn{flex:1;padding:9px;border:1px solid var(--line);border-radius:8px;background:#fbfcfb;font:inherit;font-weight:750;cursor:pointer;color:var(--muted)}
+.mode-btn.active{background:var(--forest);color:#fff;border-color:var(--forest)}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:.84rem;font-weight:750;margin-bottom:5px}
+.text-area{box-sizing:border-box;width:100%;height:160px;padding:12px;border:1px solid #cfdad2;border-radius:8px;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:.85rem;line-height:1.5;color:var(--ink);resize:vertical}
+.text-area:focus-visible,select:focus-visible,button:focus-visible{outline:3px solid #8bb7a5;outline-offset:2px}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.actions button{cursor:pointer;font:inherit;font-weight:700;min-height:38px}
+.secondary{padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:white;color:var(--ink);font-size:.84rem}
+.param-table{width:100%;border-collapse:collapse;margin-top:12px;font-size:.82rem}
+.param-table th{text-align:left;background:#f3f7f4;padding:8px 10px;border-bottom:1px solid var(--line);font-weight:750;color:var(--ink)}
+.param-table td{padding:8px 10px;border-bottom:1px solid #eef2ef;word-break:break-all}
+.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:14px 0}
+.tile{padding:10px;border:1px solid #e0e9e1;border-radius:8px;background:#fcfdfc;min-width:0}
+.tile span{display:block;color:var(--muted);font-size:.72rem}
+.tile strong{display:block;margin-top:2px;font-size:.9rem}
+.content-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.content-card p,.content-card li{color:#52675d;font-size:.93rem;line-height:1.75}
+.content-card ul{padding-left:22px}
+.faq-list details{border-bottom:1px solid var(--line);padding:14px 0}
+.faq-list summary{cursor:pointer;font-weight:750;line-height:1.5}
+.faq-list details p{margin:10px 0 0}
+@media(max-width:760px){.url-layout,.content-grid{grid-template-columns:1fr}.tiles{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="container header-inner">
+<a class="brand" href="/" aria-label="Toolvantas home"><span class="brand-mark" aria-hidden="true">T</span><span>Toolvantas</span></a>
+<button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+<nav class="primary-nav" id="primary-nav" aria-label="Main navigation"><a href="/">Home</a><a href="/tools.html">All tools</a><a href="/#about">About</a></nav>
+</div></header>
+<main id="main">
+<section class="page-hero"><div class="container">
+<p class="eyebrow">Developer utility</p>
+<h1>URL Encoder and Decoder</h1>
+<p>Encode special characters into RFC-compliant percent-encoded format or decode URLs back into clean text. Features real-time parameter parsing and standard selection.</p>
+</div></section>
+<section class="section"><div class="container"><div class="url-layout">
+<div class="editor-card">
+<div class="mode-toggle">
+<button type="button" class="mode-btn active" id="btn-mode-encode">Encode Mode</button>
+<button type="button" class="mode-btn" id="btn-mode-decode">Decode Mode</button>
+</div>
+<div class="field">
+<label for="url-input" id="lbl-input">Input String or URL</label>
+<textarea id="url-input" class="text-area" placeholder="Type or paste text/URL here..." spellcheck="false">https://example.com/search?query=freelance rates &amp; category=UI/UX Design &amp; page=1</textarea>
+</div>
+<div style="display:flex;gap:10px;align-items:center;margin-bottom:12px">
+<label for="encode-standard" style="font-size:.82rem;font-weight:750">Standard:</label>
+<select id="encode-standard" style="padding:6px 10px;border-radius:6px;border:1px solid #cfdad2;font:inherit;font-size:.82rem;background:#fff">
+<option value="component">encodeURIComponent (Full safe encoding for query values)</option>
+<option value="uri">encodeURI (Preserve protocol, host &amp; path slashes)</option>
+</select>
+</div>
+<div class="actions">
+<button type="button" class="button button-primary" id="btn-convert">Convert Now</button>
+<button type="button" class="secondary" id="btn-swap">Swap ⇄</button>
+<button type="button" class="secondary" id="btn-clear">Clear</button>
+</div>
+</div>
+<div class="results" aria-live="polite">
+<h2>Converted Output</h2>
+<textarea id="url-output" class="text-area" readonly placeholder="Output will appear here..." spellcheck="false"></textarea>
+<div class="tiles">
+<div class="tile"><span>Input Characters</span><strong id="stat-in">0</strong></div>
+<div class="tile"><span>Output Characters</span><strong id="stat-out">0</strong></div>
+</div>
+<div class="actions">
+<button type="button" class="button button-primary" id="btn-copy">Copy Converted Text</button>
+<span id="copy-status" class="muted" style="align-self:center;font-size:.82rem"></span>
+</div>
+<div id="url-inspector" style="margin-top:18px;display:none">
+<h3 style="font-size:.95rem;margin:0 0 6px">Parsed Query Parameters</h3>
+<table class="param-table">
+<thead><tr><th>Parameter Key</th><th>Value</th></tr></thead>
+<tbody id="params-tbody"></tbody>
+</table>
+</div>
+</div>
+</div></div></section>
+<section class="section" style="padding-top:0"><div class="container content-grid">
+<article class="content-card"><h2>How URL percent-encoding works</h2>
+<p>Uniform Resource Identifiers (URIs) must adhere to the ASCII character set. Any characters outside this range, as well as reserved structural characters, must be converted into their respective percent-encoded hex values.</p>
+<ul>
+<li><strong>Spaces:</strong> Replaced by <code>%20</code> (or <code>+</code> in historical form POST data).</li>
+<li><strong>Query Delimiters:</strong> <code>&amp;</code> becomes <code>%26</code>, <code>=</code> becomes <code>%3D</code>, and <code>?</code> becomes <code>%3F</code>.</li>
+<li><strong>Slashes &amp; Protocols:</strong> <code>/</code> becomes <code>%2F</code> and <code>:</code> becomes <code>%3A</code> when encoded with <code>encodeURIComponent</code>.</li>
+</ul>
+</article>
+<article class="content-card"><h2>encodeURI vs. encodeURIComponent</h2>
+<p>Understanding the distinction between these two encoding approaches is critical when working with web APIs:</p>
+<ul>
+<li><strong>Use encodeURI:</strong> When you are encoding an entire web URL (e.g. <code>https://example.com/products/item?ref=web</code>). It keeps <code>http://</code>, slashes, and question marks intact while encoding spaces and Unicode characters.</li>
+<li><strong>Use encodeURIComponent:</strong> When encoding individual query parameter values (e.g. passing a search phrase or redirect URL). It encodes slashes, ampersands, and equal signs to prevent parameter injection.</li>
+</ul>
+</article>
+</div></section>
+<section class="section" style="padding-top:0"><div class="container content-card faq-list">
+<h2>Frequently asked questions</h2>
+<details><summary>Why do URLs need to be encoded?</summary><p>URLs can only travel across HTTP/HTTPS networks using ASCII characters. Encoding ensures international characters, spaces, and reserved symbols do not break web server routing or API parameter structures.</p></details>
+<details><summary>Does this tool work securely offline?</summary><p>Yes. All conversions and parameter extractions take place entirely inside your web browser. None of your links, search terms, or API tokens are sent over the network.</p></details>
+<details><summary>What does the Query Parameters table show?</summary><p>When a decoded link contains URL query arguments (such as <code>?user=123&amp;category=books</code>), the inspector automatically parses them into individual key-value rows for easy inspection.</p></details>
+</div></section>
+</main>
+<footer class="site-footer"><div class="container footer-top">
+<a class="brand brand-footer" href="/"><span class="brand-mark" aria-hidden="true">T</span><span>Toolvantas</span></a><p>Practical tools for everyday tasks.</p>
+<nav aria-label="Footer navigation"><a href="/">Home</a><a href="/tools.html">All tools</a><a href="/#about">About</a></nav>
+</div><div class="container footer-bottom"><small>© <span data-current-year>2026</span> Toolvantas</small><small>Built to be useful.</small></div></footer>
+<script>
+(()=> {
+'use strict';
+const $=id=>document.getElementById(id);
+let mode='encode';
+const input=$('url-input'),output=$('url-output');
+
+function escapeHtml(s){
+  return s.replace(/[&<>'"]/g,t=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[t]));
+}
+
+function inspectParams(raw){
+  const inspector=$('url-inspector');
+  const tbody=$('params-tbody');
+  tbody.innerHTML='';
+  try{
+    let url;
+    if(raw.startsWith('http://')||raw.startsWith('https://')){
+      url=new URL(raw);
+    }else if(raw.includes('?')||raw.includes('=')){
+      url=new URL(raw.startsWith('?')?raw:`?${raw}`,'http://dummy.local');
+    }
+    if(url){
+      const params=[...url.searchParams.entries()];
+      if(params.length>0){
+        params.forEach(([k,v])=>{
+          const tr=document.createElement('tr');
+          tr.innerHTML=`<td><strong>${escapeHtml(k)}</strong></td><td>${escapeHtml(v)}</td>`;
+          tbody.appendChild(tr);
+        });
+        inspector.style.display='block';
+        return;
+      }
+    }
+  }catch{}
+  inspector.style.display='none';
+}
+
+function convert(){
+  const str=input.value;
+  $('stat-in').textContent=str.length;
+  if(!str){
+    output.value='';
+    $('stat-out').textContent='0';
+    $('url-inspector').style.display='none';
+    return;
+  }
+  try{
+    if(mode==='encode'){
+      const type=$('encode-standard').value;
+      output.value=type==='uri'?encodeURI(str):encodeURIComponent(str);
+      inspectParams(str);
+    }else{
+      output.value=decodeURIComponent(str.replace(/\+/g,' '));
+      inspectParams(output.value);
+    }
+    $('stat-out').textContent=output.value.length;
+  }catch(err){
+    output.value='Malformed URL sequence: '+err.message;
+    $('stat-out').textContent='0';
+    $('url-inspector').style.display='none';
+  }
+}
+
+$('btn-mode-encode').addEventListener('click',()=>{
+  mode='encode';
+  $('btn-mode-encode').classList.add('active');
+  $('btn-mode-decode').classList.remove('active');
+  $('lbl-input').textContent='Input Text or URL to Encode';
+  convert();
+});
+
+$('btn-mode-decode').addEventListener('click',()=>{
+  mode='decode';
+  $('btn-mode-decode').classList.add('active');
+  $('btn-mode-encode').classList.remove('active');
+  $('lbl-input').textContent='Input Encoded URL to Decode';
+  convert();
+});
+
+input.addEventListener('input',convert);
+$('encode-standard').addEventListener('change',convert);
+$('btn-convert').addEventListener('click',convert);
+
+$('btn-swap').addEventListener('click',()=>{
+  const temp=input.value;
+  input.value=output.value;
+  output.value=temp;
+  mode=mode==='encode'?'decode':'encode';
+  $('btn-mode-encode').classList.toggle('active',mode==='encode');
+  $('btn-mode-decode').classList.toggle('active',mode==='decode');
+  $('lbl-input').textContent=mode==='encode'?'Input Text or URL to Encode':'Input Encoded URL to Decode';
+  convert();
+});
+
+$('btn-clear').addEventListener('click',()=>{
+  input.value='';
+  output.value='';
+  $('stat-in').textContent='0';
+  $('stat-out').textContent='0';
+  $('url-inspector').style.display='none';
+});
+
+$('btn-copy').addEventListener('click',async()=>{
+  if(!output.value)return;
+  try{
+    await navigator.clipboard.writeText(output.value);
+    $('copy-status').textContent='Copied to clipboard!';
+    setTimeout(()=>{$('copy-status').textContent='';},2000);
+  }catch{
+    alert('Failed to copy. Please copy manually.');
+  }
+});
+
+convert();
+})();
+</script>
+</body>
+</html>
