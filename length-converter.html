@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Convert between meters, feet, inches, centimeters, kilometers, miles, and yards. Features live multi-unit comparison, feet+inches height converter, and exact formulas.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#173d35">
+<link rel="canonical" href="https://toolvantas.pages.dev/length-converter.html">
+<title>Length Converter — Metric, Imperial &amp; Height Calculator | Toolvantas</title>
+<link rel="stylesheet" href="/site.css">
+<script src="/site.js" defer></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Length and Distance Converter",
+  "url": "https://toolvantas.pages.dev/length-converter.html",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "description": "Convert metric and imperial length units with live multi-unit matrix, feet-inches height calculator, and exact formulas.",
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+}
+</script>
+<style>
+.converter-layout{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(280px,.95fr);gap:22px;align-items:start}
+.converter-card,.results,.content-card{padding:22px;border:1px solid var(--line);border-radius:14px;background:#fff;min-width:0}
+.converter-card h2,.results h2,.content-card h2{margin:0 0 8px;font-size:1.2rem}
+.muted{color:var(--muted);font-size:.88rem;line-height:1.55}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.field{min-width:0}
+.field label{display:block;font-size:.84rem;font-weight:750;margin-bottom:5px}
+.field input,.field select{box-sizing:border-box;width:100%;min-height:44px;padding:9px 10px;border:1px solid #cfdad2;border-radius:8px;background:#fff;color:var(--ink);font:inherit}
+.field input:focus-visible,.field select:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #8bb7a5;outline-offset:2px}
+.field small{display:block;color:var(--muted);font-size:.75rem;line-height:1.45;margin-top:4px}
+.unit-swap-wrap{display:flex;align-items:flex-end;justify-content:center;padding-bottom:4px}
+.btn-swap{min-height:44px;width:100%;border:1px solid var(--line);border-radius:8px;background:#f3f8f5;color:var(--forest);font-size:1.1rem;font-weight:bold;cursor:pointer;display:grid;place-items:center}
+.btn-swap:hover{background:#e3f1e9;border-color:#b7c9be}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.actions button{cursor:pointer;font:inherit;font-weight:700;min-height:40px}
+.secondary{padding:9px 13px;border:1px solid var(--line);border-radius:8px;background:white;color:var(--ink);font-size:.84rem}
+.presets{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.preset-btn{padding:5px 9px;border:1px solid #d0dfd5;border-radius:6px;background:#f9fbf9;font-size:.75rem;font-weight:750;cursor:pointer;color:#2d725e}
+.preset-btn:hover{background:#e8f2ec}
+.composite-box{margin-top:18px;padding:14px;border:1px solid #dce8dd;border-radius:10px;background:#f8faf8}
+.composite-box summary{cursor:pointer;font-weight:750;font-size:.85rem;color:var(--forest)}
+.composite-inputs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.big{display:block;font-size:clamp(1.9rem,3.8vw,2.7rem);font-weight:850;letter-spacing:-.05em;color:var(--forest);overflow-wrap:anywhere}
+.formula-callout{margin:14px 0;padding:10px 12px;border-radius:8px;background:#eef5f0;border-left:4px solid var(--forest);font-size:.82rem;font-family:ui-monospace,Menlo,Consolas,monospace;color:var(--ink)}
+.matrix-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:16px 0}
+.matrix-tile{padding:10px;border:1px solid #e0e9e1;border-radius:8px;background:#fff;min-width:0;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.matrix-tile span{display:block;color:var(--muted);font-size:.72rem}
+.matrix-tile strong{display:block;margin-top:2px;font-size:.88rem;overflow-wrap:anywhere}
+.tile-copy{border:none;background:#f3f7f4;border-radius:5px;padding:4px 7px;font-size:.7rem;font-weight:750;cursor:pointer;color:var(--forest);flex:0 0 auto}
+.tile-copy:hover{background:#dbe8dd}
+.content-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.content-card p,.content-card li{color:#52675d;font-size:.93rem;line-height:1.75}
+.content-card ul{padding-left:22px}
+.table-responsive{overflow-x:auto;margin:14px 0}
+.info-table{width:100%;border-collapse:collapse;font-size:.82rem}
+.info-table th{background:#f4f7f5;padding:8px 10px;text-align:left;border-bottom:1px solid var(--line);font-weight:750}
+.info-table td{padding:8px 10px;border-bottom:1px solid #eef2ef}
+.faq-list details{border-bottom:1px solid var(--line);padding:14px 0}
+.faq-list summary{cursor:pointer;font-weight:750;line-height:1.5}
+.faq-list details p{margin:10px 0 0}
+@media(max-width:760px){.converter-layout,.content-grid{grid-template-columns:1fr}}
+@media(max-width:440px){.fields,.matrix-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="container header-inner">
+<a class="brand" href="/" aria-label="Toolvantas home"><span class="brand-mark" aria-hidden="true">T</span><span>Toolvantas</span></a>
+<button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+<nav class="primary-nav" id="primary-nav" aria-label="Main navigation"><a href="/">Home</a><a href="/tools.html">All tools</a><a href="/#about">About</a></nav>
+</div></header>
+<main id="main">
+<section class="page-hero"><div class="container">
+<p class="eyebrow">Unit conversion tool</p>
+<h1>Length and Distance Converter</h1>
+<p>Convert seamlessly between metric, imperial, and nautical length units. Features live multi-unit comparison matrix, feet + inches height helper, and exact mathematical conversion equations.</p>
+</div></section>
+<section class="section"><div class="container"><div class="converter-layout">
+<div class="converter-card">
+<h2>Length Measurement</h2>
+<p class="muted">Enter a distance or dimension and choose your input and target units.</p>
+<div class="fields">
+<div class="field" style="grid-column:1 / -1">
+<label for="input-val">Value to Convert</label>
+<input id="input-val" type="number" step="any" value="10" placeholder="Enter number..." required>
+</div>
+<div class="field">
+<label for="unit-from">From Unit</label>
+<select id="unit-from">
+<optgroup label="Metric Units">
+<option value="m" selected>Meters (m)</option>
+<option value="km">Kilometers (km)</option>
+<option value="cm">Centimeters (cm)</option>
+<option value="mm">Millimeters (mm)</option>
+<option value="um">Micrometers (μm)</option>
+<option value="nm">Nanometers (nm)</option>
+</optgroup>
+<optgroup label="Imperial / US Customary">
+<option value="ft">Feet (ft)</option>
+<option value="in">Inches (in)</option>
+<option value="yd">Yards (yd)</option>
+<option value="mi">Miles (mi)</option>
+</optgroup>
+<optgroup label="Nautical Units">
+<option value="nmi">Nautical Miles (nmi)</option>
+</optgroup>
+</select>
+</div>
+<div class="field">
+<label for="unit-to">To Unit</label>
+<select id="unit-to">
+<optgroup label="Metric Units">
+<option value="m">Meters (m)</option>
+<option value="km">Kilometers (km)</option>
+<option value="cm">Centimeters (cm)</option>
+<option value="mm">Millimeters (mm)</option>
+<option value="um">Micrometers (μm)</option>
+<option value="nm">Nanometers (nm)</option>
+</optgroup>
+<optgroup label="Imperial / US Customary">
+<option value="ft" selected>Feet (ft)</option>
+<option value="in">Inches (in)</option>
+<option value="yd">Yards (yd)</option>
+<option value="mi">Miles (mi)</option>
+</optgroup>
+<optgroup label="Nautical Units">
+<option value="nmi">Nautical Miles (nmi)</option>
+</optgroup>
+</select>
+</div>
+<div class="field" style="grid-column:1 / -1">
+<label for="precision-select">Decimal Precision</label>
+<select id="precision-select">
+<option value="auto">Auto (Smart standard precision)</option>
+<option value="2">2 Decimal Places (0.01)</option>
+<option value="4" selected>4 Decimal Places (0.0001)</option>
+<option value="6">6 Decimal Places (0.000001)</option>
+<option value="8">8 Decimal Places (0.00000001)</option>
+</select>
+</div>
+</div>
+<div class="actions">
+<button type="button" class="button button-primary" id="btn-swap-units">⇄ Swap Units</button>
+<button type="button" class="secondary" id="btn-reset-defaults">Reset</button>
+</div>
+<div class="presets">
+<span class="muted" style="align-self:center;font-size:.75rem;font-weight:750;margin-right:2px">Presets:</span>
+<button type="button" class="preset-btn" data-val="1" data-from="m" data-to="ft">1 Meter → Feet</button>
+<button type="button" class="preset-btn" data-val="100" data-from="m" data-to="yd">100m Dash</button>
+<button type="button" class="preset-btn" data-val="5" data-from="km" data-to="mi">5K Run</button>
+<button type="button" class="preset-btn" data-val="26.219" data-from="mi" data-to="km">Marathon</button>
+</div>
+<details class="composite-box" id="composite-accordion">
+<summary>📐 Height / Blueprint Helper (Feet + Inches ⇄ CM)</summary>
+<div class="composite-inputs">
+<div class="field">
+<label for="comp-ft">Feet (ft)</label>
+<input type="number" id="comp-ft" min="0" step="1" value="5" placeholder="5">
+</div>
+<div class="field">
+<label for="comp-in">Inches (in)</label>
+<input type="number" id="comp-in" min="0" max="11.99" step="any" value="10" placeholder="10">
+</div>
+</div>
+<button type="button" class="secondary" id="btn-apply-comp" style="margin-top:10px;width:100%">Convert Height to Metric (CM / M)</button>
+</details>
+</div>
+<div class="results" aria-live="polite">
+<h2>Converted Result</h2>
+<p class="muted">Primary conversion output</p>
+<output class="big" id="primary-out">32.8084 ft</output>
+<div class="formula-callout" id="formula-box">10 m × 3.28084 = 32.8084 ft</div>
+<div class="actions" style="margin-top:0">
+<button type="button" class="button button-primary" id="btn-copy-main" style="width:100%">Copy Result</button>
+</div>
+<p id="copy-status" class="muted" style="font-size:.78rem;text-align:center;min-height:1.2em;margin:6px 0 12px"></p>
+<h3 style="font-size:.95rem;margin:16px 0 8px;color:var(--forest)">All Units Comparison Matrix</h3>
+<div class="matrix-grid" id="matrix-grid"></div>
+</div>
+</div></div></section>
+<section class="section" style="padding-top:0"><div class="container content-grid">
+<article class="content-card"><h2>Metric vs. Imperial length systems</h2>
+<p>Length and distance are measured using two primary international measurement frameworks:</p>
+<ul>
+<li><strong>The International Metric System (SI):</strong> Based on decimals and powers of 10 with the standard meter as its foundation. Kilometers ($10^3$), centimeters ($10^{-2}$), and millimeters ($10^{-3}$) simplify scale adjustments without complex fractions.</li>
+<li><strong>US Customary &amp; Imperial System:</strong> Uses historical units including inches, feet, yards, and miles. A foot contains 12 inches, a yard contains 3 feet (36 inches), and a statute mile contains 5,280 feet.</li>
+<li><strong>Nautical Distance:</strong> One nautical mile ($1,852\text{ meters}$) corresponds to one minute of latitude on Earth's surface, forming the global standard for maritime navigation and aviation.</li>
+</ul>
+</article>
+<article class="content-card"><h2>Standard length conversion factors table</h2>
+<div class="table-responsive">
+<table class="info-table">
+<thead>
+<tr>
+<th>Unit</th>
+<th>Equivalent in Meters</th>
+<th>Equivalent in Inches/Feet</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>1 Millimeter (mm)</td><td>0.001 m</td><td>0.03937 in</td></tr>
+<tr><td>1 Centimeter (cm)</td><td>0.01 m</td><td>0.3937 in</td></tr>
+<tr><td>1 Meter (m)</td><td>1.0 m</td><td>3.28084 ft (39.37 in)</td></tr>
+<tr><td>1 Kilometer (km)</td><td>1,000 m</td><td>0.62137 mi</td></tr>
+<tr><td>1 Inch (in)</td><td>0.0254 m (2.54 cm)</td><td>1.0 in</td></tr>
+<tr><td>1 Foot (ft)</td><td>0.3048 m (30.48 cm)</td><td>12 in</td></tr>
+<tr><td>1 Yard (yd)</td><td>0.9144 m</td><td>3 ft (36 in)</td></tr>
+<tr><td>1 Mile (mi)</td><td>1,609.344 m</td><td>5,280 ft</td></tr>
+<tr><td>1 Nautical Mile</td><td>1,852 m</td><td>6,076.12 ft</td></tr>
+</tbody>
+</table>
+</div>
+</article>
+</div></section>
+<section class="section" style="padding-top:0"><div class="container content-card faq-list">
+<h2>Frequently asked questions</h2>
+<details><summary>How many inches are in a centimeter, and how many centimeters are in an inch?</summary><p>By international treaty (1959), exactly 1 inch equals 2.54 centimeters. Conversely, 1 centimeter is approximately equal to 0.393701 inches.</p></details>
+<details><summary>How do I convert feet and inches (e.g. 5'10") to centimeters?</summary><p>Multiply the number of feet by 12 and add the remaining inches to calculate total inches, then multiply by 2.54. For example, 5 feet 10 inches equals 70 total inches, which multiplied by 2.54 gives exactly 177.8 centimeters.</p></details>
+<details><summary>What is the difference between a statute mile and a nautical mile?</summary><p>A statute mile (standard land mile) measures 5,280 feet or approximately 1,609.344 meters. A nautical mile is slightly longer at 1,852 meters (approx. 6,076.12 feet), designed around navigation along Earth's coordinates.</p></details>
+<details><summary>What base unit does this calculator use for internal conversion?</summary><p>All calculations normalize through the international standard meter (m) before scaling to target units, guaranteeing zero cumulative rounding drift across conversions.</p></details>
+<details><summary>Can this tool handle microscopic measurements like micrometers and nanometers?</summary><p>Yes. Micrometers (microns, $10^{-6}\text{ m}$) and nanometers ($10^{-9}\text{ m}$) are natively supported with high-precision decimal formatting.</p></details>
+</div></section>
+</main>
+<footer class="site-footer"><div class="container footer-top">
+<a class="brand brand-footer" href="/"><span class="brand-mark" aria-hidden="true">T</span><span>Toolvantas</span></a><p>Practical tools for everyday tasks.</p>
+<nav aria-label="Footer navigation"><a href="/">Home</a><a href="/tools.html">All tools</a><a href="/#about">About</a></nav>
+</div><div class="container footer-bottom"><small>© <span data-current-year>2026</span> Toolvantas</small><small>Built to be useful.</small></div></footer>
+<script>
+(()=> {
+'use strict';
+const $=id=>document.getElementById(id);
+
+// Ratio to 1 Meter (m)
+const rates={
+  m: 1,
+  km: 1000,
+  cm: 0.01,
+  mm: 0.001,
+  um: 1e-6,
+  nm: 1e-9,
+  mi: 1609.344,
+  yd: 0.9144,
+  ft: 0.3048,
+  in: 0.0254,
+  nmi: 1852
+};
+
+const unitNames={
+  m: 'Meters (m)',
+  km: 'Kilometers (km)',
+  cm: 'Centimeters (cm)',
+  mm: 'Millimeters (mm)',
+  um: 'Micrometers (μm)',
+  nm: 'Nanometers (nm)',
+  mi: 'Miles (mi)',
+  yd: 'Yards (yd)',
+  ft: 'Feet (ft)',
+  in: 'Inches (in)',
+  nmi: 'Nautical Miles (nmi)'
+};
+
+function formatNum(num,precision){
+  if(isNaN(num)||!isFinite(num))return '0';
+  if(precision==='auto'){
+    if(Math.abs(num)>0&&Math.abs(num)<1e-4)return num.toExponential(4);
+    return Number(num.toFixed(6)).toString();
+  }
+  const p=Number(precision);
+  return num.toFixed(p);
+}
+
+function calculate(){
+  const raw=Number($('input-val').value);
+  const from=$('unit-from').value;
+  const to=$('unit-to').value;
+  const prec=$('precision-select').value;
+
+  if(isNaN(raw)){
+    $('primary-out').textContent='—';
+    $('formula-box').textContent='Please enter a valid numeric value.';
+    return;
+  }
+
+  // Convert input to Base Meter
+  const meters=raw*rates[from];
+  // Convert from Base Meter to Target Unit
+  const converted=meters/rates[to];
+
+  $('primary-out').textContent=`${formatNum(converted,prec)} ${to}`;
+
+  // Build formula breakdown
+  const factor=rates[from]/rates[to];
+  const factorStr=Math.abs(factor)<1e-4||Math.abs(factor)>1e5?factor.toExponential(4):Number(factor.toFixed(6)).toString();
+  $('formula-box').textContent=`${raw} ${from} × ${factorStr} = ${formatNum(converted,prec)} ${to}`;
+
+  // Populate Matrix
+  const matrix=$('matrix-grid');
+  matrix.innerHTML='';
+  Object.keys(rates).forEach(u=>{
+    const val=meters/rates[u];
+    const formatted=formatNum(val,prec);
+    const tile=document.createElement('div');
+    tile.className='matrix-tile';
+    tile.innerHTML=`
+      <div>
+        <span>${unitNames[u]}</span>
+        <strong>${formatted} ${u}</strong>
+      </div>
+      <button type="button" class="tile-copy" data-copy="${formatted} ${u}">Copy</button>
+    `;
+    matrix.appendChild(tile);
+  });
+}
+
+$('input-val').addEventListener('input',calculate);
+$('unit-from').addEventListener('change',calculate);
+$('unit-to').addEventListener('change',calculate);
+$('precision-select').addEventListener('change',calculate);
+
+$('btn-swap-units').addEventListener('click',()=>{
+  const f=$('unit-from').value;
+  const t=$('unit-to').value;
+  $('unit-from').value=t;
+  $('unit-to').value=f;
+  calculate();
+});
+
+$('btn-reset-defaults').addEventListener('click',()=>{
+  $('input-val').value='10';
+  $('unit-from').value='m';
+  $('unit-to').value='ft';
+  $('precision-select').value='4';
+  calculate();
+});
+
+document.querySelectorAll('.preset-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    $('input-val').value=btn.dataset.val;
+    $('unit-from').value=btn.dataset.from;
+    $('unit-to').value=btn.dataset.to;
+    calculate();
+  });
+});
+
+$('btn-apply-comp').addEventListener('click',()=>{
+  const ft=Number($('comp-ft').value)||0;
+  const inch=Number($('comp-in').value)||0;
+  const totalInches=(ft*12)+inch;
+  const cm=totalInches*2.54;
+  $('input-val').value=Number(cm.toFixed(2));
+  $('unit-from').value='cm';
+  $('unit-to').value='ft';
+  calculate();
+  $('composite-accordion').open=false;
+});
+
+$('btn-copy-main').addEventListener('click',async()=>{
+  const txt=$('primary-out').textContent;
+  try{
+    await navigator.clipboard.writeText(txt);
+    $('copy-status').textContent=`Copied "${txt}" to clipboard!`;
+    setTimeout(()=>{$('copy-status').textContent='';},2500);
+  }catch{
+    $('copy-status').textContent='Clipboard unavailable. Please copy manually.';
+  }
+});
+
+$('matrix-grid').addEventListener('click',async e=>{
+  const btn=e.target.closest('.tile-copy');
+  if(!btn)return;
+  const str=btn.dataset.copy;
+  try{
+    await navigator.clipboard.writeText(str);
+    const orig=btn.textContent;
+    btn.textContent='✓';
+    setTimeout(()=>{btn.textContent=orig;},1500);
+  }catch{}
+});
+
+calculate();
+})();
+</script>
+</body>
+</html>
