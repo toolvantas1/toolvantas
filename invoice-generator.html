@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Free online invoice generator for freelancers and small businesses. Create, calculate, customize, and print clean PDF invoices instantly with no watermarks.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#173d35">
+<link rel="canonical" href="https://toolvantas.pages.dev/invoice-generator.html">
+<title>Free Invoice Generator &amp; PDF Maker — No Sign-up | Toolvantas</title>
+<link rel="stylesheet" href="/site.css">
+<script src="/site.js" defer></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Free Invoice Generator",
+  "url": "https://toolvantas.pages.dev/invoice-generator.html",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Any",
+  "description": "Create customizable freelance and business invoices with automatic totals, taxes, discounts, and print-to-PDF export.",
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+}
+</script>
+<style>
+.invoice-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(320px,.85fr);gap:24px;align-items:start}
+.editor-card,.preview-card,.content-card{padding:24px;border:1px solid var(--line);border-radius:14px;background:#fff;min-width:0}
+.editor-card h2,.preview-card h2,.content-card h2{margin:0 0 12px;font-size:1.25rem}
+.section-subhead{font-size:.9rem;font-weight:800;color:var(--forest);margin:18px 0 8px;text-transform:uppercase;letter-spacing:.05em}
+.form-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:12px}
+.field{min-width:0}
+.field label{display:block;font-size:.82rem;font-weight:750;margin-bottom:4px}
+.field input,.field select,.field textarea{box-sizing:border-box;width:100%;min-height:42px;padding:8px 10px;border:1px solid #cfdad2;border-radius:8px;background:#fff;color:var(--ink);font:inherit}
+.field textarea{min-height:70px;resize:vertical}
+.field input:focus-visible,.field select:focus-visible,.field textarea:focus-visible,button:focus-visible{outline:3px solid #8bb7a5;outline-offset:2px}
+.items-table{width:100%;border-collapse:collapse;margin:12px 0}
+.items-table th{text-align:left;font-size:.78rem;font-weight:750;color:var(--muted);padding:8px 6px;border-bottom:1px solid var(--line)}
+.items-table td{padding:6px;vertical-align:middle}
+.items-table input{width:100%;min-height:38px;padding:6px 8px;border:1px solid #cfdad2;border-radius:6px;font:inherit}
+.item-actions{text-align:center}
+.btn-delete{border:none;background:#fce8e8;color:#a82d2d;border-radius:6px;width:32px;height:32px;cursor:pointer;font-weight:bold;font-size:1rem}
+.btn-delete:hover{background:#f8cfcf}
+.btn-add{margin-top:6px;padding:8px 14px;border:1px dashed #2d725e;border-radius:8px;background:#f3f8f5;color:#2d725e;font-weight:750;cursor:pointer}
+.btn-add:hover{background:#e3f1e9}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.actions button{cursor:pointer;font:inherit;font-weight:750;min-height:42px}
+.secondary{padding:10px 14px;border:1px solid var(--line);border-radius:9px;background:white;color:var(--ink)}
+
+/* Invoice Live Preview Paper */
+.invoice-paper{background:#fff;border:1px solid #dce5df;border-radius:10px;padding:26px;box-shadow:0 8px 24px rgba(0,0,0,.03);color:#1c2d27}
+.inv-header{display:flex;justify-content:space-between;border-bottom:2px solid var(--forest);padding-bottom:16px;margin-bottom:18px}
+.inv-title{font-size:1.8rem;font-weight:850;color:var(--forest);margin:0}
+.inv-meta-list{text-align:right;font-size:.82rem;color:var(--muted)}
+.inv-parties{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;font-size:.84rem}
+.inv-parties strong{display:block;color:var(--forest);margin-bottom:4px;font-size:.88rem}
+.inv-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.85rem}
+.inv-table th{background:#f4f7f5;padding:8px;text-align:left;border-bottom:1px solid #d5e0d8;font-weight:750}
+.inv-table td{padding:10px 8px;border-bottom:1px solid #eef2ef}
+.inv-table .text-right{text-align:right}
+.inv-summary{margin-left:auto;width:60%;margin-top:14px;font-size:.85rem}
+.summary-line{display:flex;justify-content:space-between;padding:5px 0}
+.summary-total{display:flex;justify-content:space-between;padding:8px 0;border-top:2px solid var(--forest);font-size:1.1rem;font-weight:850;color:var(--forest)}
+.inv-notes{margin-top:24px;padding-top:14px;border-top:1px dashed #dbe5de;font-size:.8rem;color:var(--muted)}
+
+/* Print Specific Layout */
+@media print{
+ @page{size:auto;margin:12mm}
+ body{background:#fff;color:#000}
+ .site-header,.page-hero,.editor-card,.content-grid,.faq-list,.site-footer,.actions,.skip-link,#copy-status{display:none!important}
+ .section{padding:0!important}
+ .container{width:100%!important;max-width:none!important;margin:0!important;padding:0!important}
+ .invoice-grid{display:block!important}
+ .preview-card{border:none!important;padding:0!important}
+ .invoice-paper{box-shadow:none!important;border:none!important;padding:0!important;width:100%!important}
+}
+
+@media(max-width:850px){.invoice-grid{grid-template-columns:1fr}.inv-summary{width:100%}}
+@media(max-width:480px){.form-row{grid-template-columns:1fr}.items-table th:nth-child(2),.items-table td:nth-child(2){width:50px}}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="container header-inner">
+<a class="brand" href="/" aria-label="Toolvantas home"><span class="brand-mark" aria-hidden="true">T</span><span>Toolvantas</span></a>
+<button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+<nav class="primary-nav" id="primary-nav" aria-label="Main navigation"><a href="/">Home</a><a href="/tools.html">All tools</a><a href="/#about">About</a></nav>
+</div></header>
+<main id="main">
+<section class="page-hero"><div class="container">
+<p class="eyebrow">Business &amp; billing tool</p>
+<h1>Free Online Invoice Generator</h1>
+<p>Create sleek, accurate, and print-ready invoices in seconds. Customize currency, itemized hours or products, discounts, and tax rates. Print directly to clean PDF with no watermarks or accounts.</p>
+</div></section>
+<section class="section"><div class="container"><div class="invoice-grid">
+<!-- Editor Column -->
+<div class="editor-card">
+<h2>Invoice Details</h2>
+<p class="muted">Fill out the information below. The live invoice preview will update automatically.</p>
+<div class="section-subhead">From (Your Details)</div>
+<div class="form-row">
+<div class="field"><label for="from-name">Business / Freelancer Name</label><input id="from-name" type="text" value="Apex Studio" required></div>
+<div class="field"><label for="from-email">Email Address</label><input id="from-email" type="email" value="hello@apexstudio.design"></div>
+</div>
+<div class="field"><label for="from-address">Address &amp; Tax / VAT ID</label><textarea id="from-address" rows="2">124 Innovation Way, Suite 4B
+Tax ID: US-9842103</textarea></div>
+<div class="section-subhead">Bill To (Client Details)</div>
+<div class="form-row">
+<div class="field"><label for="to-name">Client Contact / Company</label><input id="to-name" type="text" value="Acme Global Inc." required></div>
+<div class="field"><label for="to-email">Client Email</label><input id="to-email" type="email" value="billing@acmeglobal.com"></div>
+</div>
+<div class="field"><label for="to-address">Client Billing Address</label><textarea id="to-address" rows="2">800 Market Street, 12th Floor
+San Francisco, CA 94102</textarea></div>
+<div class="section-subhead">Invoice Metadata</div>
+<div class="form-row">
+<div class="field"><label for="inv-number">Invoice Number</label><input id="inv-number" type="text" value="INV-2026-001"></div>
+<div class="field"><label for="currency">Currency</label><select id="currency"><option value="USD">USD ($)</option><option value="EUR">EUR (€)</option><option value="GBP">GBP (£)</option><option value="CAD">CAD ($)</option><option value="AUD">AUD ($)</option><option value="BDT">BDT (৳)</option><option value="INR">INR (₹)</option><option value="PKR">PKR (Rs)</option></select></div>
+</div>
+<div class="form-row">
+<div class="field"><label for="inv-date">Issue Date</label><input id="inv-date" type="date"></div>
+<div class="field"><label for="inv-due">Due Date</label><input id="inv-due" type="date"></div>
+</div>
+<div class="section-subhead">Line Items</div>
+<table class="items-table">
+<thead>
+<tr>
+<th style="width:48%">Description</th>
+<th style="width:16%">Qty/Hrs</th>
+<th style="width:22%">Rate</th>
+<th style="width:14%"></th>
+</tr>
+</thead>
+<tbody id="items-tbody">
+<!-- Dynamic item rows injected by JS -->
+</tbody>
+</table>
+<button type="button" class="btn-add" id="add-item">+ Add Line Item</button>
+<div class="section-subhead">Discounts &amp; Taxes</div>
+<div class="form-row">
+<div class="field"><label for="discount-rate">Discount (%)</label><input id="discount-rate" type="number" min="0" max="100" step="0.5" value="0"></div>
+<div class="field"><label for="tax-rate">Tax / VAT (%)</label><input id="tax-rate" type="number" min="0" max="100" step="0.5" value="8.5"></div>
+</div>
+<div class="section-subhead">Payment Terms &amp; Notes</div>
+<div class="field"><label for="inv-notes-input">Notes / Bank Details</label><textarea id="inv-notes-input" rows="3">Payment due within 14 days of issue date.
+Wire Transfer: Bank of America | Routing: 121000358 | Acct: 9482710492</textarea></div>
+<div class="actions">
+<button type="button" class="button button-primary" id="btn-print">🖨️ Print / Save as PDF</button>
+<button type="button" class="secondary" id="btn-copy">Copy invoice summary</button>
+<button type="button" class="secondary" id="btn-reset">Reset</button>
+</div>
+<p id="copy-status" class="muted" style="margin-top:10px;min-height:1.2em;" aria-live="polite"></p>
+</div>
+<!-- Live Preview Column -->
+<div class="preview-card">
+<h2>Invoice Preview</h2>
+<div class="invoice-paper" id="invoice-preview">
+<div class="inv-header">
+<div>
+<h3 class="inv-title">INVOICE</h3>
+<div style="font-weight:750;margin-top:4px" id="p-from-name">Apex Studio</div>
+</div>
+<div class="inv-meta-list">
+<div><strong>Invoice:</strong> <span id="p-number">INV-2026-001</span></div>
+<div><strong>Date:</strong> <span id="p-date">2026-04-15</span></div>
+<div><strong>Due:</strong> <span id="p-due">2026-04-29</span></div>
+</div>
+</div>
+<div class="inv-parties">
+<div>
+<strong>From:</strong>
+<div id="p-from-details" style="white-space:pre-line;line-height:1.4">124 Innovation Way, Suite 4B
+Tax ID: US-9842103
+hello@apexstudio.design</div>
+</div>
+<div>
+<strong>Billed To:</strong>
+<div id="p-to-name" style="font-weight:700">Acme Global Inc.</div>
+<div id="p-to-details" style="white-space:pre-line;line-height:1.4">800 Market Street, 12th Floor
+San Francisco, CA 94102
+billing@acmeglobal.com</div>
+</div>
+</div>
+<table class="inv-table">
+<thead>
+<tr>
+<th>Description</th>
+<th class="text-right">Qty</th>
+<th class="text-right">Rate</th>
+<th class="text-right">Amount</th>
+</tr>
+</thead>
+<tbody id="p-items-tbody">
+<!-- Rendered preview rows -->
+</tbody>
+</table>
+<div class="inv-summary">
+<div class="summary-line"><span>Subtotal:</span><strong id="p-subtotal">$0.00</strong></div>
+<div class="summary-line" id="p-discount-row"><span>Discount:</span><strong id="p-discount">-$0.00</strong></div>
+<div class="summary-line" id="p-tax-row"><span>Tax:</span><strong id="p-tax">$0.00</strong></div>
+<div class="summary-total"><span>Total Due:</span><span id="p-total">$0.00</span></div>
+</div>
+<div class="inv-notes">
+<strong>Notes &amp; Terms:</strong>
+<div id="p-notes" style="white-space:pre-line;margin-top:4px">Payment due within 14 days.</div>
+</div>
+</div>
+</div>
+</div></div></section>
+<section class="section" style="padding-top:0"><div class="container content-grid">
+<article class="content-card"><h2>How to create an invoice that gets paid fast</h2>
+<p>An effective invoice eliminates ambiguity for accounting departments and clients. Following standard invoice best practices ensures faster payouts and reduces payment disputes.</p>
+<ul>
+<li><strong>Clear invoice numbering:</strong> Use a sequential or year-based numbering pattern (e.g. <code>INV-2026-001</code>) so accounts payable can track the bill.</li>
+<li><strong>Precise line items:</strong> Detail the specific scope, milestones, or hours delivered rather than a generic single line description.</li>
+<li><strong>Visible payment terms:</strong> State explicit due dates and accepted payment methods (direct deposit, ACH, wire details, or online gateway links).</li>
+<li><strong>Tax IDs:</strong> If registered for sales tax, VAT, or GST, state your registration number clearly at the top.</li>
+</ul>
+</article>
+<article class="content-card"><h2>Print &amp; PDF Exporting Instructions</h2>
+<ul>
+<li>Click the <strong>Print / Save as PDF</strong> button at the bottom of the editor.</li>
+<li>In the browser print dialog that appears, set the destination printer to <strong>Save as PDF</strong>.</li>
+<li>Under <em>More settings</em>, set Margins to <strong>Default</strong> or <strong>Minimum</strong>, and make sure <strong>Background graphics</strong> is checked so table headers render cleanly.</li>
+<li>The layout automatically suppresses all web controls, navigation bars, and footers, creating a crisp, single-page professional invoice document.</li>
+</ul>
+</article>
+</div></section>
+<section class="section" style="padding-top:0"><div class="container content-card faq-list">
+<h2>Frequently asked questions</h2>
+<details><summary>Is this invoice generator completely free?</summary><p>Yes, 100% free with no watermarks, limitations, or account sign-ups. Your data stays entirely in your web browser.</p></details>
+<details><summary>How do I download the invoice as a PDF file?</summary><p>Click the "Print / Save as PDF" button. In your browser's print dialog, choose "Save as PDF" as the destination printer. Your invoice will be downloaded directly to your device.</p></details>
+<details><summary>Is my client or financial data saved on any server?</summary><p>No. All calculations and previews run completely inside your local browser. No financial data or contact details are sent to any remote server.</p></details>
+<details><summary>Can I bill in multiple currencies?</summary><p>Yes. You can switch between USD, EUR, GBP, CAD, AUD, BDT, INR, and PKR from the currency dropdown.</p></details>
+</div></section>
+</main>
+<footer class="site-footer"><div class="container footer-top">
+<a class="brand brand-footer" href="/"><span class="brand-mark" aria-hidden="true">T</span><span>Toolvantas</span></a><p>Practical tools for everyday tasks.</p>
+<nav aria-label="Footer navigation"><a href="/">Home</a><a href="/tools.html">All tools</a><a href="/#about">About</a></nav>
+</div><div class="container footer-bottom"><small>© <span data-current-year>2026</span> Toolvantas</small><small>Built to be useful.</small></div></footer>
+<script>
+(()=> {
+'use strict';
+const $=id=>document.getElementById(id);
+const currency=()=>$('currency').value;
+const fmt=n=>new Intl.NumberFormat('en-US',{style:'currency',currency:currency(),maximumFractionDigits:2}).format(n);
+let items=[
+  {desc:'Brand Strategy & Website Redesign',qty:1,rate:2400},
+  {desc:'Frontend Development & QA (Hours)',qty:18,rate:85}
+];
+const today=new Date();
+const pad=n=>String(n).padStart(2,'0');
+const formatDate=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+$('inv-date').value=formatDate(today);
+const dueDate=new Date(today);
+dueDate.setDate(dueDate.getDate()+14);
+$('inv-due').value=formatDate(dueDate);
+
+function renderItems(){
+  const tbody=$('items-tbody');
+  tbody.innerHTML='';
+  items.forEach((item,index)=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`
+      <td><input type="text" class="item-desc" data-index="${index}" value="${item.desc}"></td>
+      <td><input type="number" min="0" step="any" class="item-qty" data-index="${index}" value="${item.qty}"></td>
+      <td><input type="number" min="0" step="any" class="item-rate" data-index="${index}" value="${item.rate}"></td>
+      <td class="item-actions"><button type="button" class="btn-delete" data-index="${index}" aria-label="Delete line item">×</button></td>
+    `;
+    tbody.appendChild(tr);
+  });
+  updateInvoice();
+}
+
+function updateInvoice(){
+  $('p-from-name').textContent=$('from-name').value||'Your Business';
+  const fromDetails=[$('from-address').value,$('from-email').value].filter(Boolean).join('\n');
+  $('p-from-details').textContent=fromDetails;
+  $('p-to-name').textContent=$('to-name').value||'Client Name';
+  const toDetails=[$('to-address').value,$('to-email').value].filter(Boolean).join('\n');
+  $('p-to-details').textContent=toDetails;
+  $('p-number').textContent=$('inv-number').value||'INV-001';
+  $('p-date').textContent=$('inv-date').value;
+  $('p-due').textContent=$('inv-due').value;
+  $('p-notes').textContent=$('inv-notes-input').value;
+  const pTbody=$('p-items-tbody');
+  pTbody.innerHTML='';
+  let subtotal=0;
+  items.forEach(item=>{
+    const lineTotal=(item.qty||0)*(item.rate||0);
+    subtotal+=lineTotal;
+    const tr=document.createElement('tr');
+    tr.innerHTML=`
+      <td>${item.desc||'Untitled Item'}</td>
+      <td class="text-right">${item.qty}</td>
+      <td class="text-right">${fmt(item.rate)}</td>
+      <td class="text-right">${fmt(lineTotal)}</td>
+    `;
+    pTbody.appendChild(tr);
+  });
+  const discountRate=Number($('discount-rate').value)||0;
+  const discountAmount=subtotal*(discountRate/100);
+  const afterDiscount=Math.max(0,subtotal-discountAmount);
+  const taxRate=Number($('tax-rate').value)||0;
+  const taxAmount=afterDiscount*(taxRate/100);
+  const total=afterDiscount+taxAmount;
+  $('p-subtotal').textContent=fmt(subtotal);
+  $('p-discount').textContent='-'+fmt(discountAmount);
+  $('p-tax').textContent=fmt(taxAmount);
+  $('p-total').textContent=fmt(total);
+}
+
+$('add-item').addEventListener('click',()=>{
+  items.push({desc:'',qty:1,rate:0});
+  renderItems();
+});
+
+$('items-tbody').addEventListener('input',e=>{
+  const index=e.target.dataset.index;
+  if(index===undefined)return;
+  if(e.target.classList.contains('item-desc'))items[index].desc=e.target.value;
+  if(e.target.classList.contains('item-qty'))items[index].qty=Number(e.target.value)||0;
+  if(e.target.classList.contains('item-rate'))items[index].rate=Number(e.target.value)||0;
+  updateInvoice();
+});
+
+$('items-tbody').addEventListener('click',e=>{
+  if(e.target.classList.contains('btn-delete')){
+    const index=Number(e.target.dataset.index);
+    if(items.length>1){
+      items.splice(index,1);
+      renderItems();
+    }else{
+      alert('Your invoice must have at least one line item.');
+    }
+  }
+});
+
+['from-name','from-email','from-address','to-name','to-email','to-address','inv-number','inv-date','inv-due','inv-notes-input','discount-rate','tax-rate'].forEach(id=>{
+  $(id).addEventListener('input',updateInvoice);
+});
+
+$('currency').addEventListener('change',()=>{renderItems();});
+$('btn-print').addEventListener('click',()=>{window.print();});
+$('btn-reset').addEventListener('click',()=>{
+  if(confirm('Reset invoice back to defaults?')){
+    items=[
+      {desc:'Brand Strategy & Website Redesign',qty:1,rate:2400},
+      {desc:'Frontend Development & QA (Hours)',qty:18,rate:85}
+    ];
+    $('from-name').value='Apex Studio';
+    $('from-email').value='hello@apexstudio.design';
+    $('from-address').value='124 Innovation Way, Suite 4B\nTax ID: US-9842103';
+    $('to-name').value='Acme Global Inc.';
+    $('to-email').value='billing@acmeglobal.com';
+    $('to-address').value='800 Market Street, 12th Floor\nSan Francisco, CA 94102';
+    $('inv-number').value='INV-2026-001';
+    $('discount-rate').value='0';
+    $('tax-rate').value='8.5';
+    $('inv-notes-input').value='Payment due within 14 days of issue date.\nWire Transfer: Bank of America | Routing: 121000358 | Acct: 9482710492';
+    renderItems();
+  }
+});
+
+$('btn-copy').addEventListener('click',async()=>{
+  const summary=`Invoice ${$('p-number').textContent} Summary
+Billed to: ${$('p-to-name').textContent}
+Subtotal: ${$('p-subtotal').textContent}
+Tax: ${$('p-tax').textContent}
+Total Due: ${$('p-total').textContent}
+Due Date: ${$('p-due').textContent}`;
+  try{
+    await navigator.clipboard.writeText(summary);
+    $('copy-status').textContent='Invoice summary copied to clipboard.';
+    setTimeout(()=>{$('copy-status').textContent='';},2500);
+  }catch{
+    $('copy-status').textContent='Clipboard unavailable. Please copy manually.';
+  }
+});
+
+renderItems();
+})();
+</script>
+</body>
+</html>
