@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Encode and decode HTML entities online. Convert special characters to named, decimal, or hex entities, decode HTML symbols back to raw text, or strip HTML tags.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#173d35">
+<link rel="canonical" href="https://toolvantas.pages.dev/html-entity-encoder-and-decoder.html">
+<title>HTML Entity Encoder and Decoder — Named &amp; Numeric | Toolvantas</title>
+<link rel="stylesheet" href="/site.css">
+<script src="/site.js" defer></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "HTML Entity Encoder and Decoder",
+  "url": "https://toolvantas.pages.dev/html-entity-encoder-and-decoder.html",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "description": "Convert special characters to HTML entities, decode numerical and named entities, and strip HTML tags safely.",
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+}
+</script>
+<style>
+.entity-layout{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:22px;align-items:start}
+.editor-card,.results,.content-card{padding:22px;border:1px solid var(--line);border-radius:14px;background:#fff;min-width:0}
+.editor-card h2,.results h2,.content-card h2{margin:0 0 8px;font-size:1.2rem}
+.muted{color:var(--muted);font-size:.88rem;line-height:1.55}
+.mode-toggle{display:flex;gap:8px;margin:14px 0}
+.mode-btn{flex:1;padding:9px;border:1px solid var(--line);border-radius:8px;background:#fbfcfb;font:inherit;font-weight:750;cursor:pointer;color:var(--muted)}
+.mode-btn.active{background:var(--forest);color:#fff;border-color:var(--forest)}
+.options-bar{display:flex;flex-wrap:wrap;gap:12px;margin:10px 0 14px}
+.tool-select{min-height:38px;padding:6px 10px;border:1px solid #cfdad2;border-radius:8px;font:inherit;font-size:.84rem;background:#fff}
+.text-area{box-sizing:border-box;width:100%;height:220px;padding:12px;border:1px solid #cfdad2;border-radius:8px;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:.85rem;line-height:1.5;color:var(--ink);resize:vertical}
+.text-area:focus-visible,button:focus-visible,.tool-select:focus-visible{outline:3px solid #8bb7a5;outline-offset:2px}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.actions button{cursor:pointer;font:inherit;font-weight:700;min-height:38px}
+.secondary{padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:white;color:var(--ink);font-size:.84rem}
+.tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:16px 0}
+.tile{padding:10px;border:1px solid #e0e9e1;border-radius:8px;background:#fcfdfc;min-width:0}
+.tile span{display:block;color:var(--muted);font-size:.72rem}
+.tile strong{display:block;margin-top:2px;font-size:.9rem}
+.content-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.content-card p,.content-card li{color:#52675d;font-size:.93rem;line-height:1.75}
+.content-card ul{padding-left:22px}
+.faq-list details{border-bottom:1px solid var(--line);padding:14px 0}
+.faq-list summary{cursor:pointer;font-weight:750;line-height:1.5}
+.faq-list details p{margin:10px 0 0}
+@media(max-width:760px){.entity-layout,.content-grid{grid-template-columns:1fr}.tiles{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="container header-inner">
+<a class="brand" href="/" aria-label="Toolvantas home"><span class="brand-mark" aria-hidden="true">T</span><span>Toolvantas</span></a>
+<button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+<nav class="primary-nav" id="primary-nav" aria-label="Main navigation"><a href="/">Home</a><a href="/tools.html">All tools</a><a href="/#about">About</a></nav>
+</div></header>
+<main id="main">
+<section class="page-hero"><div class="container">
+<p class="eyebrow">Developer utility</p>
+<h1>HTML Entity Encoder and Decoder</h1>
+<p>Convert reserved characters and symbols to safe HTML entities (named, decimal, or hexadecimal), or decode entities back into clean readable text without mangling content.</p>
+</div></section>
+<section class="section"><div class="container"><div class="entity-layout">
+<div class="editor-card">
+<div class="mode-toggle">
+<button type="button" class="mode-btn active" id="btn-mode-encode">Encode Mode</button>
+<button type="button" class="mode-btn" id="btn-mode-decode">Decode Mode</button>
+</div>
+<div class="options-bar" id="encode-options">
+<label for="encode-type" style="font-size:.82rem;font-weight:750;align-self:center">Format:</label>
+<select id="encode-type" class="tool-select">
+<option value="special">HTML Special Characters Only (&lt;, &gt;, &amp;, &quot;, &#39;)</option>
+<option value="nonascii">Non-ASCII &amp; Symbols Only (Keep standard text)</option>
+<option value="decimal">Complete Numeric Decimal (&amp;#...;)</option>
+<option value="hex">Complete Numeric Hex (&amp;#x...;)</option>
+</select>
+</div>
+<textarea id="entity-input" class="text-area" placeholder="Enter text or HTML entities here..." spellcheck="false">&lt;div class="quote"&gt;Tom &amp; Jerry said &copy; 2026 &euro;50 is 100% "awesome"!&lt;/div&gt;</textarea>
+<div class="actions">
+<button type="button" class="button button-primary" id="btn-convert">Convert Text</button>
+<button type="button" class="secondary" id="btn-swap">Swap ⇄</button>
+<button type="button" class="secondary" id="btn-strip">Strip HTML Tags</button>
+<button type="button" class="secondary" id="btn-clear">Clear</button>
+</div>
+</div>
+<div class="results" aria-live="polite">
+<h2>Converted Output</h2>
+<textarea id="entity-output" class="text-area" readonly placeholder="Output will appear here..." spellcheck="false"></textarea>
+<div class="tiles">
+<div class="tile"><span>Input Characters</span><strong id="stat-in">0</strong></div>
+<div class="tile"><span>Output Characters</span><strong id="stat-out">0</strong></div>
+<div class="tile"><span>Entities Replaced</span><strong id="stat-count">0</strong></div>
+</div>
+<div class="actions">
+<button type="button" class="button button-primary" id="btn-copy">Copy to Clipboard</button>
+<span id="copy-status" class="muted" style="align-self:center;font-size:.82rem"></span>
+</div>
+</div>
+</div></div></section>
+<section class="section" style="padding-top:0"><div class="container content-grid">
+<article class="content-card"><h2>Why use HTML entities?</h2>
+<p>In HTML, certain characters are reserved for code syntax. For example, web browsers interpret <code>&lt;</code> and <code>&gt;</code> as opening and closing HTML tags. If you want these characters to display as visible text on a page, they must be converted into their respective entity representations.</p>
+<ul>
+<li><strong>&amp;lt;</strong> displays the less-than symbol (<code>&lt;</code>).</li>
+<li><strong>&amp;gt;</strong> displays the greater-than symbol (<code>&gt;</code>).</li>
+<li><strong>&amp;amp;</strong> displays the ampersand symbol (<code>&amp;</code>).</li>
+<li><strong>&amp;quot;</strong> displays a double quote (<code>"</code>).</li>
+<li><strong>&amp;#39;</strong> displays a single quote (<code>'</code>).</li>
+</ul>
+</article>
+<article class="content-card"><h2>Named vs. Numeric Entities</h2>
+<p>Entities can be written in three distinct formats:</p>
+<ul>
+<li><strong>Named Entities:</strong> Easy to read human shorthand (e.g., <code>&amp;copy;</code> for © or <code>&amp;euro;</code> for €). Note that not all symbols have official named entity aliases.</li>
+<li><strong>Decimal Entities:</strong> Uses the Unicode code point in base 10 (e.g., <code>&amp;#169;</code> for ©). Universally supported by all web browsers and XML parsers.</li>
+<li><strong>Hexadecimal Entities:</strong> Uses the hexadecimal Unicode value (e.g., <code>&amp;#xA9;</code> for ©). Frequently used in programming strings and stylesheets.</li>
+</ul>
+</article>
+</div></section>
+<section class="section" style="padding-top:0"><div class="container content-card faq-list">
+<h2>Frequently asked questions</h2>
+<details><summary>Does this tool support all HTML5 entities?</summary><p>Yes. Decoding uses the browser's native HTML parser engine, ensuring support for all 2,000+ official HTML5 named entities, decimal points, and hexadecimal codes.</p></details>
+<details><summary>What does the "Strip HTML Tags" button do?</summary><p>It safely strips out all surrounding HTML markup tags (e.g., <code>&lt;p&gt;</code>, <code>&lt;div&gt;</code>, <code>&lt;span&gt;</code>), leaving behind only the plain text content.</p></details>
+<details><summary>Will entity encoding protect against XSS (Cross-Site Scripting)?</summary><p>Encoding special characters such as <code>&lt;</code>, <code>&gt;</code>, and <code>&amp;</code> prevents untrusted user input from being executed as active HTML or JavaScript when rendered into web documents.</p></details>
+<details><summary>What is the difference between named, decimal, and hex entities?</summary><p>Named entities use friendly alphanumeric aliases (e.g. <code>&amp;amp;</code>), while decimal (<code>&amp;#38;</code>) and hexadecimal (<code>&amp;#x26;</code>) represent the underlying Unicode code point directly.</p></details>
+</div></section>
+</main>
+<footer class="site-footer"><div class="container footer-top">
+<a class="brand brand-footer" href="/"><span class="brand-mark" aria-hidden="true">T</span><span>Toolvantas</span></a><p>Practical tools for everyday tasks.</p>
+<nav aria-label="Footer navigation"><a href="/">Home</a><a href="/tools.html">All tools</a><a href="/#about">About</a></nav>
+</div><div class="container footer-bottom"><small>© <span data-current-year>2026</span> Toolvantas</small><small>Built to be useful.</small></div></footer>
+<script>
+(()=> {
+'use strict';
+const $=id=>document.getElementById(id);
+let mode='encode';
+const input=$('entity-input'),output=$('entity-output');
+
+const specialMap={'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'};
+
+function encodeSpecial(str){
+  let count=0;
+  const res=str.replace(/[&<>"']/g,m=>{count++;return specialMap[m];});
+  return {text:res,count};
+}
+
+function encodeNonAscii(str){
+  let count=0;
+  const res=str.replace(/[&<>"']/g,m=>{count++;return specialMap[m];})
+               .replace(/[^\x00-\x7F]/g,m=>{count++;return `&#${m.charCodeAt(0)};`;});
+  return {text:res,count};
+}
+
+function encodeDecimal(str){
+  let count=str.length;
+  let res='';
+  for(let i=0;i<str.length;i++){
+    res+=`&#${str.charCodeAt(i)};`;
+  }
+  return {text:res,count};
+}
+
+function encodeHex(str){
+  let count=str.length;
+  let res='';
+  for(let i=0;i<str.length;i++){
+    res+=`&#x${str.charCodeAt(i).toString(16).toUpperCase()};`;
+  }
+  return {text:res,count};
+}
+
+function decodeHtmlEntities(str){
+  let count=0;
+  const res=str.replace(/&[a-zA-Z0-9#x]+;/g,match=>{
+    count++;
+    const txt=document.createElement('textarea');
+    txt.innerHTML=match;
+    return txt.value;
+  });
+  return {text:res,count};
+}
+
+function convert(){
+  const raw=input.value;
+  $('stat-in').textContent=raw.length;
+  if(!raw){
+    output.value='';
+    $('stat-out').textContent='0';
+    $('stat-count').textContent='0';
+    return;
+  }
+  let result={text:'',count:0};
+  if(mode==='encode'){
+    const opt=$('encode-type').value;
+    if(opt==='special') result=encodeSpecial(raw);
+    else if(opt==='nonascii') result=encodeNonAscii(raw);
+    else if(opt==='decimal') result=encodeDecimal(raw);
+    else if(opt==='hex') result=encodeHex(raw);
+  }else{
+    result=decodeHtmlEntities(raw);
+  }
+  output.value=result.text;
+  $('stat-out').textContent=result.text.length;
+  $('stat-count').textContent=result.count;
+}
+
+$('btn-mode-encode').addEventListener('click',()=>{
+  mode='encode';
+  $('btn-mode-encode').classList.add('active');
+  $('btn-mode-decode').classList.remove('active');
+  $('encode-options').style.display='flex';
+  convert();
+});
+
+$('btn-mode-decode').addEventListener('click',()=>{
+  mode='decode';
+  $('btn-mode-decode').classList.add('active');
+  $('btn-mode-encode').classList.remove('active');
+  $('encode-options').style.display='none';
+  convert();
+});
+
+input.addEventListener('input',convert);
+$('encode-type').addEventListener('change',convert);
+$('btn-convert').addEventListener('click',convert);
+
+$('btn-swap').addEventListener('click',()=>{
+  const temp=input.value;
+  input.value=output.value;
+  output.value=temp;
+  mode=mode==='encode'?'decode':'encode';
+  $('btn-mode-encode').classList.toggle('active',mode==='encode');
+  $('btn-mode-decode').classList.toggle('active',mode==='decode');
+  $('encode-options').style.display=mode==='encode'?'flex':'none';
+  convert();
+});
+
+$('btn-strip').addEventListener('click',()=>{
+  input.value=input.value.replace(/<\/?[^>]+(>|$)/g,'');
+  convert();
+});
+
+$('btn-clear').addEventListener('click',()=>{
+  input.value='';
+  output.value='';
+  $('stat-in').textContent='0';
+  $('stat-out').textContent='0';
+  $('stat-count').textContent='0';
+});
+
+$('btn-copy').addEventListener('click',async()=>{
+  if(!output.value)return;
+  try{
+    await navigator.clipboard.writeText(output.value);
+    $('copy-status').textContent='Copied to clipboard!';
+    setTimeout(()=>{$('copy-status').textContent='';},2000);
+  }catch{
+    alert('Copy failed. Please copy manually.');
+  }
+});
+
+convert();
+})();
+</script>
+</body>
+</html>
