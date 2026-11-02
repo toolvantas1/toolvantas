@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Temperature Converter — °C, °F &amp; Kelvin (K) | Toolvantas</title>
+<meta name="description" content="Free online temperature converter for Celsius (°C), Fahrenheit (°F), Kelvin (K), and Rankine (°R) with step-by-step formulas and benchmarks.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#173d35">
+<link rel="canonical" href="https://toolvantas.pages.dev/temperature-converter.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Toolvantas">
+<meta property="og:title" content="Temperature Converter — °C, °F &amp; Kelvin (K) | Toolvantas">
+<meta property="og:description" content="Free online temperature converter for Celsius (°C), Fahrenheit (°F), Kelvin (K), and Rankine (°R) with step-by-step formulas and benchmarks.">
+<meta property="og:url" content="https://toolvantas.pages.dev/temperature-converter.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Temperature Converter — °C, °F &amp; Kelvin (K) | Toolvantas">
+<meta name="twitter:description" content="Free online temperature converter for Celsius (°C), Fahrenheit (°F), Kelvin (K), and Rankine (°R) with step-by-step formulas and benchmarks.">
+<link rel="stylesheet" href="/site.css">
+<script src="/site.js" defer></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Temperature Converter",
+      "url": "https://toolvantas.pages.dev/temperature-converter.html",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "description": "Free online temperature converter for Celsius (°C), Fahrenheit (°F), Kelvin (K), and Rankine (°R) with step-by-step formulas and benchmarks.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I quickly estimate Celsius to Fahrenheit in my head?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Double the Celsius temperature and add 30 for a fast weather estimate (for example, 20 °C × 2 + 30 = 70 °F; exact is 68 °F). For exact results, multiply by 1.8 and add 32."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "At what temperature are Celsius and Fahrenheit equal?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "They meet at −40 degrees: (−40 × 9/5) + 32 = −72 + 32 = −40. Both −40 °C and −40 °F represent the exact same temperature."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why can't I enter a temperature below −273.15 °C or 0 K?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "0 Kelvin (−273.15 °C or −459.67 °F) is thermodynamic absolute zero, the fundamental physical lower limit at which classical thermal motion ceases."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is Kelvin written without a degree (°) symbol?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Since 1967, the International System of Units (SI) defines the kelvin (symbol K) as an absolute base unit rather than a relative degree scale, whereas Celsius (°C) and Fahrenheit (°F) retain the degree symbol."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the Rankine scale used for?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Rankine (°R) is an absolute thermodynamic scale like Kelvin, starting at 0 °R = absolute zero, but using Fahrenheit-sized degree increments (1 K = 1.8 °R). It appears in aerospace and US thermodynamic engineering."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do oven temperatures convert between Celsius and Fahrenheit?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A standard baking temperature of 180 °C equals 356 °F (commonly rounded to 350 °F in US recipes), while 200 °C equals 392 °F (often rounded to 400 °F). Fan/convection ovens typically run 15–20 °C cooler than conventional recipes."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://toolvantas.pages.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "All Tools",
+          "item": "https://toolvantas.pages.dev/tools.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Temperature Converter",
+          "item": "https://toolvantas.pages.dev/temperature-converter.html"
+        }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+.calc-layout{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(280px,.95fr);gap:22px;align-items:start}
+.calc-card,.results,.content-card{padding:22px;border:1px solid var(--line);border-radius:14px;background:#fff;min-width:0}
+.calc-card h2,.results h2,.content-card h2{margin:0 0 8px;font-size:1.2rem}
+.results h3,.calc-card h3{margin:16px 0 8px;font-size:.98rem}
+.muted{color:var(--muted);font-size:.88rem;line-height:1.55}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.field{min-width:0}
+.field label{display:block;font-size:.84rem;font-weight:750;margin-bottom:5px}
+.field input,.field select{box-sizing:border-box;width:100%;min-height:44px;padding:9px 10px;border:1px solid #cfdad2;border-radius:8px;background:#fff;color:var(--ink);font:inherit}
+.field input:focus-visible,.field select:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #8bb7a5;outline-offset:2px}
+.field small{display:block;color:var(--muted);font-size:.75rem;line-height:1.45;margin-top:4px}
+.unit-row{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:10px;align-items:end;margin-top:14px}
+.swap-btn{min-height:44px;padding:0 13px;border:1px solid #cfdad2;border-radius:8px;background:var(--soft);color:var(--forest);font:inherit;font-weight:800;cursor:pointer}
+.swap-btn:hover{background:var(--mint)}
+.presets{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}
+.chip{padding:6px 10px;border:1px solid var(--line);border-radius:7px;background:var(--soft);color:var(--ink);font:inherit;font-size:.77rem;font-weight:700;cursor:pointer}
+.chip:hover{border-color:#b9d1c1;background:var(--mint);color:var(--forest)}
+.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}
+.actions button{cursor:pointer;font:inherit;font-weight:700;min-height:42px}
+.secondary{padding:10px 14px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--ink)}
+.secondary:hover{border-color:#b9d1c1}
+.results{background:#f7faf7;border-color:#dbe8dd}
+.big{display:block;font-size:clamp(1.85rem,3.8vw,2.65rem);font-weight:850;letter-spacing:-.05em;color:var(--forest);overflow-wrap:anywhere}
+.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:16px 0}
+.tile{padding:11px;border:1px solid #e0e9e1;border-radius:9px;background:#fff;min-width:0}
+.tile span{display:block;color:var(--muted);font-size:.75rem;line-height:1.4}
+.tile strong{display:block;margin-top:4px;overflow-wrap:anywhere}
+.breakdown{list-style:none;margin:0;padding:0;border-top:1px solid #dce6dd}
+.breakdown li{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid #e1e9e2;font-size:.82rem}
+.breakdown span{color:var(--muted)}
+.breakdown strong{text-align:right;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+.formula-box{margin-top:14px;padding:12px;border:1px solid #dce6dd;border-radius:9px;background:#fff;font-size:.83rem;color:var(--ink)}
+.error{color:#a12626;font-weight:700;font-size:.85rem}
+.status{min-height:1.3em}
+.content-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.content-card p,.content-card li{color:#52675d;font-size:.93rem;line-height:1.75}
+.content-card ul{padding-left:22px}
+.faq-list details{border-bottom:1px solid var(--line);padding:14px 0}
+.faq-list summary{cursor:pointer;font-weight:750;line-height:1.5}
+.faq-list summary h3{display:inline;margin:0;font-size:1rem;font-weight:750}
+.faq-list details p{margin:10px 0 0}
+@media(max-width:760px){.calc-layout,.content-grid{grid-template-columns:1fr}.calc-card,.results,.content-card{padding:18px}}
+@media(max-width:520px){.unit-row{grid-template-columns:1fr}.swap-btn{width:100%}}
+@media(max-width:420px){.fields,.tiles{grid-template-columns:1fr}.calc-card,.results,.content-card{padding:15px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="container header-inner">
+<a class="brand" href="/" aria-label="Toolvantas home"><span class="brand-mark" aria-hidden="true">T</span><span>Toolvantas</span></a>
+<button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+<nav class="primary-nav" id="primary-nav" aria-label="Main navigation"><a href="/">Home</a><a href="/tools.html">All tools</a><a href="/#about">About</a></nav>
+</div></header>
+<main id="main">
+<section class="page-hero"><div class="container">
+<p class="eyebrow">Unit converter</p>
+<h1>Temperature Converter</h1>
+<p>Use this free temperature converter to convert between Celsius (°C), Fahrenheit (°F), Kelvin (K), Rankine (°R), Réaumur, and Delisle with worked formulas.</p>
+</div></section>
+<section class="section"><div class="container"><div class="calc-layout">
+<form class="calc-card" id="temp-form" novalidate>
+<h2>Convert temperature</h2>
+<p class="muted">Enter any temperature at or above absolute zero (0 K / −273.15 °C / −459.67 °F).</p>
+<div class="fields">
+<div class="field">
+<label for="amount">Temperature value</label>
+<input id="amount" name="amount" type="number" step="any" value="25" required>
+<small>Negative and decimal temperatures are supported.</small>
+</div>
+<div class="field">
+<label for="precision">Decimal places</label>
+<select id="precision" name="precision">
+<option value="auto" selected>Smart precision (up to 4)</option>
+<option value="1">1 decimal place</option>
+<option value="2">2 decimal places</option>
+<option value="4">4 decimal places</option>
+<option value="6">6 decimal places</option>
+</select>
+<small>Adjust display rounding.</small>
+</div>
+</div>
+<div class="unit-row">
+<div class="field">
+<label for="fromUnit">From scale</label>
+<select id="fromUnit" name="fromUnit"></select>
+</div>
+<button class="swap-btn" type="button" id="swap" aria-label="Swap temperature scales" title="Swap scales">⇄ Swap</button>
+<div class="field">
+<label for="toUnit">To scale</label>
+<select id="toUnit" name="toUnit"></select>
+</div>
+</div>
+<h3>Reference benchmarks</h3>
+<div class="presets" aria-label="Common temperature benchmarks">
+<button class="chip" type="button" data-val="-273.15" data-unit="C">Absolute zero (−273.15 °C)</button>
+<button class="chip" type="button" data-val="-18" data-unit="C">Home freezer (−18 °C)</button>
+<button class="chip" type="button" data-val="0" data-unit="C">Water freezes (0 °C)</button>
+<button class="chip" type="button" data-val="20" data-unit="C">Room temp (20 °C)</button>
+<button class="chip" type="button" data-val="37" data-unit="C">Body temp (37 °C)</button>
+<button class="chip" type="button" data-val="100" data-unit="C">Water boils (100 °C)</button>
+<button class="chip" type="button" data-val="180" data-unit="C">Baking oven (180 °C)</button>
+</div>
+<div class="actions">
+<button class="button button-primary" type="submit">Convert temperature</button>
+<button class="secondary" type="reset">Reset defaults</button>
+<button class="secondary" type="button" id="copy">Copy results</button>
+</div>
+<p class="error" id="error" role="alert" hidden></p>
+<p id="copy-status" class="muted status" aria-live="polite"></p>
+</form>
+
+<section class="results" aria-live="polite" aria-labelledby="results-title">
+<h2 id="results-title">Converted temperature</h2>
+<p class="muted" id="pair-label">25 Celsius (°C) equals</p>
+<output class="big" id="primary-out" for="amount fromUnit toUnit precision">77 °F</output>
+<div class="tiles">
+<div class="tile"><span>Thermodynamic Kelvin</span><strong id="kelvin-out">298.15 K</strong></div>
+<div class="tile"><span>Physical reference context</span><strong id="context-out">Warm room temperature</strong></div>
+<div class="tile"><span>Interval change (ΔT) in target</span><strong id="delta-out">Δ25 °C = Δ45 °F</strong></div>
+<div class="tile"><span>Above absolute zero</span><strong id="abs-out">+298.15 K</strong></div>
+</div>
+<h3>All temperature scales</h3>
+<ul class="breakdown" id="all-units"></ul>
+<div class="formula-box" id="worked-formula"><strong>Worked calculation:</strong> (25 °C × 9/5) + 32 = 77 °F</div>
+</section>
+</div></div></section>
+
+<section class="section" style="padding-top:0"><div class="container content-grid">
+<article class="content-card">
+<h2>Core temperature conversion formulas</h2>
+<p>Unlike length or weight, temperature scales have different zero points as well as different degree sizes, so conversions combine multiplication with an offset:</p>
+<ul>
+<li><strong>Celsius to Fahrenheit:</strong> <code>°F = (°C × 9/5) + 32</code> (or <code>°C × 1.8 + 32</code>).</li>
+<li><strong>Fahrenheit to Celsius:</strong> <code>°C = (°F − 32) × 5/9</code>.</li>
+<li><strong>Celsius to Kelvin:</strong> <code>K = °C + 273.15</code> (note: Kelvin uses <code>K</code> without a degree symbol).</li>
+<li><strong>Fahrenheit to Rankine:</strong> <code>°R = °F + 459.67</code>.</li>
+<li><strong>Celsius to Réaumur:</strong> <code>°Ré = °C × 4/5</code>.</li>
+</ul>
+</article>
+<article class="content-card">
+<h2>Point temperature vs. temperature interval (ΔT)</h2>
+<ul>
+<li><strong>Reading a thermometer (point temperature):</strong> <code>10 °C</code> on a weather forecast equals <code>50 °F</code> because you add the 32-degree offset.</li>
+<li><strong>Measuring a temperature change (ΔT):</strong> If a room warms up by <code>10 °C</code>, it warms up by <code>18 °F</code> (not 50 °F!), because only the <code>9/5</code> scale ratio applies to differences. Check the <em>Interval change (ΔT)</em> tile whenever converting heating/cooling deltas.</li>
+<li><strong>Equal crossover point:</strong> Celsius and Fahrenheit read the exact same numerical value at <code>−40 °C = −40 °F</code>.</li>
+</ul>
+</article>
+</div></section>
+
+<section class="section" style="padding-top:0"><div class="container content-card faq-list">
+<h2>Frequently asked questions</h2>
+<details><summary><h3>How do I quickly estimate Celsius to Fahrenheit in my head?</h3></summary><p>Double the Celsius temperature and add 30 for a fast weather estimate (for example, 20 °C × 2 + 30 = 70 °F; exact is 68 °F). For exact results, multiply by 1.8 and add 32.</p></details>
+<details><summary><h3>At what temperature are Celsius and Fahrenheit equal?</h3></summary><p>They meet at −40 degrees: (−40 × 9/5) + 32 = −72 + 32 = −40. Both −40 °C and −40 °F represent the exact same temperature.</p></details>
+<details><summary><h3>Why can't I enter a temperature below −273.15 °C or 0 K?</h3></summary><p>0 Kelvin (−273.15 °C or −459.67 °F) is thermodynamic absolute zero, the fundamental physical lower limit at which classical thermal motion ceases.</p></details>
+<details><summary><h3>Why is Kelvin written without a degree (°) symbol?</h3></summary><p>Since 1967, the International System of Units (SI) defines the kelvin (symbol K) as an absolute base unit rather than a relative degree scale, whereas Celsius (°C) and Fahrenheit (°F) retain the degree symbol.</p></details>
+<details><summary><h3>What is the Rankine scale used for?</h3></summary><p>Rankine (°R) is an absolute thermodynamic scale like Kelvin, starting at 0 °R = absolute zero, but using Fahrenheit-sized degree increments (1 K = 1.8 °R). It appears in aerospace and US thermodynamic engineering.</p></details>
+<details><summary><h3>How do oven temperatures convert between Celsius and Fahrenheit?</h3></summary><p>A standard baking temperature of 180 °C equals 356 °F (commonly rounded to 350 °F in US recipes), while 200 °C equals 392 °F (often rounded to 400 °F). Fan/convection ovens typically run 15–20 °C cooler than conventional recipes.</p></details>
+</div></section>
+<section class="section" style="padding-top:0"><div class="container">
+<div class="section-heading"><div><p class="eyebrow">More on Toolvantas</p><h2>Related tools you may need</h2></div><a class="text-link" href="/tools.html">Browse all tools <span>→</span></a></div>
+<div class="tool-grid" style="grid-template-columns:repeat(auto-fit,minmax(230px,1fr))">
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">L</div><p class="card-category">Unit Converters</p><h3><a href="/length-converter.html">Length Converter</a></h3><p>Convert meters, feet, inches, miles, and feet-inches.</p><a class="card-link" href="/length-converter.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">W</div><p class="card-category">Unit Converters</p><h3><a href="/weight-converter.html">Weight Converter</a></h3><p>Convert kg, lb, oz, stones, grams, tons, and troy oz.</p><a class="card-link" href="/weight-converter.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">S</div><p class="card-category">Unit Converters</p><h3><a href="/speed-converter.html">Speed Converter</a></h3><p>Convert km/h, mph, m/s, knots, Mach, and pace.</p><a class="card-link" href="/speed-converter.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">GB</div><p class="card-category">Unit Converters</p><h3><a href="/data-storage-converter.html">Data Storage Converter</a></h3><p>Convert decimal GB/TB, binary GiB/TiB, and bits.</p><a class="card-link" href="/data-storage-converter.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">%</div><p class="card-category">Everyday Calculators</p><h3><a href="/percentage-calculator.html">Percentage Calculator</a></h3><p>Calculate percentage change, increase, and differences.</p><a class="card-link" href="/percentage-calculator.html">Open tool →</a></article>
+</div>
+</div></section>
+</main>
+<footer class="site-footer"><div class="container footer-top">
+<a class="brand brand-footer" href="/"><span class="brand-mark" aria-hidden="true">T</span><span>Toolvantas</span></a><p>Practical tools for everyday tasks.</p>
+<nav aria-label="Footer navigation"><a href="/">Home</a><a href="/tools.html">All tools</a><a href="/#about">About</a></nav>
+</div><div class="container footer-bottom"><small>© <span data-current-year>2026</span> Toolvantas</small><small>Built to be useful.</small></div></footer>
+<script>
+(() => {
+  'use strict';
+  const SCALES = [
+    { id: 'C', name: 'Celsius (°C)', symbol: '°C', toC: v => v, fromC: c => c, perC: 1 },
+    { id: 'F', name: 'Fahrenheit (°F)', symbol: '°F', toC: v => (v - 32) * 5 / 9, fromC: c => c * 9 / 5 + 32, perC: 1.8 },
+    { id: 'K', name: 'Kelvin (K)', symbol: 'K', toC: v => v - 273.15, fromC: c => c + 273.15, perC: 1 },
+    { id: 'R', name: 'Rankine (°R)', symbol: '°R', toC: v => (v * 5 / 9) - 273.15, fromC: c => (c + 273.15) * 9 / 5, perC: 1.8 },
+    { id: 'Re', name: 'Réaumur (°Ré)', symbol: '°Ré', toC: v => v * 1.25, fromC: c => c * 0.8, perC: 0.8 },
+    { id: 'De', name: 'Delisle (°De)', symbol: '°De', toC: v => 100 - v * 2 / 3, fromC: c => (100 - c) * 1.5, perC: -1.5 }
+  ];
+  const scaleMap = Object.fromEntries(SCALES.map(s => [s.id, s]));
+  const $ = id => document.getElementById(id);
+  const form = $('temp-form');
+  const fromSel = $('fromUnit');
+  const toSel = $('toUnit');
+  const errorEl = $('error');
+  const statusEl = $('copy-status');
+
+  SCALES.forEach(s => {
+    fromSel.add(new Option(s.name, s.id));
+    toSel.add(new Option(s.name, s.id));
+  });
+  fromSel.value = 'C';
+  toSel.value = 'F';
+
+  function fmt(v, prec) {
+    if (!Number.isFinite(v)) return '—';
+    const clean = Math.abs(v) < 1e-12 ? 0 : v;
+    if (prec === 'auto') {
+      return new Intl.NumberFormat('en-US', { maximumFractionDigits: 4 }).format(clean);
+    }
+    const d = Number(prec);
+    return new Intl.NumberFormat('en-US', { minimumFractionDigits: 0, maximumFractionDigits: d }).format(clean);
+  }
+
+  function contextLabel(c) {
+    if (Math.abs(c + 273.15) < 0.01) return 'Thermodynamic absolute zero';
+    if (c < -195) return 'Cryogenic range (liquid nitrogen/helium)';
+    if (c < -40) return 'Extreme polar / dry-ice cold';
+    if (c < 0) return 'Below water freezing point';
+    if (Math.abs(c) < 0.05) return 'Water freezing point (1 atm)';
+    if (c < 15) return 'Cool / refrigerated range';
+    if (c <= 26) return 'Comfortable room temperature';
+    if (c >= 36.1 && c <= 37.5) return 'Normal human body temperature';
+    if (c < 99.95) return 'Liquid water range (1 atm)';
+    if (Math.abs(c - 100) <= 0.1) return 'Water boiling point (1 atm)';
+    if (c <= 260) return 'Cooking & baking oven range';
+    return 'High-temperature industrial / stellar range';
+  }
+
+  function buildFormulaText(val, from, to, cVal, outVal, prec) {
+    const vStr = fmt(val, prec);
+    const outStr = fmt(outVal, prec);
+    if (from.id === 'C' && to.id === 'F') return `(${vStr} °C × 9/5) + 32 = ${outStr} °F`;
+    if (from.id === 'F' && to.id === 'C') return `(${vStr} °F − 32) × 5/9 = ${outStr} °C`;
+    if (from.id === 'C' && to.id === 'K') return `${vStr} °C + 273.15 = ${outStr} K`;
+    if (from.id === 'K' && to.id === 'C') return `${vStr} K − 273.15 = ${outStr} °C`;
+    if (from.id === 'F' && to.id === 'K') return `(${vStr} °F − 32) × 5/9 + 273.15 = ${outStr} K`;
+    if (from.id === 'K' && to.id === 'F') return `(${vStr} K − 273.15) × 9/5 + 32 = ${outStr} °F`;
+    return `${vStr} ${from.symbol} → ${fmt(cVal, prec)} °C → ${outStr} ${to.symbol}`;
+  }
+
+  function showError(msg) {
+    errorEl.hidden = !msg;
+    errorEl.textContent = msg || '';
+  }
+
+  function convert(e) {
+    if (e) e.preventDefault();
+    const raw = $('amount').value.trim();
+    const val = Number(raw);
+    if (raw === '' || !Number.isFinite(val)) {
+      showError('Please enter a valid numeric temperature.');
+      return;
+    }
+    const from = scaleMap[fromSel.value];
+    const to = scaleMap[toSel.value];
+    const prec = $('precision').value;
+    const c = from.toC(val);
+    const k = c + 273.15;
+    if (k < -1e-7) {
+      showError('Below absolute zero: physical temperatures cannot be lower than 0 K (−273.15 °C or −459.67 °F).');
+      return;
+    }
+    const safeC = k < 0 ? -273.15 : c;
+    const safeK = Math.max(0, k);
+    const out = to.fromC(safeC);
+    if (!Number.isFinite(out)) {
+      showError('This value is too large to calculate reliably.');
+      return;
+    }
+    showError('');
+
+    const deltaTarget = Math.abs(val) * (Math.abs(to.perC) / Math.abs(from.perC));
+    $('pair-label').textContent = `${fmt(val, prec)} ${from.name} equals`;
+    $('primary-out').textContent = `${fmt(out, prec)} ${to.symbol}`;
+    $('kelvin-out').textContent = `${fmt(safeK, prec)} K`;
+    $('context-out').textContent = contextLabel(safeC);
+    $('delta-out').textContent = `Δ${fmt(Math.abs(val), prec)} ${from.symbol} = Δ${fmt(deltaTarget, prec)} ${to.symbol}`;
+    $('abs-out').textContent = `+${fmt(safeK, prec)} K`;
+    $('worked-formula').innerHTML = `<strong>Worked calculation:</strong> ${buildFormulaText(val, from, to, safeC, out, prec)}`;
+
+    const list = $('all-units');
+    list.innerHTML = '';
+    SCALES.forEach(s => {
+      const li = document.createElement('li');
+      const sp = document.createElement('span');
+      sp.textContent = s.name;
+      const st = document.createElement('strong');
+      st.textContent = `${fmt(s.fromC(safeC), prec)} ${s.symbol}`;
+      li.append(sp, st);
+      list.appendChild(li);
+    });
+  }
+
+  $('swap').addEventListener('click', () => {
+    const tmp = fromSel.value;
+    fromSel.value = toSel.value;
+    toSel.value = tmp;
+    convert();
+  });
+
+  document.querySelectorAll('.chip').forEach(btn => {
+    btn.addEventListener('click', () => {
+      fromSel.value = btn.dataset.unit;
+      if (toSel.value === fromSel.value) toSel.value = fromSel.value === 'C' ? 'F' : 'C';
+      $('amount').value = btn.dataset.val;
+      convert();
+    });
+  });
+
+  ['amount', 'fromUnit', 'toUnit', 'precision'].forEach(id => {
+    $(id).addEventListener('input', () => convert());
+    $(id).addEventListener('change', () => convert());
+  });
+
+  form.addEventListener('submit', convert);
+  form.addEventListener('reset', () => {
+    setTimeout(() => {
+      $('amount').value = '25';
+      $('precision').value = 'auto';
+      fromSel.value = 'C';
+      toSel.value = 'F';
+      statusEl.textContent = '';
+      convert();
+    }, 0);
+  });
+
+  $('copy').addEventListener('click', async () => {
+    const text = `Toolvantas Temperature Conversion\nInput: ${$('amount').value} ${scaleMap[fromSel.value].symbol}\nConverted: ${$('primary-out').textContent}\nKelvin: ${$('kelvin-out').textContent}\nInterval equivalent: ${$('delta-out').textContent}\nContext: ${$('context-out').textContent}`;
+    try {
+      if (!navigator.clipboard || !navigator.clipboard.writeText) throw new Error('Unavailable');
+      await navigator.clipboard.writeText(text);
+      statusEl.textContent = 'Results copied to clipboard.';
+    } catch {
+      statusEl.textContent = 'Clipboard access is unavailable. Select and copy the results manually.';
+    }
+  });
+
+  convert();
+})();
+</script>
+</body>
+</html>

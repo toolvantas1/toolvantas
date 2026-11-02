@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Percentage Calculator — % Change &amp; Difference | Toolvantas</title>
+<meta name="description" content="Free online percentage calculator to find X% of Y, what percent X is of Y, percentage increase or decrease, % difference, and reverse totals.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#173d35">
+<link rel="canonical" href="https://toolvantas.pages.dev/percentage-calculator.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Toolvantas">
+<meta property="og:title" content="Percentage Calculator — % Change &amp; Difference | Toolvantas">
+<meta property="og:description" content="Free online percentage calculator to find X% of Y, what percent X is of Y, percentage increase or decrease, % difference, and reverse totals.">
+<meta property="og:url" content="https://toolvantas.pages.dev/percentage-calculator.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Percentage Calculator — % Change &amp; Difference | Toolvantas">
+<meta name="twitter:description" content="Free online percentage calculator to find X% of Y, what percent X is of Y, percentage increase or decrease, % difference, and reverse totals.">
+<link rel="stylesheet" href="/site.css">
+<script src="/site.js" defer></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Percentage Calculator",
+      "url": "https://toolvantas.pages.dev/percentage-calculator.html",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "description": "Free online percentage calculator to find X% of Y, what percent X is of Y, percentage increase or decrease, % difference, and reverse totals.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I calculate X% of a number?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Convert the percentage to a decimal by dividing by 100, then multiply by the number. For example, 18% of 250 = 0.18 × 250 = 45."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I find what percent X is of Y?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Divide the part (X) by the whole (Y) and multiply by 100. For example, 45 out of 250 is (45 ÷ 250) × 100 = 18%."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why doesn't a 20% increase followed by a 20% decrease return to the original number?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Because the 20% decrease applies to the larger post-increase number: 100 + 20% = 120, and 20% of 120 is 24, leaving 96 (a net 4% drop)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between percentage points and percent change?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "If an interest rate rises from 4% to 5%, it increased by 1 percentage point, which is a 25% relative increase ((5 − 4) ÷ 4 × 100)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can percentages be greater than 100%?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. When a value more than doubles—for example, growing from 50 to 150—the percentage increase is +200% (or 300% of the original value)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why can't percentage change be calculated from 0?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The formula divides by the starting value X. Dividing by zero is mathematically undefined, so changes from 0 are reported as absolute unit increases rather than percentages."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://toolvantas.pages.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "All Tools",
+          "item": "https://toolvantas.pages.dev/tools.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Percentage Calculator",
+          "item": "https://toolvantas.pages.dev/percentage-calculator.html"
+        }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+.calc-layout{display:grid;grid-template-columns:minmax(0,1.06fr) minmax(280px,.94fr);gap:22px;align-items:start}
+.calc-card,.results,.content-card{padding:22px;border:1px solid var(--line);border-radius:14px;background:#fff;min-width:0}
+.calc-card h2,.results h2,.content-card h2{margin:0 0 8px;font-size:1.2rem}
+.results h3,.calc-card h3{margin:16px 0 8px;font-size:.98rem}
+.muted{color:var(--muted);font-size:.88rem;line-height:1.55}
+.mode-tabs{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 16px}
+.mode-btn{padding:8px 11px;border:1px solid #cfdad2;border-radius:8px;background:var(--soft);color:var(--ink);font:inherit;font-size:.8rem;font-weight:750;cursor:pointer}
+.mode-btn:hover{border-color:#9fc1ae;background:var(--mint);color:var(--forest)}
+.mode-btn[aria-pressed="true"]{background:var(--forest);border-color:var(--forest);color:#fff}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.field{min-width:0}
+.field-full{grid-column:1 / -1}
+.field label{display:block;font-size:.84rem;font-weight:750;margin-bottom:5px}
+.field input,.field select{box-sizing:border-box;width:100%;min-height:44px;padding:9px 10px;border:1px solid #cfdad2;border-radius:8px;background:#fff;color:var(--ink);font:inherit}
+.field input:focus-visible,.field select:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #8bb7a5;outline-offset:2px}
+.field small{display:block;color:var(--muted);font-size:.75rem;line-height:1.45;margin-top:4px}
+.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}
+.actions button{cursor:pointer;font:inherit;font-weight:700;min-height:42px}
+.secondary{padding:10px 14px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--ink)}
+.secondary:hover{border-color:#b9d1c1}
+.results{background:#f7faf7;border-color:#dbe8dd}
+.big{display:block;font-size:clamp(2rem,4vw,2.75rem);font-weight:850;letter-spacing:-.05em;color:var(--forest);overflow-wrap:anywhere}
+.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:16px 0}
+.tile{padding:11px;border:1px solid #e0e9e1;border-radius:9px;background:#fff;min-width:0}
+.tile span{display:block;color:var(--muted);font-size:.75rem;line-height:1.4}
+.tile strong{display:block;margin-top:4px;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+.formula-box{margin-top:12px;padding:12px;border:1px solid #dce6dd;border-radius:9px;background:#fff;font-size:.83rem;color:var(--ink);line-height:1.6}
+.error{color:#a12626;font-weight:700;font-size:.85rem}
+.status{min-height:1.3em}
+.content-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.content-card p,.content-card li{color:#52675d;font-size:.93rem;line-height:1.75}
+.content-card ul{padding-left:22px}
+.faq-list details{border-bottom:1px solid var(--line);padding:14px 0}
+.faq-list summary{cursor:pointer;font-weight:750;line-height:1.5}
+.faq-list summary h3{display:inline;margin:0;font-size:1rem;font-weight:750}
+.faq-list details p{margin:10px 0 0}
+@media(max-width:760px){.calc-layout,.content-grid{grid-template-columns:1fr}.calc-card,.results,.content-card{padding:18px}}
+@media(max-width:420px){.fields,.tiles{grid-template-columns:1fr}.calc-card,.results,.content-card{padding:15px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="container header-inner">
+<a class="brand" href="/" aria-label="Toolvantas home"><span class="brand-mark" aria-hidden="true">T</span><span>Toolvantas</span></a>
+<button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+<nav class="primary-nav" id="primary-nav" aria-label="Main navigation"><a href="/">Home</a><a href="/tools.html">All tools</a><a href="/#about">About</a></nav>
+</div></header>
+<main id="main">
+<section class="page-hero"><div class="container">
+<p class="eyebrow">Everyday calculator</p>
+<h1>Percentage Calculator</h1>
+<p>Use this free percentage calculator to find X% of Y, what percent one number is of another, percentage change, symmetric difference, and reverse percentages.</p>
+</div></section>
+<section class="section"><div class="container"><div class="calc-layout">
+<form class="calc-card" id="pct-form" novalidate>
+<h2>Choose calculation type</h2>
+<p class="muted" id="mode-desc">Find a percentage portion of any base number (for example, 18% of 250).</p>
+<div class="mode-tabs" role="group" aria-label="Percentage calculation modes">
+<button type="button" class="mode-btn" data-mode="of" aria-pressed="true">X% of Y</button>
+<button type="button" class="mode-btn" data-mode="iswhat" aria-pressed="false">X is what % of Y</button>
+<button type="button" class="mode-btn" data-mode="change" aria-pressed="false">% Change (X → Y)</button>
+<button type="button" class="mode-btn" data-mode="diff" aria-pressed="false">% Difference</button>
+<button type="button" class="mode-btn" data-mode="addsub" aria-pressed="false">Add / Reverse %</button>
+</div>
+
+<div class="fields">
+<div class="field">
+<label for="valA" id="labelA">Percentage (X%)</label>
+<input id="valA" type="number" step="any" value="18" required>
+<small id="hintA">Enter the percentage rate.</small>
+</div>
+<div class="field">
+<label for="valB" id="labelB">Base value (Y)</label>
+<input id="valB" type="number" step="any" value="250" required>
+<small id="hintB">Enter the whole number or amount.</small>
+</div>
+<div class="field field-full">
+<label for="decimals">Decimal places</label>
+<select id="decimals">
+<option value="2" selected>Up to 2 decimal places</option>
+<option value="4">Up to 4 decimal places</option>
+<option value="6">Up to 6 decimal places</option>
+<option value="0">Whole numbers (0 decimals)</option>
+</select>
+</div>
+</div>
+
+<div class="actions">
+<button class="button button-primary" type="submit">Calculate</button>
+<button class="secondary" type="reset">Reset defaults</button>
+<button class="secondary" type="button" id="copy">Copy result</button>
+</div>
+<p class="error" id="error" role="alert" hidden></p>
+<p id="copy-status" class="muted status" aria-live="polite"></p>
+</form>
+
+<section class="results" aria-live="polite" aria-labelledby="results-title">
+<h2 id="results-title">Calculated result</h2>
+<p class="muted" id="question-summary">What is 18% of 250?</p>
+<output class="big" id="primary-out" for="valA valB decimals">45</output>
+<div class="tiles">
+<div class="tile"><span id="t1-label">Base plus percentage</span><strong id="t1-val">295</strong></div>
+<div class="tile"><span id="t2-label">Base minus percentage</span><strong id="t2-val">205</strong></div>
+<div class="tile"><span id="t3-label">Decimal multiplier</span><strong id="t3-val">0.18</strong></div>
+<div class="tile"><span id="t4-label">Complementary share</span><strong id="t4-val">82% (205)</strong></div>
+</div>
+<div class="formula-box" id="formula-out"><strong>Step-by-step math:</strong> (18 ÷ 100) × 250 = 0.18 × 250 = 45</div>
+</section>
+</div></div></section>
+
+<section class="section" style="padding-top:0"><div class="container content-grid">
+<article class="content-card">
+<h2>Percentage change vs. percentage difference</h2>
+<p>One of the most common mistakes in business and science reporting is mixing up directional percentage change with symmetric percentage difference:</p>
+<ul>
+<li><strong>Percentage change (X → Y):</strong> Used when there is a clear "before" (X) and "after" (Y), such as revenue growing from $80 to $100: <code>((100 − 80) ÷ 80) × 100 = +25%</code>. Note that going from 100 back down to 80 is a <code>−20%</code> decrease because the starting baseline changed.</li>
+<li><strong>Percentage difference (|X − Y| ÷ average):</strong> Used when comparing two peer measurements where neither is the baseline (for example, Store A vs. Store B prices): <code>|80 − 100| ÷ 90 × 100 = 22.22%</code>.</li>
+</ul>
+</article>
+<article class="content-card">
+<h2>How reverse percentages work (pre-tax &amp; pre-markup)</h2>
+<ul>
+<li>If an invoice total of <strong>$115</strong> already includes <strong>15% tax</strong>, subtracting 15% of $115 ($17.25 → $97.75) gives the wrong pre-tax price!</li>
+<li>Instead, divide by <code>1 + (rate ÷ 100)</code>: <code>$115 ÷ 1.15 = $100.00</code>.</li>
+<li>Select the <strong>Add / Reverse %</strong> tab above to view +P%, −P%, and exact reverse pre-increase / pre-decrease figures side by side.</li>
+</ul>
+</article>
+</div></section>
+
+<section class="section" style="padding-top:0"><div class="container content-card faq-list">
+<h2>Frequently asked questions</h2>
+<details><summary><h3>How do I calculate X% of a number?</h3></summary><p>Convert the percentage to a decimal by dividing by 100, then multiply by the number. For example, 18% of 250 = 0.18 × 250 = 45.</p></details>
+<details><summary><h3>How do I find what percent X is of Y?</h3></summary><p>Divide the part (X) by the whole (Y) and multiply by 100. For example, 45 out of 250 is (45 ÷ 250) × 100 = 18%.</p></details>
+<details><summary><h3>Why doesn't a 20% increase followed by a 20% decrease return to the original number?</h3></summary><p>Because the 20% decrease applies to the larger post-increase number: 100 + 20% = 120, and 20% of 120 is 24, leaving 96 (a net 4% drop).</p></details>
+<details><summary><h3>What is the difference between percentage points and percent change?</h3></summary><p>If an interest rate rises from 4% to 5%, it increased by <strong>1 percentage point</strong>, which is a <strong>25% relative increase</strong> ((5 − 4) ÷ 4 × 100).</p></details>
+<details><summary><h3>Can percentages be greater than 100%?</h3></summary><p>Yes. When a value more than doubles—for example, growing from 50 to 150—the percentage increase is +200% (or 300% of the original value).</p></details>
+<details><summary><h3>Why can't percentage change be calculated from 0?</h3></summary><p>The formula divides by the starting value X. Dividing by zero is mathematically undefined, so changes from 0 are reported as absolute unit increases rather than percentages.</p></details>
+</div></section>
+<section class="section" style="padding-top:0"><div class="container">
+<div class="section-heading"><div><p class="eyebrow">More on Toolvantas</p><h2>Related tools you may need</h2></div><a class="text-link" href="/tools.html">Browse all tools <span>→</span></a></div>
+<div class="tool-grid" style="grid-template-columns:repeat(auto-fit,minmax(230px,1fr))">
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">$</div><p class="card-category">Everyday Calculators</p><h3><a href="/discount-calculator.html">Discount Calculator</a></h3><p>Calculate sale prices, stacked % off, BOGO, and tax.</p><a class="card-link" href="/discount-calculator.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">Fr</div><p class="card-category">Freelance Pricing</p><h3><a href="/freelance-rate-calculator.html">Freelance Rate Calculator</a></h3><p>Estimate sustainable hourly, day, and project rates.</p><a class="card-link" href="/freelance-rate-calculator.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">Yr</div><p class="card-category">Everyday Calculators</p><h3><a href="/age-calculator.html">Age Calculator</a></h3><p>Calculate exact age in years, months, days, and hours.</p><a class="card-link" href="/age-calculator.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">Dt</div><p class="card-category">Everyday Calculators</p><h3><a href="/date-duration-calculator.html">Date Duration Calculator</a></h3><p>Count calendar and business days between two dates.</p><a class="card-link" href="/date-duration-calculator.html">Open tool →</a></article>
+</div>
+</div></section>
+</main>
+<footer class="site-footer"><div class="container footer-top">
+<a class="brand brand-footer" href="/"><span class="brand-mark" aria-hidden="true">T</span><span>Toolvantas</span></a><p>Practical tools for everyday tasks.</p>
+<nav aria-label="Footer navigation"><a href="/">Home</a><a href="/tools.html">All tools</a><a href="/#about">About</a></nav>
+</div><div class="container footer-bottom"><small>© <span data-current-year>2026</span> Toolvantas</small><small>Built to be useful.</small></div></footer>
+<script>
+(() => {
+  'use strict';
+  const MODES = {
+    of: {
+      desc: 'Find a percentage portion of any base number (for example, 18% of 250).',
+      labelA: 'Percentage (X%)', hintA: 'Enter the percentage rate.', defA: '18',
+      labelB: 'Base value (Y)', hintB: 'Enter the total or base amount.', defB: '250'
+    },
+    iswhat: {
+      desc: 'Find what percentage the part (X) represents of the whole (Y).',
+      labelA: 'Part value (X)', hintA: 'Numerator / partial amount.', defA: '45',
+      labelB: 'Whole value (Y)', hintB: 'Denominator / total amount (non-zero).', defB: '250'
+    },
+    change: {
+      desc: 'Calculate percentage increase or decrease from an initial value (X) to a final value (Y).',
+      labelA: 'Initial value (X)', hintA: 'Starting baseline (non-zero).', defA: '80',
+      labelB: 'Final value (Y)', hintB: 'Ending / new value.', defB: '100'
+    },
+    diff: {
+      desc: 'Compare two peer numbers symmetrically relative to their average.',
+      labelA: 'First value (X)', hintA: 'Positive value A.', defA: '80',
+      labelB: 'Second value (Y)', hintB: 'Positive value B.', defB: '100'
+    },
+    addsub: {
+      desc: 'Add or subtract X% on a number—and find the reverse pre-percentage value.',
+      labelA: 'Base or final value', hintA: 'Amount to adjust or reverse.', defA: '200',
+      labelB: 'Percentage rate (%)', hintB: 'Markup, tax, or discount rate.', defB: '15'
+    }
+  };
+
+  const $ = id => document.getElementById(id);
+  const form = $('pct-form');
+  const errorEl = $('error');
+  const statusEl = $('copy-status');
+  let mode = 'of';
+
+  function fmt(n) {
+    if (!Number.isFinite(n)) return '—';
+    const d = Number($('decimals').value);
+    const clean = Math.abs(n) < 1e-12 ? 0 : n;
+    return new Intl.NumberFormat('en-US', { minimumFractionDigits: 0, maximumFractionDigits: d }).format(clean);
+  }
+
+  function showError(msg) {
+    errorEl.hidden = !msg;
+    errorEl.textContent = msg || '';
+  }
+
+  function setTile(idx, label, val) {
+    $(`t${idx}-label`).textContent = label;
+    $(`t${idx}-val`).textContent = val;
+  }
+
+  function applyModeUI(resetValues) {
+    const cfg = MODES[mode];
+    $('mode-desc').textContent = cfg.desc;
+    $('labelA').textContent = cfg.labelA;
+    $('hintA').textContent = cfg.hintA;
+    $('labelB').textContent = cfg.labelB;
+    $('hintB').textContent = cfg.hintB;
+    if (resetValues) {
+      $('valA').value = cfg.defA;
+      $('valB').value = cfg.defB;
+    }
+    calculate();
+  }
+
+  function calculate(e) {
+    if (e) e.preventDefault();
+    const rawA = $('valA').value.trim();
+    const rawB = $('valB').value.trim();
+    const a = Number(rawA);
+    const b = Number(rawB);
+    if (rawA === '' || rawB === '' || !Number.isFinite(a) || !Number.isFinite(b)) {
+      showError('Please enter valid numeric values in both fields.');
+      return;
+    }
+
+    if (mode === 'of') {
+      const res = (a / 100) * b;
+      showError('');
+      $('question-summary').textContent = `What is ${fmt(a)}% of ${fmt(b)}?`;
+      $('primary-out').textContent = fmt(res);
+      setTile(1, `${fmt(b)} + ${fmt(a)}%`, fmt(b + res));
+      setTile(2, `${fmt(b)} − ${fmt(a)}%`, fmt(b - res));
+      setTile(3, 'Decimal multiplier', fmt(a / 100));
+      setTile(4, `Remaining (${fmt(100 - a)}%)`, fmt(b - res));
+      $('formula-out').innerHTML = `<strong>Step-by-step math:</strong> (${fmt(a)} ÷ 100) × ${fmt(b)} = ${fmt(res)}`;
+    } else if (mode === 'iswhat') {
+      if (b === 0) {
+        showError('Whole value (Y) cannot be zero when dividing X ÷ Y.');
+        return;
+      }
+      const pct = (a / b) * 100;
+      showError('');
+      $('question-summary').textContent = `${fmt(a)} is what percent of ${fmt(b)}?`;
+      $('primary-out').textContent = `${fmt(pct)}%`;
+      setTile(1, 'Ratio (X ÷ Y)', fmt(a / b));
+      setTile(2, 'Remainder (Y − X)', fmt(b - a));
+      setTile(3, 'Remainder share', `${fmt(100 - pct)}%`);
+      setTile(4, 'Y as % of X', a === 0 ? '—' : `${fmt((b / a) * 100)}%`);
+      $('formula-out').innerHTML = `<strong>Step-by-step math:</strong> (${fmt(a)} ÷ ${fmt(b)}) × 100 = ${fmt(pct)}%`;
+    } else if (mode === 'change') {
+      if (a === 0) {
+        showError('Initial value (X) cannot be zero for percentage change.');
+        return;
+      }
+      const diff = b - a;
+      const pct = (diff / Math.abs(a)) * 100;
+      const dir = diff > 0 ? 'increase' : diff < 0 ? 'decrease' : 'no change';
+      const sign = pct > 0 ? '+' : '';
+      showError('');
+      $('question-summary').textContent = `Percentage change from ${fmt(a)} to ${fmt(b)}`;
+      $('primary-out').textContent = `${sign}${fmt(pct)}% (${dir})`;
+      setTile(1, 'Raw change (Y − X)', `${diff > 0 ? '+' : ''}${fmt(diff)}`);
+      setTile(2, 'Growth multiplier (Y ÷ X)', `${fmt(b / a)}×`);
+      setTile(3, 'Percentage points / abs %', `${fmt(Math.abs(pct))}%`);
+      setTile(4, 'Reverse change (Y → X)', b === 0 ? '—' : `${fmt(((a - b) / Math.abs(b)) * 100)}%`);
+      $('formula-out').innerHTML = `<strong>Step-by-step math:</strong> ((${fmt(b)} − ${fmt(a)}) ÷ |${fmt(a)}|) × 100 = (${fmt(diff)} ÷ ${fmt(Math.abs(a))}) × 100 = ${sign}${fmt(pct)}%`;
+    } else if (mode === 'diff') {
+      if (a < 0 || b < 0 || (a === 0 && b === 0)) {
+        showError('Enter two non-negative numbers (with at least one greater than zero) for symmetric percentage difference.');
+        return;
+      }
+      const absDiff = Math.abs(a - b);
+      const avg = (a + b) / 2;
+      const pct = (absDiff / avg) * 100;
+      showError('');
+      $('question-summary').textContent = `Symmetric percentage difference between ${fmt(a)} and ${fmt(b)}`;
+      $('primary-out').textContent = `${fmt(pct)}%`;
+      setTile(1, 'Absolute difference |X − Y|', fmt(absDiff));
+      setTile(2, 'Average ((X + Y) ÷ 2)', fmt(avg));
+      setTile(3, 'Change X → Y', a === 0 ? '—' : `${b >= a ? '+' : ''}${fmt(((b - a) / a) * 100)}%`);
+      setTile(4, 'Change Y → X', b === 0 ? '—' : `${a >= b ? '+' : ''}${fmt(((a - b) / b) * 100)}%`);
+      $('formula-out').innerHTML = `<strong>Step-by-step math:</strong> |${fmt(a)} − ${fmt(b)}| ÷ ((${fmt(a)} + ${fmt(b)}) ÷ 2) × 100 = (${fmt(absDiff)} ÷ ${fmt(avg)}) × 100 = ${fmt(pct)}%`;
+    } else if (mode === 'addsub') {
+      const rate = b / 100;
+      const increased = a * (1 + rate);
+      const decreased = a * (1 - rate);
+      const revBeforeIncrease = (1 + rate) === 0 ? NaN : a / (1 + rate);
+      const revBeforeDecrease = (1 - rate) === 0 ? NaN : a / (1 - rate);
+      showError('');
+      $('question-summary').textContent = `Adding & reversing ${fmt(b)}% on ${fmt(a)}`;
+      $('primary-out').textContent = `${fmt(increased)} (+${fmt(b)}%)`;
+      setTile(1, `${fmt(a)} minus ${fmt(b)}%`, fmt(decreased));
+      setTile(2, 'Percentage amount', fmt(a * rate));
+      setTile(3, `Original before +${fmt(b)}%`, fmt(revBeforeIncrease));
+      setTile(4, `Original before −${fmt(b)}%`, fmt(revBeforeDecrease));
+      $('formula-out').innerHTML = `<strong>Forward &amp; reverse math:</strong> Add ${fmt(b)}%: ${fmt(a)} × ${fmt(1 + rate)} = ${fmt(increased)} · Pre-increase original: ${fmt(a)} ÷ ${fmt(1 + rate)} = ${fmt(revBeforeIncrease)}`;
+    }
+  }
+
+  document.querySelectorAll('.mode-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      mode = btn.dataset.mode;
+      document.querySelectorAll('.mode-btn').forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
+      statusEl.textContent = '';
+      applyModeUI(true);
+    });
+  });
+
+  ['valA', 'valB', 'decimals'].forEach(id => {
+    $(id).addEventListener('input', () => calculate());
+    $(id).addEventListener('change', () => calculate());
+  });
+
+  form.addEventListener('submit', calculate);
+  form.addEventListener('reset', () => {
+    setTimeout(() => {
+      $('decimals').value = '2';
+      statusEl.textContent = '';
+      applyModeUI(true);
+    }, 0);
+  });
+
+  $('copy').addEventListener('click', async () => {
+    const text = `Toolvantas Percentage Result\n${$('question-summary').textContent}\nResult: ${$('primary-out').textContent}\n${$('t1-label').textContent}: ${$('t1-val').textContent}\n${$('t2-label').textContent}: ${$('t2-val').textContent}`;
+    try {
+      await navigator.clipboard.writeText(text);
+      statusEl.textContent = 'Result copied to clipboard.';
+    } catch {
+      statusEl.textContent = 'Clipboard unavailable. Select and copy manually.';
+    }
+  });
+
+  applyModeUI(true);
+})();
+</script>
+</body>
+</html>

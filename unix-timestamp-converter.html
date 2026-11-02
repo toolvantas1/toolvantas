@@ -3,42 +3,113 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Convert Unix timestamps (epoch) to human-readable date and time, or convert dates into seconds and milliseconds. Live ticking epoch clock with auto-detection.">
+<meta name="description" content="Convert Unix epoch timestamps (seconds, milliseconds, microseconds, nanoseconds) to UTC and local dates, or convert dates to epoch with a live clock.">
 <meta name="robots" content="index,follow">
 <meta name="theme-color" content="#173d35">
 <link rel="canonical" href="https://toolvantas.pages.dev/unix-timestamp-converter.html">
-<title>Unix Timestamp Converter &amp; Epoch Clock | Toolvantas</title>
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Toolvantas">
+<meta property="og:title" content="Unix Timestamp Converter &amp; Live Epoch Clock | Toolvantas">
+<meta property="og:description" content="Convert Unix epoch timestamps (seconds, milliseconds, microseconds, nanoseconds) to UTC and local dates, or convert dates to epoch with a live clock.">
+<meta property="og:url" content="https://toolvantas.pages.dev/unix-timestamp-converter.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Unix Timestamp Converter &amp; Live Epoch Clock | Toolvantas">
+<meta name="twitter:description" content="Convert Unix epoch timestamps in s, ms, µs, and ns to UTC, ISO 8601, and local dates.">
+<title>Unix Timestamp Converter &amp; Live Epoch Clock | Toolvantas</title>
 <link rel="stylesheet" href="/site.css">
 <script src="/site.js" defer></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "Unix Timestamp Converter",
-  "url": "https://toolvantas.pages.dev/unix-timestamp-converter.html",
-  "applicationCategory": "DeveloperApplication",
-  "operatingSystem": "Any",
-  "description": "Convert epoch timestamps in seconds and milliseconds to UTC and local date formats with live ticking clock.",
-  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Unix Timestamp Converter",
+      "url": "https://toolvantas.pages.dev/unix-timestamp-converter.html",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "description": "Convert Unix epoch timestamps across seconds, milliseconds, microseconds, and nanoseconds to UTC, ISO 8601, and local dates with a live ticking clock.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://toolvantas.pages.dev/" },
+        { "@type": "ListItem", "position": 2, "name": "All Tools", "item": "https://toolvantas.pages.dev/tools.html#developer" },
+        { "@type": "ListItem", "position": 3, "name": "Unix Timestamp Converter", "item": "https://toolvantas.pages.dev/unix-timestamp-converter.html" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Does this converter support seconds, milliseconds, microseconds, and nanoseconds?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Auto-detect mode identifies 10-digit seconds, 13-digit milliseconds, 16-digit microseconds, and 19-digit nanoseconds (including negative pre-1970 values), or you can select a specific precision manually."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does Local Time differ from UTC / GMT Time?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Unix timestamps always count elapsed seconds relative to 00:00:00 UTC on January 1, 1970. Local Time applies your device's timezone and daylight saving offset."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the Unix epoch start date?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The Unix epoch began at 00:00:00 Coordinated Universal Time (UTC) on Thursday, January 1, 1970 (timestamp 0). Dates before 1970 are represented by negative integers."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the Year 2038 problem?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Legacy systems storing Unix seconds in signed 32-bit integers overflow after 2,147,483,647 (03:14:07 UTC on January 19, 2038). Modern 64-bit systems eliminate this limit."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How are Day of Year and Leap Year calculated in UTC vs Local mode?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "When UTC is selected as the timezone reference, Day of Week, Day of Year, and Leap Year are evaluated strictly in UTC calendar days so daylight saving transitions never shift the day number."
+          }
+        }
+      ]
+    }
+  ]
 }
 </script>
 <style>
 .epoch-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;align-items:start}
-.tool-card,.results,.content-card{padding:22px;border:1px solid var(--line);border-radius:14px;background:#fff;min-width:0}
-.tool-card h2,.results h2,.content-card h2{margin:0 0 8px;font-size:1.2rem}
+.panel-card,.results,.content-card{padding:22px;border:1px solid var(--line);border-radius:14px;background:#fff;min-width:0}
+.panel-card h2,.results h2,.content-card h2{margin:0 0 8px;font-size:1.2rem}
 .muted{color:var(--muted);font-size:.88rem;line-height:1.55}
-.clock-banner{padding:16px 20px;border-radius:12px;background:#f3f8f5;border:1px solid #d5e5db;display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.clock-banner{padding:16px 20px;border-radius:12px;background:#f3f8f5;border:1px solid #d5e5db;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:20px}
 .clock-digits{font-size:1.6rem;font-weight:850;font-family:ui-monospace,Menlo,Consolas,monospace;color:var(--forest)}
 .fields{display:grid;grid-template-columns:1fr;gap:14px}
+.field-row{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(130px,.65fr);gap:10px}
 .field{min-width:0}
 .field label{display:block;font-size:.84rem;font-weight:750;margin-bottom:5px}
 .field input,.field select{box-sizing:border-box;width:100%;min-height:44px;padding:9px 10px;border:1px solid #cfdad2;border-radius:8px;background:#fff;color:var(--ink);font:inherit}
-.field input:focus-visible,.field select:focus-visible,button:focus-visible{outline:3px solid #8bb7a5;outline-offset:2px}
+.field input:focus-visible,.field select:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #8bb7a5;outline-offset:2px}
 .actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .actions button{cursor:pointer;font:inherit;font-weight:700;min-height:40px}
 .secondary{padding:9px 13px;border:1px solid var(--line);border-radius:8px;background:white;color:var(--ink);font-size:.84rem}
-.preset-pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
-.pill{padding:5px 9px;border:1px solid #d0dfd5;border-radius:6px;background:#f9fbf9;font-size:.76rem;font-weight:700;cursor:pointer;color:#2d725e}
+.preset-pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.pill{padding:6px 10px;border:1px solid #d0dfd5;border-radius:6px;background:#f9fbf9;font-size:.76rem;font-weight:700;cursor:pointer;color:#2d725e;min-height:32px}
 .pill:hover{background:#e8f2ec}
 .breakdown{list-style:none;margin:12px 0 0;padding:0;border-top:1px solid #dce6dd}
 .breakdown li{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #e1e9e2;font-size:.84rem}
@@ -49,8 +120,9 @@
 .content-card ul{padding-left:22px}
 .faq-list details{border-bottom:1px solid var(--line);padding:14px 0}
 .faq-list summary{cursor:pointer;font-weight:750;line-height:1.5}
+.faq-list summary h3{display:inline;font-size:1rem;font-weight:750;margin:0}
 .faq-list details p{margin:10px 0 0}
-@media(max-width:760px){.epoch-layout,.content-grid{grid-template-columns:1fr}}
+@media(max-width:760px){.epoch-layout,.content-grid,.field-row{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -64,32 +136,46 @@
 <section class="page-hero"><div class="container">
 <p class="eyebrow">Developer utility</p>
 <h1>Unix Timestamp Converter</h1>
-<p>Convert Epoch timestamps into human-readable local time, UTC, and ISO 8601 strings, or convert calendar dates back into epoch seconds and milliseconds.</p>
+<p>Convert Unix epoch timestamps (seconds, milliseconds, microseconds, or nanoseconds) into UTC, ISO 8601, and local dates—or convert calendar dates back into epoch integers.</p>
 </div></section>
 <section class="section"><div class="container">
 
 <div class="clock-banner">
 <div>
-<div style="font-size:.78rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.05em">Current Unix Epoch Time</div>
+<div style="font-size:.78rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.05em">Current Unix Epoch Time (Seconds)</div>
 <div class="clock-digits" id="live-epoch">0000000000</div>
 </div>
-<div style="display:flex;gap:8px">
+<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
 <button type="button" class="secondary" id="btn-copy-live">Copy</button>
 <button type="button" class="secondary" id="btn-pause-live">Pause</button>
+<button type="button" class="secondary" id="btn-reset">Reset to Now</button>
+<span id="live-status" class="muted" style="font-size:.8rem" aria-live="polite"></span>
 </div>
 </div>
 
 <div class="epoch-layout">
-<!-- Card 1: Timestamp to Date -->
-<div class="tool-card">
+<div class="panel-card">
 <h2>Convert Epoch to Date</h2>
-<p class="muted">Enter a 10-digit (seconds) or 13-digit (milliseconds) timestamp.</p>
+<p class="muted">Enter a positive or negative epoch value in seconds, ms, µs, or ns.</p>
+<div class="field-row">
 <div class="field">
 <label for="ts-input">Unix Timestamp</label>
-<input type="number" id="ts-input" placeholder="e.g. 1776528000">
+<input type="number" id="ts-input" step="any" placeholder="e.g. 1776528000">
+</div>
+<div class="field">
+<label for="ts-unit">Unit</label>
+<select id="ts-unit">
+<option value="auto">Auto-detect</option>
+<option value="s">Seconds (s)</option>
+<option value="ms">Milliseconds (ms)</option>
+<option value="us">Microseconds (µs)</option>
+<option value="ns">Nanoseconds (ns)</option>
+</select>
+</div>
 </div>
 <div class="preset-pills">
 <button type="button" class="pill" data-mod="now">Now</button>
+<button type="button" class="pill" data-mod="0">Epoch 0 (1970)</button>
 <button type="button" class="pill" data-mod="+1h">+1 Hour</button>
 <button type="button" class="pill" data-mod="+1d">+1 Day</button>
 <button type="button" class="pill" data-mod="+7d">+7 Days</button>
@@ -102,12 +188,14 @@
 <li><span>ISO 8601 Format:</span><strong id="out-iso">—</strong></li>
 <li><span>Relative Time:</span><strong id="out-rel">—</strong></li>
 </ul>
+<div class="actions">
+<button type="button" class="secondary" id="btn-copy-iso">Copy ISO 8601</button>
+</div>
 </div>
 
-<!-- Card 2: Date to Timestamp -->
 <div class="results">
 <h2>Convert Date to Epoch</h2>
-<p class="muted">Select a date and time to generate Unix epoch values.</p>
+<p class="muted">Select a calendar date and timezone reference to generate Unix epoch values.</p>
 <div class="fields">
 <div class="field">
 <label for="date-input">Select Date &amp; Time</label>
@@ -131,31 +219,41 @@
 <div class="actions">
 <button type="button" class="button button-primary" id="btn-copy-epoch">Copy Seconds</button>
 <button type="button" class="secondary" id="btn-copy-ms">Copy Milliseconds</button>
-<span id="copy-status" class="muted" style="align-self:center;font-size:.82rem"></span>
+<span id="copy-status" class="muted" style="align-self:center;font-size:.82rem" aria-live="polite"></span>
 </div>
 </div>
 
 </div></div></section>
 <section class="section" style="padding-top:0"><div class="container content-grid">
 <article class="content-card"><h2>What is Unix epoch time?</h2>
-<p>Unix time (also known as POSIX time or Epoch time) measures the number of seconds that have elapsed since midnight Coordinated Universal Time (UTC) on <strong>January 1, 1970</strong>, not counting leap seconds.</p>
+<p>Unix time (POSIX time) counts elapsed seconds since midnight Coordinated Universal Time (UTC) on <strong>January 1, 1970</strong>, excluding leap seconds.</p>
 <ul>
-<li><strong>Universal:</strong> It is identical worldwide regardless of your physical location, timezone, or daylight saving time rules.</li>
-<li><strong>Storage efficient:</strong> Storing a single 32-bit or 64-bit integer takes far less database memory than formatting human date strings.</li>
-<li><strong>Easy arithmetic:</strong> Calculating the difference between two timestamps simply requires subtracting one integer from another.</li>
+<li><strong>Timezone-independent:</strong> A Unix timestamp represents the exact same instant globally regardless of local timezone or DST rules.</li>
+<li><strong>Multi-precision logs:</strong> Databases, JWT tokens, and telemetry pipelines store epoch values in seconds (10 digits), milliseconds (13), microseconds (16), or nanoseconds (19).</li>
+<li><strong>Pre-1970 support:</strong> Negative integers represent instants prior to January 1, 1970 UTC.</li>
 </ul>
 </article>
 <article class="content-card"><h2>The Year 2038 Problem</h2>
-<p>Legacy systems storing Unix timestamps as signed 32-bit integers will overflow on <strong>January 19, 2038</strong>, rolling over to negative numbers and misinterpreting the date as December 13, 1901.</p>
-<p>Modern software and 64-bit architectures avoid this limitation entirely, allowing accurate date calculations for approximately 292 billion years into the future.</p>
+<p>Legacy systems storing Unix seconds in signed 32-bit integers overflow after <code>2,147,483,647</code> at <strong>03:14:07 UTC on January 19, 2038</strong>, wrapping around to December 13, 1901.</p>
+<p>Modern 64-bit operating systems, databases, and APIs store timestamps in 64-bit integers or ISO 8601 strings, eliminating the 2038 limit.</p>
 </article>
 </div></section>
 <section class="section" style="padding-top:0"><div class="container content-card faq-list">
 <h2>Frequently asked questions</h2>
-<details><summary>Does this converter handle milliseconds?</summary><p>Yes. If you enter an integer greater than 99,999,999,999, it automatically detects that your timestamp is in milliseconds and scales the calculations accordingly.</p></details>
-<details><summary>Why does my timestamp show a different hour than my colleague's?</summary><p>Unix timestamps are always measured relative to UTC. When rendered as "Local Time", your browser converts the UTC value to your operating system's configured timezone and daylight saving offset.</p></details>
-<details><summary>What is the Unix epoch start date?</summary><p>The Unix epoch began at 00:00:00 UTC on January 1, 1970, which serves as the universal reference point for computer time tracking.</p></details>
-<details><summary>What is the Year 2038 problem?</summary><p>It refers to the overflow of 32-bit signed integers storing Unix seconds at 03:14:07 UTC on January 19, 2038. Upgrading systems to 64-bit storage solves this issue permanently.</p></details>
+<details><summary><h3>Does this converter support seconds, milliseconds, microseconds, and nanoseconds?</h3></summary><p>Yes. Auto-detect mode identifies 10-digit seconds, 13-digit milliseconds, 16-digit microseconds, and 19-digit nanoseconds (including negative pre-1970 values), or you can pick a unit explicitly.</p></details>
+<details><summary><h3>Why does Local Time differ from UTC / GMT Time?</h3></summary><p>Unix timestamps are always measured relative to UTC. When rendered as Local Time, your browser applies your device's configured timezone and daylight saving offset.</p></details>
+<details><summary><h3>What is the Unix epoch start date?</h3></summary><p>The Unix epoch began at 00:00:00 UTC on Thursday, January 1, 1970 (timestamp <code>0</code>). Dates before 1970 use negative integers.</p></details>
+<details><summary><h3>What is the Year 2038 problem?</h3></summary><p>It refers to the overflow of signed 32-bit integers storing Unix seconds at 03:14:07 UTC on January 19, 2038. Upgrading to 64-bit integer timestamps resolves it permanently.</p></details>
+<details><summary><h3>How are Day of Year and Leap Year calculated in UTC vs Local mode?</h3></summary><p>When UTC is selected, Day of Week, Day of Year, and Leap Year are computed strictly using UTC calendar dates so local timezones and daylight saving shifts never skew the result.</p></details>
+</div></section>
+<section class="section" style="padding-top:0"><div class="container">
+<div class="section-heading"><div><p class="eyebrow">More on Toolvantas</p><h2>Related date, time &amp; developer tools</h2></div><a class="text-link" href="/tools.html">Browse all tools <span>→</span></a></div>
+<div class="tool-grid" style="grid-template-columns:repeat(auto-fit,minmax(230px,1fr))">
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">📅</div><p class="card-category">Everyday Calculators</p><h3><a href="/date-duration-calculator.html">Date Duration Calculator</a></h3><p>Count calendar days and business workdays between two dates.</p><a class="card-link" href="/date-duration-calculator.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">⏱️</div><p class="card-category">Everyday Calculators</p><h3><a href="/time-duration-calculator.html">Time Duration Calculator</a></h3><p>Calculate exact hours, minutes, seconds, and work shifts.</p><a class="card-link" href="/time-duration-calculator.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">🎂</div><p class="card-category">Everyday Calculators</p><h3><a href="/age-calculator.html">Age Calculator</a></h3><p>Compute chronological age in years, months, days, and hours.</p><a class="card-link" href="/age-calculator.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">🧩</div><p class="card-category">Developer Tools</p><h3><a href="/json-formatter-and-validator.html">JSON Formatter &amp; Validator</a></h3><p>Format and validate API logs containing epoch timestamps.</p><a class="card-link" href="/json-formatter-and-validator.html">Open tool →</a></article>
+</div>
 </div></section>
 </main>
 <footer class="site-footer"><div class="container footer-top">
@@ -166,44 +264,67 @@
 (()=> {
 'use strict';
 const $=id=>document.getElementById(id);
+const days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 
 let isTicking=true;
 function tick(){
   if(isTicking){
-    $('live-epoch').textContent=Math.floor(Date.now()/1000);
+    $('live-epoch').textContent=String(Math.floor(Date.now()/1000));
   }
 }
 setInterval(tick,1000);
 tick();
+
+async function copyWithFeedback(text,statusEl,okMsg){
+  if(!text||text==='—')return;
+  try{
+    if(!navigator.clipboard||!navigator.clipboard.writeText)throw new Error('Unavailable');
+    await navigator.clipboard.writeText(text);
+    statusEl.textContent=okMsg;
+    setTimeout(()=>{statusEl.textContent='';},2000);
+  }catch{
+    statusEl.textContent='Clipboard unavailable. Copy manually.';
+  }
+}
 
 $('btn-pause-live').addEventListener('click',()=>{
   isTicking=!isTicking;
   $('btn-pause-live').textContent=isTicking?'Pause':'Resume';
 });
 
-$('btn-copy-live').addEventListener('click',async()=>{
-  try{
-    await navigator.clipboard.writeText($('live-epoch').textContent);
-    $('btn-copy-live').textContent='Copied!';
-    setTimeout(()=>{$('btn-copy-live').textContent='Copy';},1500);
-  }catch{}
+$('btn-copy-live').addEventListener('click',()=>{
+  copyWithFeedback($('live-epoch').textContent,$('live-status'),'Live epoch copied!');
 });
 
 function timeAgo(date){
-  const seconds=Math.floor((Date.now()-date.getTime())/1000);
+  const seconds=Math.round((Date.now()-date.getTime())/1000);
   const rtf=new Intl.RelativeTimeFormat('en',{numeric:'auto'});
   if(Math.abs(seconds)<60)return rtf.format(-seconds,'second');
-  const minutes=Math.floor(seconds/60);
+  const minutes=Math.round(seconds/60);
   if(Math.abs(minutes)<60)return rtf.format(-minutes,'minute');
-  const hours=Math.floor(minutes/60);
+  const hours=Math.round(minutes/60);
   if(Math.abs(hours)<24)return rtf.format(-hours,'hour');
-  const days=Math.floor(hours/24);
-  return rtf.format(-days,'day');
+  const d=Math.round(hours/24);
+  if(Math.abs(d)<365)return rtf.format(-d,'day');
+  return rtf.format(-Math.round(d/365.25),'year');
+}
+
+function resolveMsAndLabel(num,unitMode){
+  if(unitMode==='s') return {ms:num*1000,label:'Seconds (manual)'};
+  if(unitMode==='ms') return {ms:num,label:'Milliseconds (manual)'};
+  if(unitMode==='us') return {ms:num/1000,label:'Microseconds (manual)'};
+  if(unitMode==='ns') return {ms:num/1e6,label:'Nanoseconds (manual)'};
+
+  const abs=Math.abs(num);
+  if(abs>=1e17) return {ms:num/1e6,label:'Nanoseconds (auto-detected)'};
+  if(abs>=1e14) return {ms:num/1000,label:'Microseconds (auto-detected)'};
+  if(abs>=1e11) return {ms:num,label:'Milliseconds (auto-detected)'};
+  return {ms:num*1000,label:'Seconds (auto-detected)'};
 }
 
 function updateFromTimestamp(){
   const raw=$('ts-input').value.trim();
-  if(!raw||isNaN(raw)){
+  if(raw===''||!Number.isFinite(Number(raw))){
     $('out-type').textContent='—';
     $('out-local').textContent='—';
     $('out-utc').textContent='—';
@@ -211,12 +332,15 @@ function updateFromTimestamp(){
     $('out-rel').textContent='—';
     return;
   }
-  let num=Number(raw);
-  let isMs=num>99999999999;
-  $('out-type').textContent=isMs?'Milliseconds (13 digits)':'Seconds (10 digits)';
-  const date=new Date(isMs?num:num*1000);
+  const num=Number(raw);
+  const {ms,label}=resolveMsAndLabel(num,$('ts-unit').value);
+  $('out-type').textContent=label;
+  const date=new Date(ms);
   if(isNaN(date.getTime())){
-    $('out-local').textContent='Invalid Date Range';
+    $('out-local').textContent='Out of valid ECMAScript Date range';
+    $('out-utc').textContent='—';
+    $('out-iso').textContent='—';
+    $('out-rel').textContent='—';
     return;
   }
   $('out-local').textContent=date.toLocaleString();
@@ -226,19 +350,26 @@ function updateFromTimestamp(){
 }
 
 $('ts-input').addEventListener('input',updateFromTimestamp);
+$('ts-unit').addEventListener('change',updateFromTimestamp);
 
 document.querySelectorAll('.preset-pills .pill').forEach(btn=>{
   btn.addEventListener('click',()=>{
     const now=Math.floor(Date.now()/1000);
     const mod=btn.dataset.mod;
-    if(mod==='now') $('ts-input').value=now;
-    else if(mod==='+1h') $('ts-input').value=now+3600;
-    else if(mod==='+1d') $('ts-input').value=now+86400;
-    else if(mod==='+7d') $('ts-input').value=now+604800;
-    else if(mod==='+30d') $('ts-input').value=now+(30*86400);
+    $('ts-unit').value='auto';
+    if(mod==='now') $('ts-input').value=String(now);
+    else if(mod==='0') $('ts-input').value='0';
+    else if(mod==='+1h') $('ts-input').value=String(now+3600);
+    else if(mod==='+1d') $('ts-input').value=String(now+86400);
+    else if(mod==='+7d') $('ts-input').value=String(now+604800);
+    else if(mod==='+30d') $('ts-input').value=String(now+(30*86400));
     updateFromTimestamp();
   });
 });
+
+function isLeap(yr){
+  return yr%4===0&&(yr%100!==0||yr%400===0);
+}
 
 function updateFromDate(){
   const val=$('date-input').value;
@@ -250,51 +381,56 @@ function updateFromDate(){
     $('out-leap').textContent='—';
     return;
   }
-  let date=new Date(val);
-  if($('tz-select').value==='utc'){
-    const parts=val.split(/[-T:]/);
-    date=new Date(Date.UTC(parts[0],parts[1]-1,parts[2],parts[3]||0,parts[4]||0,parts[5]||0));
+  const parts=val.split(/[-T:]/).map(Number);
+  const isUtc=$('tz-select').value==='utc';
+  const date=isUtc
+    ?new Date(Date.UTC(parts[0],parts[1]-1,parts[2],parts[3]||0,parts[4]||0,parts[5]||0))
+    :new Date(parts[0],parts[1]-1,parts[2],parts[3]||0,parts[4]||0,parts[5]||0);
+
+  if(isNaN(date.getTime())){
+    $('out-sec').textContent='Invalid date';
+    return;
   }
   const ms=date.getTime();
   const sec=Math.floor(ms/1000);
-  $('out-sec').textContent=sec;
-  $('out-ms').textContent=ms;
-  const days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-  $('out-dow').textContent=days[date.getDay()];
-  const start=new Date(date.getFullYear(),0,0);
-  const diff=date-start;
-  const oneDay=1000*60*60*24;
-  $('out-doy').textContent=Math.floor(diff/oneDay);
-  const yr=date.getFullYear();
-  $('out-leap').textContent=(yr%4===0&&(yr%100!==0||yr%400===0))?'Yes':'No';
+  $('out-sec').textContent=String(sec);
+  $('out-ms').textContent=String(ms);
+
+  const yr=isUtc?date.getUTCFullYear():date.getFullYear();
+  const mo=isUtc?date.getUTCMonth():date.getMonth();
+  const dy=isUtc?date.getUTCDate():date.getDate();
+  const dow=isUtc?date.getUTCDay():date.getDay();
+  const doy=Math.round((Date.UTC(yr,mo,dy)-Date.UTC(yr,0,0))/86400000);
+
+  $('out-dow').textContent=days[dow];
+  $('out-doy').textContent=String(doy);
+  $('out-leap').textContent=isLeap(yr)?'Yes':'No';
 }
 
 const pad=n=>String(n).padStart(2,'0');
-const nowD=new Date();
-$('date-input').value=`${nowD.getFullYear()}-${pad(nowD.getMonth()+1)}-${pad(nowD.getDate())}T${pad(nowD.getHours())}:${pad(nowD.getMinutes())}:${pad(nowD.getSeconds())}`;
-$('ts-input').value=Math.floor(Date.now()/1000);
+function initDefaults(){
+  const nowD=new Date();
+  $('tz-select').value='local';
+  $('ts-unit').value='auto';
+  $('date-input').value=`${nowD.getFullYear()}-${pad(nowD.getMonth()+1)}-${pad(nowD.getDate())}T${pad(nowD.getHours())}:${pad(nowD.getMinutes())}:${pad(nowD.getSeconds())}`;
+  $('ts-input').value=String(Math.floor(Date.now()/1000));
+  updateFromTimestamp();
+  updateFromDate();
+}
 
 $('date-input').addEventListener('input',updateFromDate);
 $('tz-select').addEventListener('change',updateFromDate);
-
-$('btn-copy-epoch').addEventListener('click',async()=>{
-  try{
-    await navigator.clipboard.writeText($('out-sec').textContent);
-    $('copy-status').textContent='Seconds copied!';
-    setTimeout(()=>{$('copy-status').textContent='';},2000);
-  }catch{}
+$('btn-reset').addEventListener('click',()=>{
+  initDefaults();
+  $('live-status').textContent='Reset to current time.';
+  setTimeout(()=>{$('live-status').textContent='';},1800);
 });
 
-$('btn-copy-ms').addEventListener('click',async()=>{
-  try{
-    await navigator.clipboard.writeText($('out-ms').textContent);
-    $('copy-status').textContent='Milliseconds copied!';
-    setTimeout(()=>{$('copy-status').textContent='';},2000);
-  }catch{}
-});
+$('btn-copy-iso').addEventListener('click',()=>copyWithFeedback($('out-iso').textContent,$('copy-status'),'ISO 8601 copied!'));
+$('btn-copy-epoch').addEventListener('click',()=>copyWithFeedback($('out-sec').textContent,$('copy-status'),'Seconds copied!'));
+$('btn-copy-ms').addEventListener('click',()=>copyWithFeedback($('out-ms').textContent,$('copy-status'),'Milliseconds copied!'));
 
-updateFromTimestamp();
-updateFromDate();
+initDefaults();
 })();
 </script>
 </body>

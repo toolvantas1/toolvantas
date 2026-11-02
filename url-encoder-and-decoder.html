@@ -3,23 +3,93 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Encode and decode URLs, query strings, and URI components online in real time. Inspect URL components, parse query parameters, and convert special characters.">
+<meta name="description" content="Encode and decode URLs, query strings, and URI components online. Choose RFC 3986 or form + space decoding and inspect parsed query parameters client-side.">
 <meta name="robots" content="index,follow">
 <meta name="theme-color" content="#173d35">
 <link rel="canonical" href="https://toolvantas.pages.dev/url-encoder-and-decoder.html">
-<title>URL Encoder and Decoder — Percent-Encoding &amp; Parser | Toolvantas</title>
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Toolvantas">
+<meta property="og:title" content="URL Encoder and Decoder — Percent-Encoding | Toolvantas">
+<meta property="og:description" content="Encode and decode URLs, query strings, and URI components online. Choose RFC 3986 or form + space decoding and inspect parsed query parameters client-side.">
+<meta property="og:url" content="https://toolvantas.pages.dev/url-encoder-and-decoder.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="URL Encoder and Decoder — Percent-Encoding | Toolvantas">
+<meta name="twitter:description" content="Percent-encode or decode URLs and URI components and inspect parsed query parameters.">
+<title>URL Encoder and Decoder — Percent-Encoding | Toolvantas</title>
 <link rel="stylesheet" href="/site.css">
 <script src="/site.js" defer></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "URL Encoder and Decoder",
-  "url": "https://toolvantas.pages.dev/url-encoder-and-decoder.html",
-  "applicationCategory": "DeveloperApplication",
-  "operatingSystem": "Any",
-  "description": "Percent-encode and decode URI strings, inspect query parameters, and validate URL structure.",
-  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "URL Encoder and Decoder",
+      "url": "https://toolvantas.pages.dev/url-encoder-and-decoder.html",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "description": "Percent-encode and decode URI strings, toggle form + space handling, and inspect parsed query parameters client-side.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://toolvantas.pages.dev/" },
+        { "@type": "ListItem", "position": 2, "name": "All Tools", "item": "https://toolvantas.pages.dev/tools.html#developer" },
+        { "@type": "ListItem", "position": 3, "name": "URL Encoder and Decoder", "item": "https://toolvantas.pages.dev/url-encoder-and-decoder.html" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why do URLs need to be percent-encoded?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "URLs can only travel across HTTP/HTTPS using standard ASCII characters. Percent-encoding converts spaces, reserved delimiters (&, =, ?, /), and UTF-8 characters into %XX hex sequences so links and API parameters do not break."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between encodeURI and encodeURIComponent?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "encodeURI preserves structural URL characters like :, /, ?, and & so a full URL stays clickable, while encodeURIComponent encodes those delimiters so an individual query parameter value cannot inject extra parameters."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Should plus (+) signs be decoded as spaces?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "HTML form query strings (application/x-www-form-urlencoded) encode spaces as +, whereas strict RFC 3986 URI paths treat + as a literal plus character (such as C++). Use the checkbox to choose either behavior."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What does the Parsed Query Parameters table show?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Whenever your input or decoded URL contains query parameters (like ?utm_source=newsletter&page=2), the inspector extracts every key and value into a readable table."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are my URLs or API tokens sent to any server?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Every conversion and URL parameter inspection runs locally inside your web browser. Nothing leaves your device."
+          }
+        }
+      ]
+    }
+  ]
 }
 </script>
 <style>
@@ -27,13 +97,15 @@
 .editor-card,.results,.content-card{padding:22px;border:1px solid var(--line);border-radius:14px;background:#fff;min-width:0}
 .editor-card h2,.results h2,.content-card h2{margin:0 0 8px;font-size:1.2rem}
 .muted{color:var(--muted);font-size:.88rem;line-height:1.55}
-.mode-toggle{display:flex;gap:8px;margin:14px 0}
-.mode-btn{flex:1;padding:9px;border:1px solid var(--line);border-radius:8px;background:#fbfcfb;font:inherit;font-weight:750;cursor:pointer;color:var(--muted)}
+.mode-toggle{display:flex;gap:8px;margin:0 0 14px}
+.mode-btn{flex:1;padding:9px;border:1px solid var(--line);border-radius:8px;background:#fbfcfb;font:inherit;font-weight:750;cursor:pointer;color:var(--muted);min-height:40px}
 .mode-btn.active{background:var(--forest);color:#fff;border-color:var(--forest)}
 .field{margin-bottom:14px}
 .field label{display:block;font-size:.84rem;font-weight:750;margin-bottom:5px}
-.text-area{box-sizing:border-box;width:100%;height:160px;padding:12px;border:1px solid #cfdad2;border-radius:8px;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:.85rem;line-height:1.5;color:var(--ink);resize:vertical}
-.text-area:focus-visible,select:focus-visible,button:focus-visible{outline:3px solid #8bb7a5;outline-offset:2px}
+.text-area{box-sizing:border-box;width:100%;height:165px;padding:12px;border:1px solid #cfdad2;border-radius:8px;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:.85rem;line-height:1.5;color:var(--ink);resize:vertical}
+.text-area:focus-visible,select:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #8bb7a5;outline-offset:2px}
+.chk-inline{display:inline-flex;align-items:center;gap:6px;font-size:.82rem;font-weight:700;color:var(--ink);cursor:pointer;margin-bottom:10px}
+.chk-inline input{width:16px;height:16px;accent-color:var(--forest)}
 .actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
 .actions button{cursor:pointer;font:inherit;font-weight:700;min-height:38px}
 .secondary{padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:white;color:var(--ink);font-size:.84rem}
@@ -49,6 +121,7 @@
 .content-card ul{padding-left:22px}
 .faq-list details{border-bottom:1px solid var(--line);padding:14px 0}
 .faq-list summary{cursor:pointer;font-weight:750;line-height:1.5}
+.faq-list summary h3{display:inline;font-size:1rem;font-weight:750;margin:0}
 .faq-list details p{margin:10px 0 0}
 @media(max-width:760px){.url-layout,.content-grid{grid-template-columns:1fr}.tiles{grid-template-columns:1fr}}
 </style>
@@ -64,34 +137,36 @@
 <section class="page-hero"><div class="container">
 <p class="eyebrow">Developer utility</p>
 <h1>URL Encoder and Decoder</h1>
-<p>Encode special characters into RFC-compliant percent-encoded format or decode URLs back into clean text. Features real-time parameter parsing and standard selection.</p>
+<p>Encode special characters into RFC-compliant percent-encoded format or decode URLs back into clean text. Includes standard selection, form <code>+</code> space control, and live query parameter parsing.</p>
 </div></section>
 <section class="section"><div class="container"><div class="url-layout">
 <div class="editor-card">
-<div class="mode-toggle">
-<button type="button" class="mode-btn active" id="btn-mode-encode">Encode Mode</button>
-<button type="button" class="mode-btn" id="btn-mode-decode">Decode Mode</button>
+<div class="mode-toggle" role="group" aria-label="URL conversion mode">
+<button type="button" class="mode-btn active" id="btn-mode-encode" aria-pressed="true">Encode Mode</button>
+<button type="button" class="mode-btn" id="btn-mode-decode" aria-pressed="false">Decode Mode</button>
 </div>
 <div class="field">
 <label for="url-input" id="lbl-input">Input String or URL</label>
 <textarea id="url-input" class="text-area" placeholder="Type or paste text/URL here..." spellcheck="false">https://example.com/search?query=freelance rates &amp; category=UI/UX Design &amp; page=1</textarea>
 </div>
-<div style="display:flex;gap:10px;align-items:center;margin-bottom:12px">
+<div id="encode-std-row" style="display:flex;gap:10px;align-items:center;margin-bottom:10px;flex-wrap:wrap">
 <label for="encode-standard" style="font-size:.82rem;font-weight:750">Standard:</label>
-<select id="encode-standard" style="padding:6px 10px;border-radius:6px;border:1px solid #cfdad2;font:inherit;font-size:.82rem;background:#fff">
-<option value="component">encodeURIComponent (Full safe encoding for query values)</option>
+<select id="encode-standard" style="padding:7px 10px;border-radius:6px;border:1px solid #cfdad2;font:inherit;font-size:.82rem;background:#fff;min-height:38px">
+<option value="component">encodeURIComponent (Encode full query parameter value)</option>
 <option value="uri">encodeURI (Preserve protocol, host &amp; path slashes)</option>
 </select>
 </div>
+<label class="chk-inline" for="plus-as-space"><input type="checkbox" id="plus-as-space" checked>Decode <code>+</code> as space (form query strings)</label>
 <div class="actions">
 <button type="button" class="button button-primary" id="btn-convert">Convert Now</button>
 <button type="button" class="secondary" id="btn-swap">Swap ⇄</button>
+<button type="button" class="secondary" id="btn-sample">Load Sample</button>
 <button type="button" class="secondary" id="btn-clear">Clear</button>
 </div>
 </div>
 <div class="results" aria-live="polite">
-<h2>Converted Output</h2>
-<textarea id="url-output" class="text-area" readonly placeholder="Output will appear here..." spellcheck="false"></textarea>
+<h2><label for="url-output" style="cursor:pointer">Converted Output</label></h2>
+<textarea id="url-output" class="text-area" aria-label="Converted URL output" readonly placeholder="Output will appear here..." spellcheck="false"></textarea>
 <div class="tiles">
 <div class="tile"><span>Input Characters</span><strong id="stat-in">0</strong></div>
 <div class="tile"><span>Output Characters</span><strong id="stat-out">0</strong></div>
@@ -111,26 +186,37 @@
 </div></div></section>
 <section class="section" style="padding-top:0"><div class="container content-grid">
 <article class="content-card"><h2>How URL percent-encoding works</h2>
-<p>Uniform Resource Identifiers (URIs) must adhere to the ASCII character set. Any characters outside this range, as well as reserved structural characters, must be converted into their respective percent-encoded hex values.</p>
+<p>Uniform Resource Identifiers (URIs) must adhere to the ASCII character set. Characters outside ASCII, as well as reserved structural delimiters, are converted into UTF-8 byte sequences prefixed with <code>%</code>.</p>
 <ul>
-<li><strong>Spaces:</strong> Replaced by <code>%20</code> (or <code>+</code> in historical form POST data).</li>
+<li><strong>Spaces:</strong> Encoded as <code>%20</code> in RFC 3986 URIs (or <code>+</code> in HTML form query strings).</li>
 <li><strong>Query Delimiters:</strong> <code>&amp;</code> becomes <code>%26</code>, <code>=</code> becomes <code>%3D</code>, and <code>?</code> becomes <code>%3F</code>.</li>
 <li><strong>Slashes &amp; Protocols:</strong> <code>/</code> becomes <code>%2F</code> and <code>:</code> becomes <code>%3A</code> when encoded with <code>encodeURIComponent</code>.</li>
 </ul>
 </article>
 <article class="content-card"><h2>encodeURI vs. encodeURIComponent</h2>
-<p>Understanding the distinction between these two encoding approaches is critical when working with web APIs:</p>
+<p>Choosing the right encoding mode prevents broken links and query injection bugs:</p>
 <ul>
-<li><strong>Use encodeURI:</strong> When you are encoding an entire web URL (e.g. <code>https://example.com/products/item?ref=web</code>). It keeps <code>http://</code>, slashes, and question marks intact while encoding spaces and Unicode characters.</li>
-<li><strong>Use encodeURIComponent:</strong> When encoding individual query parameter values (e.g. passing a search phrase or redirect URL). It encodes slashes, ampersands, and equal signs to prevent parameter injection.</li>
+<li><strong>Use encodeURI:</strong> When encoding a complete clickable URL (such as <code>https://example.com/docs/my guide.pdf</code>). It keeps <code>https://</code>, slashes, and <code>?</code> intact while encoding spaces and Unicode characters.</li>
+<li><strong>Use encodeURIComponent:</strong> When encoding an individual query parameter value (such as passing a callback URL or search term containing <code>&amp;</code> or <code>=</code>).</li>
 </ul>
 </article>
 </div></section>
 <section class="section" style="padding-top:0"><div class="container content-card faq-list">
 <h2>Frequently asked questions</h2>
-<details><summary>Why do URLs need to be encoded?</summary><p>URLs can only travel across HTTP/HTTPS networks using ASCII characters. Encoding ensures international characters, spaces, and reserved symbols do not break web server routing or API parameter structures.</p></details>
-<details><summary>Does this tool work securely offline?</summary><p>Yes. All conversions and parameter extractions take place entirely inside your web browser. None of your links, search terms, or API tokens are sent over the network.</p></details>
-<details><summary>What does the Query Parameters table show?</summary><p>When a decoded link contains URL query arguments (such as <code>?user=123&amp;category=books</code>), the inspector automatically parses them into individual key-value rows for easy inspection.</p></details>
+<details><summary><h3>Why do URLs need to be percent-encoded?</h3></summary><p>URLs can only travel across HTTP/HTTPS networks using ASCII characters. Encoding ensures international characters, spaces, and reserved symbols do not break web server routing or API parameter structures.</p></details>
+<details><summary><h3>What is the difference between encodeURI and encodeURIComponent?</h3></summary><p><code>encodeURI</code> preserves structural URL delimiters like <code>:</code>, <code>/</code>, <code>?</code>, and <code>&amp;</code>, while <code>encodeURIComponent</code> encodes those characters so a single query value cannot break surrounding URL syntax.</p></details>
+<details><summary><h3>Should plus (+) signs be decoded as spaces?</h3></summary><p>HTML form submissions (<code>application/x-www-form-urlencoded</code>) turn spaces into <code>+</code>, while strict RFC 3986 paths treat <code>+</code> as a literal plus sign (e.g., <code>C++</code>). Toggle the checkbox depending on your source string.</p></details>
+<details><summary><h3>What does the Parsed Query Parameters table show?</h3></summary><p>When an input or decoded URL contains query arguments (such as <code>?user=123&amp;category=books</code>), the inspector parses each key-value pair into an easy-to-audit table.</p></details>
+<details><summary><h3>Are my URLs or API tokens sent to any server?</h3></summary><p>No. All conversions and parameter extractions take place locally inside your browser. None of your links or query tokens are transmitted over the network.</p></details>
+</div></section>
+<section class="section" style="padding-top:0"><div class="container">
+<div class="section-heading"><div><p class="eyebrow">More on Toolvantas</p><h2>Related developer &amp; text tools</h2></div><a class="text-link" href="/tools.html">Browse all tools <span>→</span></a></div>
+<div class="tool-grid" style="grid-template-columns:repeat(auto-fit,minmax(230px,1fr))">
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">🔐</div><p class="card-category">Developer Tools</p><h3><a href="/base64-encoder-and-decoder.html">Base64 Encoder &amp; Decoder</a></h3><p>Convert UTF-8 text, URL-safe tokens, and files to Base64.</p><a class="card-link" href="/base64-encoder-and-decoder.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">🏷️</div><p class="card-category">Developer Tools</p><h3><a href="/html-entity-encoder-and-decoder.html">HTML Entity Encoder</a></h3><p>Convert reserved HTML symbols to named, decimal, or hex entities.</p><a class="card-link" href="/html-entity-encoder-and-decoder.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">🧩</div><p class="card-category">Developer Tools</p><h3><a href="/json-formatter-and-validator.html">JSON Formatter &amp; Validator</a></h3><p>Format, validate, sort, and minify JSON API payloads.</p><a class="card-link" href="/json-formatter-and-validator.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">🔎</div><p class="card-category">Text Tools</p><h3><a href="/find-and-replace-text.html">Find and Replace Text</a></h3><p>Bulk-replace URLs, query parameters, or regex patterns.</p><a class="card-link" href="/find-and-replace-text.html">Open tool →</a></article>
+</div>
 </div></section>
 </main>
 <footer class="site-footer"><div class="container footer-top">
@@ -143,10 +229,7 @@
 const $=id=>document.getElementById(id);
 let mode='encode';
 const input=$('url-input'),output=$('url-output');
-
-function escapeHtml(s){
-  return s.replace(/[&<>'"]/g,t=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[t]));
-}
+const SAMPLE_URL='https://example.com/search?query=freelance rates & category=UI/UX Design & page=1';
 
 function inspectParams(raw){
   const inspector=$('url-inspector');
@@ -164,7 +247,13 @@ function inspectParams(raw){
       if(params.length>0){
         params.forEach(([k,v])=>{
           const tr=document.createElement('tr');
-          tr.innerHTML=`<td><strong>${escapeHtml(k)}</strong></td><td>${escapeHtml(v)}</td>`;
+          const tdK=document.createElement('td');
+          const st=document.createElement('strong');
+          st.textContent=k;
+          tdK.appendChild(st);
+          const tdV=document.createElement('td');
+          tdV.textContent=v;
+          tr.append(tdK,tdV);
           tbody.appendChild(tr);
         });
         inspector.style.display='block';
@@ -175,9 +264,13 @@ function inspectParams(raw){
   inspector.style.display='none';
 }
 
+function encodeStrict3986Component(str){
+  return encodeURIComponent(str).replace(/[!'()*]/g,c=>'%' + c.charCodeAt(0).toString(16).toUpperCase());
+}
+
 function convert(){
   const str=input.value;
-  $('stat-in').textContent=str.length;
+  $('stat-in').textContent=String(str.length);
   if(!str){
     output.value='';
     $('stat-out').textContent='0';
@@ -187,38 +280,44 @@ function convert(){
   try{
     if(mode==='encode'){
       const type=$('encode-standard').value;
-      output.value=type==='uri'?encodeURI(str):encodeURIComponent(str);
+      output.value=type==='uri'?encodeURI(str):encodeStrict3986Component(str);
       inspectParams(str);
     }else{
-      output.value=decodeURIComponent(str.replace(/\+/g,' '));
+      const prepared=$('plus-as-space').checked?str.replace(/\+/g,' '):str;
+      output.value=decodeURIComponent(prepared);
       inspectParams(output.value);
     }
-    $('stat-out').textContent=output.value.length;
+    $('stat-out').textContent=String(output.value.length);
   }catch(err){
-    output.value='Malformed URL sequence: '+err.message;
+    output.value='Malformed URL sequence: '+(err.message||'Invalid percent-encoded byte sequence.');
     $('stat-out').textContent='0';
     $('url-inspector').style.display='none';
   }
 }
 
+function syncModeUi(){
+  $('btn-mode-encode').classList.toggle('active',mode==='encode');
+  $('btn-mode-encode').setAttribute('aria-pressed',String(mode==='encode'));
+  $('btn-mode-decode').classList.toggle('active',mode==='decode');
+  $('btn-mode-decode').setAttribute('aria-pressed',String(mode==='decode'));
+  $('lbl-input').textContent=mode==='encode'?'Input Text or URL to Encode':'Input Encoded URL to Decode';
+}
+
 $('btn-mode-encode').addEventListener('click',()=>{
   mode='encode';
-  $('btn-mode-encode').classList.add('active');
-  $('btn-mode-decode').classList.remove('active');
-  $('lbl-input').textContent='Input Text or URL to Encode';
+  syncModeUi();
   convert();
 });
 
 $('btn-mode-decode').addEventListener('click',()=>{
   mode='decode';
-  $('btn-mode-decode').classList.add('active');
-  $('btn-mode-encode').classList.remove('active');
-  $('lbl-input').textContent='Input Encoded URL to Decode';
+  syncModeUi();
   convert();
 });
 
 input.addEventListener('input',convert);
 $('encode-standard').addEventListener('change',convert);
+$('plus-as-space').addEventListener('change',convert);
 $('btn-convert').addEventListener('click',convert);
 
 $('btn-swap').addEventListener('click',()=>{
@@ -226,9 +325,14 @@ $('btn-swap').addEventListener('click',()=>{
   input.value=output.value;
   output.value=temp;
   mode=mode==='encode'?'decode':'encode';
-  $('btn-mode-encode').classList.toggle('active',mode==='encode');
-  $('btn-mode-decode').classList.toggle('active',mode==='decode');
-  $('lbl-input').textContent=mode==='encode'?'Input Text or URL to Encode':'Input Encoded URL to Decode';
+  syncModeUi();
+  convert();
+});
+
+$('btn-sample').addEventListener('click',()=>{
+  mode='encode';
+  syncModeUi();
+  input.value=SAMPLE_URL;
   convert();
 });
 
@@ -238,19 +342,22 @@ $('btn-clear').addEventListener('click',()=>{
   $('stat-in').textContent='0';
   $('stat-out').textContent='0';
   $('url-inspector').style.display='none';
+  $('copy-status').textContent='';
 });
 
 $('btn-copy').addEventListener('click',async()=>{
   if(!output.value)return;
   try{
+    if(!navigator.clipboard||!navigator.clipboard.writeText)throw new Error('Unavailable');
     await navigator.clipboard.writeText(output.value);
     $('copy-status').textContent='Copied to clipboard!';
     setTimeout(()=>{$('copy-status').textContent='';},2000);
   }catch{
-    alert('Failed to copy. Please copy manually.');
+    $('copy-status').textContent='Clipboard unavailable. Select and copy manually.';
   }
 });
 
+syncModeUi();
 convert();
 })();
 </script>

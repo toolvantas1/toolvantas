@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-# Add the production sitemap URL after the final site URL is selected.
+Sitemap: https://toolvantas.pages.dev/sitemap.xml

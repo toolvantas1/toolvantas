@@ -1,0 +1,630 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Discount Calculator — Sale Price, % Off &amp; Tax | Toolvantas</title>
+<meta name="description" content="Free online discount calculator for sale price, total savings, stacked extra % discounts, promo coupons, BOGO multi-buy offers, and sales tax.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#173d35">
+<link rel="canonical" href="https://toolvantas.pages.dev/discount-calculator.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Toolvantas">
+<meta property="og:title" content="Discount Calculator — Sale Price, % Off &amp; Tax | Toolvantas">
+<meta property="og:description" content="Free online discount calculator for sale price, total savings, stacked extra % discounts, promo coupons, BOGO multi-buy offers, and sales tax.">
+<meta property="og:url" content="https://toolvantas.pages.dev/discount-calculator.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Discount Calculator — Sale Price, % Off &amp; Tax | Toolvantas">
+<meta name="twitter:description" content="Free online discount calculator for sale price, total savings, stacked extra % discounts, promo coupons, BOGO multi-buy offers, and sales tax.">
+<link rel="stylesheet" href="/site.css">
+<script src="/site.js" defer></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Discount Calculator",
+      "url": "https://toolvantas.pages.dev/discount-calculator.html",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "description": "Free online discount calculator for sale price, total savings, stacked extra % discounts, promo coupons, BOGO multi-buy offers, and sales tax.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is sales tax calculated before or after a store discount?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "For standard store markdowns and retailer promo codes, sales tax/VAT is calculated on the discounted sale price you actually pay, which is how this calculator computes tax."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I find the original price when I only see the sale tag and \"% off\"?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Switch to the \"Reverse (Original / % Off)\" tab and enter the sale price and discount percentage. Mathematically, Original Price = Sale Price ÷ (1 − Discount% ÷ 100)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is \"Buy 1 Get 1 50% Off\" only a 25% discount?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "On two $40 items ($80 regular value), the first costs $40 and the second costs $20, totaling $60. Saving $20 out of $80 is 20 ÷ 80 = 25% off overall."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does the order of two percentage discounts change the final price?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No! Because multiplication is commutative, Price × 0.75 × 0.90 gives the exact same subtotal as Price × 0.90 × 0.75. However, a fixed cash coupon ($10 off) saves you more if applied after percentage discounts rather than before."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What happens if a flat coupon is larger than the discounted subtotal?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The calculator caps the subtotal at 0.00 so your receipt total never turns negative."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I switch currencies for non-USD shopping?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Choose USD, BDT, GBP, EUR, CAD, AUD, INR, or PKR from the Currency selector to format all figures cleanly."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://toolvantas.pages.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "All Tools",
+          "item": "https://toolvantas.pages.dev/tools.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Discount Calculator",
+          "item": "https://toolvantas.pages.dev/discount-calculator.html"
+        }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+.calc-layout{display:grid;grid-template-columns:minmax(0,1.06fr) minmax(280px,.94fr);gap:22px;align-items:start}
+.calc-card,.results,.content-card{padding:22px;border:1px solid var(--line);border-radius:14px;background:#fff;min-width:0}
+.calc-card h2,.results h2,.content-card h2{margin:0 0 8px;font-size:1.2rem}
+.results h3,.calc-card h3{margin:16px 0 8px;font-size:.98rem}
+.muted{color:var(--muted);font-size:.88rem;line-height:1.55}
+.mode-tabs{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 16px}
+.mode-btn{padding:8px 11px;border:1px solid #cfdad2;border-radius:8px;background:var(--soft);color:var(--ink);font:inherit;font-size:.8rem;font-weight:750;cursor:pointer}
+.mode-btn[aria-pressed="true"]{background:var(--forest);border-color:var(--forest);color:#fff}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.field{min-width:0}
+.field-full{grid-column:1 / -1}
+.field label{display:block;font-size:.84rem;font-weight:750;margin-bottom:5px}
+.field input,.field select{box-sizing:border-box;width:100%;min-height:44px;padding:9px 10px;border:1px solid #cfdad2;border-radius:8px;background:#fff;color:var(--ink);font:inherit}
+.field input:focus-visible,.field select:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #8bb7a5;outline-offset:2px}
+.field small{display:block;color:var(--muted);font-size:.75rem;line-height:1.45;margin-top:4px}
+.presets{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+.chip{padding:6px 10px;border:1px solid var(--line);border-radius:7px;background:var(--soft);color:var(--ink);font:inherit;font-size:.76rem;font-weight:700;cursor:pointer}
+.chip:hover{border-color:#b9d1c1;background:var(--mint);color:var(--forest)}
+.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}
+.actions button{cursor:pointer;font:inherit;font-weight:700;min-height:42px}
+.secondary{padding:10px 14px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--ink)}
+.secondary:hover{border-color:#b9d1c1}
+.results{background:#f7faf7;border-color:#dbe8dd}
+.big{display:block;font-size:clamp(2rem,4vw,2.75rem);font-weight:850;letter-spacing:-.05em;color:var(--forest);overflow-wrap:anywhere}
+.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:16px 0}
+.tile{padding:11px;border:1px solid #e0e9e1;border-radius:9px;background:#fff;min-width:0}
+.tile span{display:block;color:var(--muted);font-size:.75rem;line-height:1.4}
+.tile strong{display:block;margin-top:4px;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+.breakdown{list-style:none;margin:0;padding:0;border-top:1px solid #dce6dd}
+.breakdown li{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid #e1e9e2;font-size:.82rem}
+.breakdown span{color:var(--muted)}
+.breakdown strong{text-align:right;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+.error{color:#a12626;font-weight:700;font-size:.85rem}
+.status{min-height:1.3em}
+.content-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.content-card p,.content-card li{color:#52675d;font-size:.93rem;line-height:1.75}
+.content-card ul{padding-left:22px}
+.faq-list details{border-bottom:1px solid var(--line);padding:14px 0}
+.faq-list summary{cursor:pointer;font-weight:750;line-height:1.5}
+.faq-list summary h3{display:inline;margin:0;font-size:1rem;font-weight:750}
+.faq-list details p{margin:10px 0 0}
+@media(max-width:760px){.calc-layout,.content-grid{grid-template-columns:1fr}.calc-card,.results,.content-card{padding:18px}}
+@media(max-width:420px){.fields,.tiles{grid-template-columns:1fr}.calc-card,.results,.content-card{padding:15px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="container header-inner">
+<a class="brand" href="/" aria-label="Toolvantas home"><span class="brand-mark" aria-hidden="true">T</span><span>Toolvantas</span></a>
+<button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+<nav class="primary-nav" id="primary-nav" aria-label="Main navigation"><a href="/">Home</a><a href="/tools.html">All tools</a><a href="/#about">About</a></nav>
+</div></header>
+<main id="main">
+<section class="page-hero"><div class="container">
+<p class="eyebrow">Everyday calculator</p>
+<h1>Discount Calculator</h1>
+<p>Use this free discount calculator to find exact sale price, total savings, stacked percentage discounts, coupons, BOGO deals, sales tax, and original price.</p>
+</div></section>
+<section class="section"><div class="container"><div class="calc-layout">
+<form class="calc-card" id="discount-form" novalidate>
+<h2>Deal &amp; discount details</h2>
+<div class="mode-tabs" role="group" aria-label="Discount calculation modes">
+<button type="button" class="mode-btn" data-mode="percent" aria-pressed="true">% Off &amp; Stacked</button>
+<button type="button" class="mode-btn" data-mode="bogo" aria-pressed="false">BOGO / Multi-buy</button>
+<button type="button" class="mode-btn" data-mode="reverse" aria-pressed="false">Reverse (Original / % Off)</button>
+</div>
+
+<div class="fields" style="margin-bottom:14px">
+<div class="field">
+<label for="currency">Currency</label>
+<select id="currency" name="currency">
+<option value="USD">USD — US Dollar</option>
+<option value="BDT">BDT — Bangladeshi Taka</option>
+<option value="GBP">GBP — British Pound</option>
+<option value="EUR">EUR — Euro</option>
+<option value="CAD">CAD — Canadian Dollar</option>
+<option value="AUD">AUD — Australian Dollar</option>
+<option value="INR">INR — Indian Rupee</option>
+<option value="PKR">PKR — Pakistani Rupee</option>
+</select>
+</div>
+<div class="field">
+<label for="tax">Optional sales tax / VAT (%)</label>
+<input id="tax" type="number" min="0" max="100" step=".01" value="0">
+<small>Applied to the discounted subtotal.</small>
+</div>
+</div>
+
+<div id="percent-panel">
+<div class="fields">
+<div class="field">
+<label for="price">Item price (before discount)</label>
+<input id="price" type="number" min="0" step="any" value="120" required>
+</div>
+<div class="field">
+<label for="qty">Quantity</label>
+<input id="qty" type="number" min="1" max="100000" step="1" value="1" required>
+</div>
+<div class="field">
+<label for="disc1">Primary discount (%)</label>
+<input id="disc1" type="number" min="0" max="100" step="any" value="25" required>
+</div>
+<div class="field">
+<label for="disc2">Extra stacked discount (%)</label>
+<input id="disc2" type="number" min="0" max="100" step="any" value="0">
+<small>Optional "extra % off sale price".</small>
+</div>
+<div class="field field-full">
+<label for="coupon">Additional flat promo coupon off subtotal</label>
+<input id="coupon" type="number" min="0" step="any" value="0">
+<small>Fixed cash voucher deducted after percentage discounts.</small>
+</div>
+</div>
+<div class="presets" aria-label="Quick percentage presets">
+<button class="chip" type="button" data-d="10">10% off</button>
+<button class="chip" type="button" data-d="15">15% off</button>
+<button class="chip" type="button" data-d="20">20% off</button>
+<button class="chip" type="button" data-d="25">25% off</button>
+<button class="chip" type="button" data-d="30">30% off</button>
+<button class="chip" type="button" data-d="50">50% off</button>
+</div>
+</div>
+
+<div id="bogo-panel" hidden>
+<div class="fields">
+<div class="field">
+<label for="bogoPrice">Regular single-item price</label>
+<input id="bogoPrice" type="number" min="0" step="any" value="40">
+</div>
+<div class="field">
+<label for="bogoPreset">Common store promotion</label>
+<select id="bogoPreset">
+<option value="1,1,100">Buy 1, Get 1 Free (BOGO)</option>
+<option value="1,1,50">Buy 1, Get 1 50% Off</option>
+<option value="2,1,100" selected>Buy 2, Get 1 Free (3 for 2)</option>
+<option value="3,1,100">Buy 3, Get 1 Free (4 for 3)</option>
+</select>
+</div>
+<div class="field">
+<label for="buyX">Buy full-price qty (X)</label>
+<input id="buyX" type="number" min="1" step="1" value="2">
+</div>
+<div class="field">
+<label for="getY">Get discounted qty (Y)</label>
+<input id="getY" type="number" min="1" step="1" value="1">
+</div>
+<div class="field field-full">
+<label for="getOff">Discount on the Y bonus item(s) (%)</label>
+<input id="getOff" type="number" min="0" max="100" step="any" value="100">
+<small>100% = Free item; 50% = Half off second item.</small>
+</div>
+</div>
+</div>
+
+<div id="reverse-panel" hidden>
+<div class="fields">
+<div class="field field-full">
+<label for="revType">What do you want to find?</label>
+<select id="revType">
+<option value="orig" selected>Find original price (from sale price + % off)</option>
+<option value="pct">Find % discount (from original price + sale price)</option>
+</select>
+</div>
+<div class="field">
+<label for="revA" id="revLabelA">Discounted sale price</label>
+<input id="revA" type="number" min="0" step="any" value="75">
+</div>
+<div class="field">
+<label for="revB" id="revLabelB">Discount rate (%)</label>
+<input id="revB" type="number" min="0" step="any" value="25">
+</div>
+</div>
+</div>
+
+<div class="actions">
+<button class="button button-primary" type="submit">Calculate deal</button>
+<button class="secondary" type="reset">Reset defaults</button>
+<button class="secondary" type="button" id="copy">Copy summary</button>
+</div>
+<p class="error" id="error" role="alert" hidden></p>
+<p id="copy-status" class="muted status" aria-live="polite"></p>
+</form>
+
+<section class="results" aria-live="polite" aria-labelledby="results-title">
+<h2 id="results-title">Your price summary</h2>
+<p class="muted" id="headline-note">Final total to pay</p>
+<output class="big" id="primary-out">$90.00</output>
+<div class="tiles">
+<div class="tile"><span id="t1-label">Total you save</span><strong id="t1-val">$30.00</strong></div>
+<div class="tile"><span id="t2-label">Effective discount rate</span><strong id="t2-val">25.00%</strong></div>
+<div class="tile"><span id="t3-label">Discounted pre-tax price</span><strong id="t3-val">$90.00</strong></div>
+<div class="tile"><span id="t4-label">Final cost per item</span><strong id="t4-val">$90.00</strong></div>
+</div>
+<h3>Receipt breakdown</h3>
+<ul class="breakdown" id="receipt-list"></ul>
+</section>
+</div></div></section>
+
+<section class="section" style="padding-top:0"><div class="container content-grid">
+<article class="content-card">
+<h2>How stacked discounts actually work</h2>
+<p>When a store advertises <strong>"25% off, plus an extra 10% off at checkout"</strong>, retailers apply the second discount to the already-reduced price rather than adding 25% + 10% = 35%:</p>
+<ul>
+<li>Start with a <strong>$100</strong> jacket: 25% off lowers it to <strong>$75.00</strong>.</li>
+<li>An extra 10% off applies to $75.00 (saving $7.50), bringing the final price to <strong>$67.50</strong>.</li>
+<li>Your true combined discount is <strong>32.5% off</strong>, not 35% off. Entering both percentages above shows the exact effective discount immediately.</li>
+</ul>
+</article>
+<article class="content-card">
+<h2>Comparing BOGO vs. straight percentage sales</h2>
+<ul>
+<li><strong>Buy 1, Get 1 Free (BOGO):</strong> Equivalent to <strong>50% off</strong> per item—only if you actually need two items!</li>
+<li><strong>Buy 1, Get 1 50% Off:</strong> You pay 1.5× price for 2 items, which equals just <strong>25% off</strong> per item.</li>
+<li><strong>Buy 2, Get 1 Free (3 for 2):</strong> Equivalent to <strong>33.33% off</strong> per item across all three units.</li>
+</ul>
+</article>
+</div></section>
+
+<section class="section" style="padding-top:0"><div class="container content-card faq-list">
+<h2>Frequently asked questions</h2>
+<details><summary><h3>Is sales tax calculated before or after a store discount?</h3></summary><p>For standard store markdowns and retailer promo codes, sales tax/VAT is calculated on the discounted sale price you actually pay, which is how this calculator computes tax.</p></details>
+<details><summary><h3>How do I find the original price when I only see the sale tag and "% off"?</h3></summary><p>Switch to the "Reverse (Original / % Off)" tab and enter the sale price and discount percentage. Mathematically, <code>Original Price = Sale Price ÷ (1 − Discount% ÷ 100)</code>.</p></details>
+<details><summary><h3>Why is "Buy 1 Get 1 50% Off" only a 25% discount?</h3></summary><p>On two $40 items ($80 regular value), the first costs $40 and the second costs $20, totaling $60. Saving $20 out of $80 is 20 ÷ 80 = 25% off overall.</p></details>
+<details><summary><h3>Does the order of two percentage discounts change the final price?</h3></summary><p>No! Because multiplication is commutative, <code>Price × 0.75 × 0.90</code> gives the exact same subtotal as <code>Price × 0.90 × 0.75</code>. However, a fixed cash coupon ($10 off) saves you more if applied <em>after</em> percentage discounts rather than before.</p></details>
+<details><summary><h3>What happens if a flat coupon is larger than the discounted subtotal?</h3></summary><p>The calculator caps the subtotal at 0.00 so your receipt total never turns negative.</p></details>
+<details><summary><h3>Can I switch currencies for non-USD shopping?</h3></summary><p>Yes. Choose USD, BDT, GBP, EUR, CAD, AUD, INR, or PKR from the Currency selector to format all figures cleanly.</p></details>
+</div></section>
+<section class="section" style="padding-top:0"><div class="container">
+<div class="section-heading"><div><p class="eyebrow">More on Toolvantas</p><h2>Related tools you may need</h2></div><a class="text-link" href="/tools.html">Browse all tools <span>→</span></a></div>
+<div class="tool-grid" style="grid-template-columns:repeat(auto-fit,minmax(230px,1fr))">
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">%</div><p class="card-category">Everyday Calculators</p><h3><a href="/percentage-calculator.html">Percentage Calculator</a></h3><p>Solve % of, ratio %, % change, and reverse % math.</p><a class="card-link" href="/percentage-calculator.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">Fr</div><p class="card-category">Freelance Pricing</p><h3><a href="/freelance-rate-calculator.html">Freelance Rate Calculator</a></h3><p>Estimate sustainable hourly, day, and project rates.</p><a class="card-link" href="/freelance-rate-calculator.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">Dt</div><p class="card-category">Everyday Calculators</p><h3><a href="/date-duration-calculator.html">Date Duration Calculator</a></h3><p>Count calendar and business days between two dates.</p><a class="card-link" href="/date-duration-calculator.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">W</div><p class="card-category">Unit Converters</p><h3><a href="/weight-converter.html">Weight Converter</a></h3><p>Convert kg, lb, oz, stones, grams, tons, and troy oz.</p><a class="card-link" href="/weight-converter.html">Open tool →</a></article>
+</div>
+</div></section>
+</main>
+<footer class="site-footer"><div class="container footer-top">
+<a class="brand brand-footer" href="/"><span class="brand-mark" aria-hidden="true">T</span><span>Toolvantas</span></a><p>Practical tools for everyday tasks.</p>
+<nav aria-label="Footer navigation"><a href="/">Home</a><a href="/tools.html">All tools</a><a href="/#about">About</a></nav>
+</div><div class="container footer-bottom"><small>© <span data-current-year>2026</span> Toolvantas</small><small>Built to be useful.</small></div></footer>
+<script>
+(() => {
+  'use strict';
+  const $ = id => document.getElementById(id);
+  const form = $('discount-form');
+  const errorEl = $('error');
+  const statusEl = $('copy-status');
+  let mode = 'percent';
+
+  function fmtMoney(n) {
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: $('currency').value, maximumFractionDigits: 2 }).format(n);
+  }
+
+  function fmtPct(n) {
+    return `${new Intl.NumberFormat('en-US', { maximumFractionDigits: 2 }).format(n)}%`;
+  }
+
+  function showError(msg) {
+    errorEl.hidden = !msg;
+    errorEl.textContent = msg || '';
+  }
+
+  function renderReceipt(rows) {
+    const ul = $('receipt-list');
+    ul.innerHTML = '';
+    rows.forEach(([k, v]) => {
+      const li = document.createElement('li');
+      const sp = document.createElement('span');
+      sp.textContent = k;
+      const st = document.createElement('strong');
+      st.textContent = v;
+      li.append(sp, st);
+      ul.appendChild(li);
+    });
+  }
+
+  function calculate(e) {
+    if (e) e.preventDefault();
+    const taxRate = Number($('tax').value || 0) / 100;
+    if (!Number.isFinite(taxRate) || taxRate < 0 || taxRate > 1) {
+      showError('Sales tax percentage must be between 0% and 100%.');
+      return;
+    }
+
+    if (mode === 'percent') {
+      const price = Number($('price').value);
+      const qty = Math.floor(Number($('qty').value));
+      const d1 = Number($('disc1').value || 0);
+      const d2 = Number($('disc2').value || 0);
+      const coupon = Number($('coupon').value || 0);
+      if ([price, qty, d1, d2, coupon].some(n => !Number.isFinite(n)) || price < 0 || qty < 1 || d1 < 0 || d1 > 100 || d2 < 0 || d2 > 100 || coupon < 0) {
+        showError('Check inputs: price and coupon must be non-negative, quantity at least 1, and discounts between 0% and 100%.');
+        return;
+      }
+      showError('');
+      const gross = price * qty;
+      const afterD1 = gross * (1 - d1 / 100);
+      const afterD2 = afterD1 * (1 - d2 / 100);
+      const netPreTax = Math.max(0, afterD2 - coupon);
+      const totalSaved = gross - netPreTax;
+      const effPct = gross > 0 ? (totalSaved / gross) * 100 : 0;
+      const taxAmt = netPreTax * taxRate;
+      const finalTotal = netPreTax + taxAmt;
+
+      $('headline-note').textContent = taxRate > 0 ? 'Final total including tax' : 'Final sale price to pay';
+      $('primary-out').textContent = fmtMoney(finalTotal);
+      $('t1-label').textContent = 'Total you save';
+      $('t1-val').textContent = fmtMoney(totalSaved);
+      $('t2-label').textContent = 'Effective discount rate';
+      $('t2-val').textContent = fmtPct(effPct);
+      $('t3-label').textContent = 'Pre-tax sale subtotal';
+      $('t3-val').textContent = fmtMoney(netPreTax);
+      $('t4-label').textContent = 'Final cost per item';
+      $('t4-val').textContent = fmtMoney(finalTotal / qty);
+
+      renderReceipt([
+        [`Original subtotal (${qty} × ${fmtMoney(price)})`, fmtMoney(gross)],
+        [`Primary discount (${fmtPct(d1)})`, `−${fmtMoney(gross - afterD1)}`],
+        [`Stacked extra discount (${fmtPct(d2)})`, `−${fmtMoney(afterD1 - afterD2)}`],
+        ['Promo coupon deducted', `−${fmtMoney(afterD2 - netPreTax)}`],
+        [`Sales tax (${fmtPct(taxRate * 100)})`, fmtMoney(taxAmt)],
+        ['Final total payable', fmtMoney(finalTotal)]
+      ]);
+    } else if (mode === 'bogo') {
+      const p = Number($('bogoPrice').value);
+      const x = Math.floor(Number($('buyX').value));
+      const y = Math.floor(Number($('getY').value));
+      const off = Number($('getOff').value);
+      if ([p, x, y, off].some(n => !Number.isFinite(n)) || p < 0 || x < 1 || y < 1 || off < 0 || off > 100) {
+        showError('Enter valid regular price, item counts (at least 1), and bonus item discount (0–100%).');
+        return;
+      }
+      showError('');
+      const totalUnits = x + y;
+      const regularValue = p * totalUnits;
+      const bonusCost = y * p * (1 - off / 100);
+      const netPreTax = x * p + bonusCost;
+      const saved = regularValue - netPreTax;
+      const effPct = regularValue > 0 ? (saved / regularValue) * 100 : 0;
+      const taxAmt = netPreTax * taxRate;
+      const finalTotal = netPreTax + taxAmt;
+
+      $('headline-note').textContent = `Bundle total for ${totalUnits} items`;
+      $('primary-out').textContent = fmtMoney(finalTotal);
+      $('t1-label').textContent = 'Bundle savings';
+      $('t1-val').textContent = fmtMoney(saved);
+      $('t2-label').textContent = 'Effective % off per item';
+      $('t2-val').textContent = fmtPct(effPct);
+      $('t3-label').textContent = 'Effective unit price (pre-tax)';
+      $('t3-val').textContent = fmtMoney(netPreTax / totalUnits);
+      $('t4-label').textContent = 'Final unit price (with tax)';
+      $('t4-val').textContent = fmtMoney(finalTotal / totalUnits);
+
+      renderReceipt([
+        [`Regular value (${totalUnits} items)`, fmtMoney(regularValue)],
+        [`Full-price items (${x} × ${fmtMoney(p)})`, fmtMoney(x * p)],
+        [`Bonus items (${y} @ ${fmtPct(off)} off)`, fmtMoney(bonusCost)],
+        [`Sales tax (${fmtPct(taxRate * 100)})`, fmtMoney(taxAmt)],
+        ['Bundle final total', fmtMoney(finalTotal)]
+      ]);
+    } else {
+      const revType = $('revType').value;
+      const a = Number($('revA').value);
+      const b = Number($('revB').value);
+      if (!Number.isFinite(a) || !Number.isFinite(b) || a < 0 || b < 0) {
+        showError('Please enter valid non-negative numbers.');
+        return;
+      }
+      if (revType === 'orig') {
+        if (b >= 100) {
+          showError('Discount rate must be less than 100% to compute a non-zero original list price.');
+          return;
+        }
+        showError('');
+        const orig = a / (1 - b / 100);
+        const saved = orig - a;
+        const withTax = a * (1 + taxRate);
+        $('headline-note').textContent = 'Original list price before discount';
+        $('primary-out').textContent = fmtMoney(orig);
+        $('t1-label').textContent = 'Amount saved';
+        $('t1-val').textContent = fmtMoney(saved);
+        $('t2-label').textContent = 'Discount rate';
+        $('t2-val').textContent = fmtPct(b);
+        $('t3-label').textContent = 'Sale price entered';
+        $('t3-val').textContent = fmtMoney(a);
+        $('t4-label').textContent = 'Sale price + tax';
+        $('t4-val').textContent = fmtMoney(withTax);
+
+        renderReceipt([
+          ['Calculated original price', fmtMoney(orig)],
+          [`Markdown (${fmtPct(b)})`, `−${fmtMoney(saved)}`],
+          ['Sale price (pre-tax)', fmtMoney(a)],
+          [`Sale price with ${fmtPct(taxRate * 100)} tax`, fmtMoney(withTax)]
+        ]);
+      } else {
+        if (a <= 0 || b > a) {
+          showError('Original price must be greater than zero and at least equal to the sale price.');
+          return;
+        }
+        showError('');
+        const saved = a - b;
+        const pct = (saved / a) * 100;
+        const withTax = b * (1 + taxRate);
+        $('headline-note').textContent = 'Calculated discount percentage';
+        $('primary-out').textContent = fmtPct(pct);
+        $('t1-label').textContent = 'Amount saved';
+        $('t1-val').textContent = fmtMoney(saved);
+        $('t2-label').textContent = 'Original price';
+        $('t2-val').textContent = fmtMoney(a);
+        $('t3-label').textContent = 'Sale price (pre-tax)';
+        $('t3-val').textContent = fmtMoney(b);
+        $('t4-label').textContent = 'Sale price + tax';
+        $('t4-val').textContent = fmtMoney(withTax);
+
+        renderReceipt([
+          ['Original list price', fmtMoney(a)],
+          ['Sale price', fmtMoney(b)],
+          ['Cash savings', fmtMoney(saved)],
+          ['Percentage off', fmtPct(pct)],
+          [`Sale price with ${fmtPct(taxRate * 100)} tax`, fmtMoney(withTax)]
+        ]);
+      }
+    }
+  }
+
+  document.querySelectorAll('.mode-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      mode = btn.dataset.mode;
+      document.querySelectorAll('.mode-btn').forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
+      $('percent-panel').hidden = mode !== 'percent';
+      $('bogo-panel').hidden = mode !== 'bogo';
+      $('reverse-panel').hidden = mode !== 'reverse';
+      calculate();
+    });
+  });
+
+  document.querySelectorAll('.chip').forEach(btn => {
+    btn.addEventListener('click', () => {
+      $('disc1').value = btn.dataset.d;
+      calculate();
+    });
+  });
+
+  $('bogoPreset').addEventListener('change', () => {
+    const [x, y, off] = $('bogoPreset').value.split(',');
+    $('buyX').value = x;
+    $('getY').value = y;
+    $('getOff').value = off;
+    calculate();
+  });
+
+  $('revType').addEventListener('change', () => {
+    if ($('revType').value === 'orig') {
+      $('revLabelA').textContent = 'Discounted sale price';
+      $('revLabelB').textContent = 'Discount rate (%)';
+      $('revA').value = '75';
+      $('revB').value = '25';
+    } else {
+      $('revLabelA').textContent = 'Original list price';
+      $('revLabelB').textContent = 'Discounted sale price';
+      $('revA').value = '120';
+      $('revB').value = '90';
+    }
+    calculate();
+  });
+
+  ['currency', 'tax', 'price', 'qty', 'disc1', 'disc2', 'coupon', 'bogoPrice', 'buyX', 'getY', 'getOff', 'revA', 'revB'].forEach(id => {
+    $(id).addEventListener('input', () => calculate());
+    $(id).addEventListener('change', () => calculate());
+  });
+
+  form.addEventListener('submit', calculate);
+  form.addEventListener('reset', () => {
+    setTimeout(() => {
+      $('currency').value = 'USD';
+      $('tax').value = '0';
+      $('price').value = '120';
+      $('qty').value = '1';
+      $('disc1').value = '25';
+      $('disc2').value = '0';
+      $('coupon').value = '0';
+      $('bogoPrice').value = '40';
+      $('bogoPreset').value = '2,1,100';
+      $('buyX').value = '2';
+      $('getY').value = '1';
+      $('getOff').value = '100';
+      $('revType').value = 'orig';
+      $('revLabelA').textContent = 'Discounted sale price';
+      $('revLabelB').textContent = 'Discount rate (%)';
+      $('revA').value = '75';
+      $('revB').value = '25';
+      statusEl.textContent = '';
+      calculate();
+    }, 0);
+  });
+
+  $('copy').addEventListener('click', async () => {
+    const text = `Toolvantas Discount Summary\n${$('headline-note').textContent}: ${$('primary-out').textContent}\n${$('t1-label').textContent}: ${$('t1-val').textContent}\n${$('t2-label').textContent}: ${$('t2-val').textContent}\n${$('t4-label').textContent}: ${$('t4-val').textContent}`;
+    try {
+      await navigator.clipboard.writeText(text);
+      statusEl.textContent = 'Discount summary copied to clipboard.';
+    } catch {
+      statusEl.textContent = 'Clipboard unavailable. Select and copy manually.';
+    }
+  });
+
+  calculate();
+})();
+</script>
+</body>
+</html>

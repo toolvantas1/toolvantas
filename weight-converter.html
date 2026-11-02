@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weight Converter — kg, lb, oz, Stone &amp; Grams | Toolvantas</title>
+<meta name="description" content="Free online weight converter to convert kilograms, pounds, grams, ounces, stones, metric tons, carats, and troy ounces with lb-oz breakdowns.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#173d35">
+<link rel="canonical" href="https://toolvantas.pages.dev/weight-converter.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Toolvantas">
+<meta property="og:title" content="Weight Converter — kg, lb, oz, Stone &amp; Grams | Toolvantas">
+<meta property="og:description" content="Free online weight converter to convert kilograms, pounds, grams, ounces, stones, metric tons, carats, and troy ounces with lb-oz breakdowns.">
+<meta property="og:url" content="https://toolvantas.pages.dev/weight-converter.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Weight Converter — kg, lb, oz, Stone &amp; Grams | Toolvantas">
+<meta name="twitter:description" content="Free online weight converter to convert kilograms, pounds, grams, ounces, stones, metric tons, carats, and troy ounces with lb-oz breakdowns.">
+<link rel="stylesheet" href="/site.css">
+<script src="/site.js" defer></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Weight Converter",
+      "url": "https://toolvantas.pages.dev/weight-converter.html",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "description": "Free online weight converter to convert kilograms, pounds, grams, ounces, stones, metric tons, carats, and troy ounces with lb-oz breakdowns.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How many pounds are in a kilogram?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "One kilogram equals approximately 2.20462262 pounds, because 1 pound is defined as exactly 0.45359237 kilograms."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How many grams are in an ounce?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "One standard (avoirdupois) ounce equals 28.349523125 grams. For precious metals, one troy ounce equals 31.1034768 grams."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I convert kilograms to stones and pounds?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Enter your weight in kilograms and read the \"Stones & pounds (st lb)\" summary tile directly. Because 1 stone equals 14 pounds (6.35029 kg), 70 kg equals 11 stone 0.32 pounds."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between a metric ton, US ton, and UK ton?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A metric ton (tonne) is 1,000 kg (2,204.62 lb). A US short ton is 2,000 lb (907.18 kg). A UK long ton is 2,240 lb (1,016.05 kg)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How many carats are in a gram?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "There are exactly 5 metric carats in 1 gram (1 carat = 200 milligrams = 0.2 grams)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why are gold and silver weighed in troy ounces?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Global bullion markets retained the historic troy system to maintain continuity in coin and bar standards. Always verify whether a quote uses oz t (31.1035 g) or standard oz (28.3495 g)."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://toolvantas.pages.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "All Tools",
+          "item": "https://toolvantas.pages.dev/tools.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Weight Converter",
+          "item": "https://toolvantas.pages.dev/weight-converter.html"
+        }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+.calc-layout{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(280px,.95fr);gap:22px;align-items:start}
+.calc-card,.results,.content-card{padding:22px;border:1px solid var(--line);border-radius:14px;background:#fff;min-width:0}
+.calc-card h2,.results h2,.content-card h2{margin:0 0 8px;font-size:1.2rem}
+.results h3,.calc-card h3{margin:16px 0 8px;font-size:.98rem}
+.muted{color:var(--muted);font-size:.88rem;line-height:1.55}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.field{min-width:0}
+.field label{display:block;font-size:.84rem;font-weight:750;margin-bottom:5px}
+.field input,.field select{box-sizing:border-box;width:100%;min-height:44px;padding:9px 10px;border:1px solid #cfdad2;border-radius:8px;background:#fff;color:var(--ink);font:inherit}
+.field input:focus-visible,.field select:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #8bb7a5;outline-offset:2px}
+.field small{display:block;color:var(--muted);font-size:.75rem;line-height:1.45;margin-top:4px}
+.unit-row{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:10px;align-items:end;margin-top:14px}
+.swap-btn{min-height:44px;padding:0 13px;border:1px solid #cfdad2;border-radius:8px;background:var(--soft);color:var(--forest);font:inherit;font-weight:800;cursor:pointer}
+.swap-btn:hover{background:var(--mint)}
+.presets{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}
+.chip{padding:6px 10px;border:1px solid var(--line);border-radius:7px;background:var(--soft);color:var(--ink);font:inherit;font-size:.77rem;font-weight:700;cursor:pointer}
+.chip:hover{border-color:#b9d1c1;background:var(--mint);color:var(--forest)}
+.compound-box{margin-top:16px;padding:13px;border:1px solid #e2ebe4;border-radius:10px;background:var(--soft)}
+.compound-row{display:grid;grid-template-columns:1fr 1fr auto;gap:9px;align-items:end;margin-top:8px}
+.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}
+.actions button{cursor:pointer;font:inherit;font-weight:700;min-height:42px}
+.secondary{padding:10px 14px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--ink)}
+.secondary:hover{border-color:#b9d1c1}
+.results{background:#f7faf7;border-color:#dbe8dd}
+.big{display:block;font-size:clamp(1.85rem,3.8vw,2.65rem);font-weight:850;letter-spacing:-.05em;color:var(--forest);overflow-wrap:anywhere}
+.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:16px 0}
+.tile{padding:11px;border:1px solid #e0e9e1;border-radius:9px;background:#fff;min-width:0}
+.tile span{display:block;color:var(--muted);font-size:.75rem;line-height:1.4}
+.tile strong{display:block;margin-top:4px;overflow-wrap:anywhere}
+.breakdown{list-style:none;margin:0;padding:0;border-top:1px solid #dce6dd}
+.breakdown li{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid #e1e9e2;font-size:.82rem}
+.breakdown span{color:var(--muted)}
+.breakdown strong{text-align:right;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+.error{color:#a12626;font-weight:700;font-size:.85rem}
+.status{min-height:1.3em}
+.content-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.content-card p,.content-card li{color:#52675d;font-size:.93rem;line-height:1.75}
+.content-card ul{padding-left:22px}
+.faq-list details{border-bottom:1px solid var(--line);padding:14px 0}
+.faq-list summary{cursor:pointer;font-weight:750;line-height:1.5}
+.faq-list summary h3{display:inline;margin:0;font-size:1rem;font-weight:750}
+.faq-list details p{margin:10px 0 0}
+@media(max-width:760px){.calc-layout,.content-grid{grid-template-columns:1fr}.calc-card,.results,.content-card{padding:18px}}
+@media(max-width:520px){.unit-row,.compound-row{grid-template-columns:1fr}.swap-btn{width:100%}}
+@media(max-width:420px){.fields,.tiles{grid-template-columns:1fr}.calc-card,.results,.content-card{padding:15px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="container header-inner">
+<a class="brand" href="/" aria-label="Toolvantas home"><span class="brand-mark" aria-hidden="true">T</span><span>Toolvantas</span></a>
+<button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+<nav class="primary-nav" id="primary-nav" aria-label="Main navigation"><a href="/">Home</a><a href="/tools.html">All tools</a><a href="/#about">About</a></nav>
+</div></header>
+<main id="main">
+<section class="page-hero"><div class="container">
+<p class="eyebrow">Unit converter</p>
+<h1>Weight Converter</h1>
+<p>Use this free weight converter to convert kilograms, pounds, grams, ounces, stones, tons, carats, and troy ounces with stones-pounds and lb-oz readouts.</p>
+</div></section>
+<section class="section"><div class="container"><div class="calc-layout">
+<form class="calc-card" id="weight-form" novalidate>
+<h2>Convert weight or mass</h2>
+<p class="muted">Enter any non-negative mass value and select your source and target units.</p>
+<div class="fields">
+<div class="field">
+<label for="amount">Weight value</label>
+<input id="amount" name="amount" type="number" min="0" step="any" value="70" required>
+<small>Enter zero or any positive weight.</small>
+</div>
+<div class="field">
+<label for="precision">Display precision</label>
+<select id="precision" name="precision">
+<option value="auto" selected>Smart precision (auto)</option>
+<option value="2">2 decimal places</option>
+<option value="4">4 decimal places</option>
+<option value="6">6 decimal places</option>
+<option value="sci">Scientific notation</option>
+</select>
+<small>Adjust decimal rounding for results.</small>
+</div>
+</div>
+<div class="unit-row">
+<div class="field">
+<label for="fromUnit">From unit</label>
+<select id="fromUnit" name="fromUnit"></select>
+</div>
+<button class="swap-btn" type="button" id="swap" aria-label="Swap from and to units" title="Swap units">⇄ Swap</button>
+<div class="field">
+<label for="toUnit">To unit</label>
+<select id="toUnit" name="toUnit"></select>
+</div>
+</div>
+<div class="presets" aria-label="Common weight conversions">
+<button class="chip" type="button" data-from="kg" data-to="lb">kg → lb</button>
+<button class="chip" type="button" data-from="lb" data-to="kg">lb → kg</button>
+<button class="chip" type="button" data-from="g" data-to="oz">g → oz</button>
+<button class="chip" type="button" data-from="kg" data-to="st">kg → stone</button>
+<button class="chip" type="button" data-from="t" data-to="uston">tonne → US ton</button>
+<button class="chip" type="button" data-from="ozt" data-to="g">troy oz → g</button>
+</div>
+<div class="compound-box">
+<h3>Quick pounds &amp; ounces (or stones &amp; pounds) input</h3>
+<p class="muted" style="margin:0">Convert shipping parcels (lb + oz) or UK body weight (st + lb) into any unit.</p>
+<div class="compound-row">
+<div class="field"><label for="compMajor">Pounds (lb)</label><input id="compMajor" type="number" min="0" step="1" value="8"></div>
+<div class="field"><label for="compMinor">Ounces (oz)</label><input id="compMinor" type="number" min="0" step="any" value="6"></div>
+<button class="secondary" type="button" id="applyLbOz">Use lb + oz</button>
+</div>
+</div>
+<div class="actions">
+<button class="button button-primary" type="submit">Convert weight</button>
+<button class="secondary" type="reset">Reset defaults</button>
+<button class="secondary" type="button" id="copy">Copy results</button>
+</div>
+<p class="error" id="error" role="alert" hidden></p>
+<p id="copy-status" class="muted status" aria-live="polite"></p>
+</form>
+
+<section class="results" aria-live="polite" aria-labelledby="results-title">
+<h2 id="results-title">Converted weight</h2>
+<p class="muted" id="pair-label">70 Kilograms equals</p>
+<output class="big" id="primary-out" for="amount fromUnit toUnit precision">154.323584 lb</output>
+<div class="tiles">
+<div class="tile"><span>Pounds &amp; ounces (lb oz)</span><strong id="lb-oz-out">154 lb 5.18 oz</strong></div>
+<div class="tile"><span>Stones &amp; pounds (st lb)</span><strong id="st-lb-out">11 st 0.32 lb</strong></div>
+<div class="tile"><span>Direct conversion factor</span><strong id="factor-out">1 kg = 2.204623 lb</strong></div>
+<div class="tile"><span>SI base equivalent (kg)</span><strong id="kg-out">70 kg</strong></div>
+</div>
+<h3>All weight &amp; mass equivalents</h3>
+<ul class="breakdown" id="all-units"></ul>
+<p class="muted" id="formula" style="margin-top:12px">Exact international definitions: 1 avoirdupois pound = 0.45359237 kg, 1 ounce = 28.349523125 g, 1 troy ounce = 31.1034768 g.</p>
+</section>
+</div></div></section>
+
+<section class="section" style="padding-top:0"><div class="container content-grid">
+<article class="content-card">
+<h2>How weight and mass conversions work</h2>
+<p>In everyday commerce, cooking, fitness, and shipping, "weight" refers to mass measured against exact international standards anchored to the kilogram (kg):</p>
+<ul>
+<li><strong>Metric units:</strong> 1 metric ton (tonne) = 1,000 kg; 1 kilogram = 1,000 grams (g); 1 gram = 1,000 milligrams (mg) = 1,000,000 micrograms (µg).</li>
+<li><strong>Imperial &amp; US avoirdupois units:</strong> 1 pound (lb) = 0.45359237 kg exactly; 1 pound = 16 ounces (oz); 1 stone (st) = 14 pounds (6.35029318 kg).</li>
+<li><strong>Tons compared:</strong> A metric tonne is 1,000 kg (~2,204.62 lb), a US short ton is 2,000 lb (907.185 kg), and a UK imperial long ton is 2,240 lb (1,016.047 kg).</li>
+<li><strong>Jewelry &amp; precious metals:</strong> Diamonds and gemstones use metric carats (1 ct = 0.2 g), while gold, silver, and platinum bullion are quoted in troy ounces (1 oz t = 31.1034768 g).</li>
+</ul>
+</article>
+<article class="content-card">
+<h2>Common pitfalls to avoid</h2>
+<ul>
+<li><strong>Standard ounce vs. troy ounce:</strong> A troy ounce (31.103 g) is nearly 10% heavier than a kitchen/postal avoirdupois ounce (28.350 g). Always choose <em>Troy ounce (oz t)</em> when weighing gold or silver bullion.</li>
+<li><strong>Fluid ounces vs. weight ounces:</strong> Fluid ounces (fl oz) measure volume, whereas ounces (oz) measure mass. One fluid ounce of honey or oil does not weigh one avoirdupois ounce.</li>
+<li><strong>Decimal pounds on shipping scales:</strong> A scale reading of <code>4.5 lb</code> equals <code>4 lb 8 oz</code> (since 0.5 × 16 = 8 oz), not 4 lb 5 oz. Check the <em>Pounds &amp; ounces</em> tile for parcel labels.</li>
+</ul>
+</article>
+</div></section>
+
+<section class="section" style="padding-top:0"><div class="container content-card faq-list">
+<h2>Frequently asked questions</h2>
+<details><summary><h3>How many pounds are in a kilogram?</h3></summary><p>One kilogram equals approximately 2.20462262 pounds, because 1 pound is defined as exactly 0.45359237 kilograms.</p></details>
+<details><summary><h3>How many grams are in an ounce?</h3></summary><p>One standard (avoirdupois) ounce equals 28.349523125 grams. For precious metals, one troy ounce equals 31.1034768 grams.</p></details>
+<details><summary><h3>How do I convert kilograms to stones and pounds?</h3></summary><p>Enter your weight in kilograms and read the "Stones &amp; pounds (st lb)" summary tile directly. Because 1 stone equals 14 pounds (6.35029 kg), 70 kg equals 11 stone 0.32 pounds.</p></details>
+<details><summary><h3>What is the difference between a metric ton, US ton, and UK ton?</h3></summary><p>A metric ton (tonne) is 1,000 kg (2,204.62 lb). A US short ton is 2,000 lb (907.18 kg). A UK long ton is 2,240 lb (1,016.05 kg).</p></details>
+<details><summary><h3>How many carats are in a gram?</h3></summary><p>There are exactly 5 metric carats in 1 gram (1 carat = 200 milligrams = 0.2 grams).</p></details>
+<details><summary><h3>Why are gold and silver weighed in troy ounces?</h3></summary><p>Global bullion markets retained the historic troy system to maintain continuity in coin and bar standards. Always verify whether a quote uses oz t (31.1035 g) or standard oz (28.3495 g).</p></details>
+</div></section>
+<section class="section" style="padding-top:0"><div class="container">
+<div class="section-heading"><div><p class="eyebrow">More on Toolvantas</p><h2>Related tools you may need</h2></div><a class="text-link" href="/tools.html">Browse all tools <span>→</span></a></div>
+<div class="tool-grid" style="grid-template-columns:repeat(auto-fit,minmax(230px,1fr))">
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">L</div><p class="card-category">Unit Converters</p><h3><a href="/length-converter.html">Length Converter</a></h3><p>Convert meters, feet, inches, miles, and feet-inches.</p><a class="card-link" href="/length-converter.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">°C</div><p class="card-category">Unit Converters</p><h3><a href="/temperature-converter.html">Temperature Converter</a></h3><p>Convert Celsius, Fahrenheit, Kelvin, and Rankine.</p><a class="card-link" href="/temperature-converter.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">S</div><p class="card-category">Unit Converters</p><h3><a href="/speed-converter.html">Speed Converter</a></h3><p>Convert km/h, mph, m/s, knots, Mach, and pace.</p><a class="card-link" href="/speed-converter.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">%</div><p class="card-category">Everyday Calculators</p><h3><a href="/percentage-calculator.html">Percentage Calculator</a></h3><p>Solve % of, ratio %, % change, and reverse % math.</p><a class="card-link" href="/percentage-calculator.html">Open tool →</a></article>
+</div>
+</div></section>
+</main>
+<footer class="site-footer"><div class="container footer-top">
+<a class="brand brand-footer" href="/"><span class="brand-mark" aria-hidden="true">T</span><span>Toolvantas</span></a><p>Practical tools for everyday tasks.</p>
+<nav aria-label="Footer navigation"><a href="/">Home</a><a href="/tools.html">All tools</a><a href="/#about">About</a></nav>
+</div><div class="container footer-bottom"><small>© <span data-current-year>2026</span> Toolvantas</small><small>Built to be useful.</small></div></footer>
+<script>
+(() => {
+  'use strict';
+  const UNITS = [
+    { id: 'mg', name: 'Milligram (mg)', symbol: 'mg', factor: 1e-6 },
+    { id: 'g', name: 'Gram (g)', symbol: 'g', factor: 0.001 },
+    { id: 'kg', name: 'Kilogram (kg)', symbol: 'kg', factor: 1 },
+    { id: 't', name: 'Metric ton / Tonne (t)', symbol: 't', factor: 1000 },
+    { id: 'ug', name: 'Microgram (µg)', symbol: 'µg', factor: 1e-9 },
+    { id: 'oz', name: 'Ounce (oz)', symbol: 'oz', factor: 0.028349523125 },
+    { id: 'lb', name: 'Pound (lb)', symbol: 'lb', factor: 0.45359237 },
+    { id: 'st', name: 'Stone (st)', symbol: 'st', factor: 6.35029318 },
+    { id: 'uston', name: 'US short ton (2,000 lb)', symbol: 'US ton', factor: 907.18474 },
+    { id: 'ukton', name: 'UK long ton (2,240 lb)', symbol: 'UK ton', factor: 1016.0469088 },
+    { id: 'ct', name: 'Carat (ct)', symbol: 'ct', factor: 0.0002 },
+    { id: 'gr', name: 'Grain (gr)', symbol: 'gr', factor: 0.00006479891 },
+    { id: 'ozt', name: 'Troy ounce (oz t)', symbol: 'oz t', factor: 0.0311034768 }
+  ];
+  const unitMap = Object.fromEntries(UNITS.map(u => [u.id, u]));
+  const $ = id => document.getElementById(id);
+  const form = $('weight-form');
+  const fromSel = $('fromUnit');
+  const toSel = $('toUnit');
+  const errorEl = $('error');
+  const statusEl = $('copy-status');
+
+  UNITS.forEach(u => {
+    fromSel.add(new Option(u.name, u.id));
+    toSel.add(new Option(u.name, u.id));
+  });
+  fromSel.value = 'kg';
+  toSel.value = 'lb';
+
+  function formatVal(val, mode) {
+    if (!Number.isFinite(val)) return '—';
+    if (val === 0) return '0';
+    const abs = Math.abs(val);
+    if (mode === 'sci') return val.toExponential(6);
+    if (mode !== 'auto') {
+      const d = Number(mode);
+      return new Intl.NumberFormat('en-US', { minimumFractionDigits: 0, maximumFractionDigits: d }).format(val);
+    }
+    if (abs >= 1e12 || (abs > 0 && abs < 1e-6)) return val.toExponential(5);
+    if (abs >= 1000) return new Intl.NumberFormat('en-US', { maximumFractionDigits: 4 }).format(val);
+    if (abs >= 1) return new Intl.NumberFormat('en-US', { maximumFractionDigits: 6 }).format(val);
+    return new Intl.NumberFormat('en-US', { maximumFractionDigits: 8 }).format(val);
+  }
+
+  function formatLbOz(kg) {
+    if (kg > 1e9) return 'Out of practical lb/oz range';
+    const totalOz = kg / 0.028349523125;
+    let lb = Math.floor(totalOz / 16);
+    let oz = totalOz - lb * 16;
+    if (oz >= 15.995) { lb += 1; oz = 0; }
+    return `${new Intl.NumberFormat('en-US').format(lb)} lb ${new Intl.NumberFormat('en-US', { maximumFractionDigits: 2 }).format(oz)} oz`;
+  }
+
+  function formatStLb(kg) {
+    if (kg > 1e9) return 'Out of practical st/lb range';
+    const totalLb = kg / 0.45359237;
+    let st = Math.floor(totalLb / 14);
+    let lb = totalLb - st * 14;
+    if (lb >= 13.995) { st += 1; lb = 0; }
+    return `${new Intl.NumberFormat('en-US').format(st)} st ${new Intl.NumberFormat('en-US', { maximumFractionDigits: 2 }).format(lb)} lb`;
+  }
+
+  function showError(msg) {
+    errorEl.hidden = !msg;
+    errorEl.textContent = msg || '';
+  }
+
+  function convert(e) {
+    if (e) e.preventDefault();
+    const raw = $('amount').value.trim();
+    const val = Number(raw);
+    if (raw === '' || !Number.isFinite(val) || val < 0) {
+      showError('Please enter a valid non-negative weight value.');
+      return;
+    }
+    const from = unitMap[fromSel.value];
+    const to = unitMap[toSel.value];
+    const prec = $('precision').value;
+    const kg = val * from.factor;
+    const converted = kg / to.factor;
+    if (!Number.isFinite(kg) || !Number.isFinite(converted)) {
+      showError('This value is too large to convert reliably. Reduce the input and try again.');
+      return;
+    }
+    showError('');
+    $('pair-label').textContent = `${formatVal(val, prec)} ${from.name} equals`;
+    $('primary-out').textContent = `${formatVal(converted, prec)} ${to.symbol}`;
+    $('lb-oz-out').textContent = formatLbOz(kg);
+    $('st-lb-out').textContent = formatStLb(kg);
+    $('factor-out').textContent = `1 ${from.symbol} = ${formatVal(from.factor / to.factor, 'auto')} ${to.symbol}`;
+    $('kg-out').textContent = `${formatVal(kg, prec)} kg`;
+
+    const list = $('all-units');
+    list.innerHTML = '';
+    UNITS.forEach(u => {
+      const li = document.createElement('li');
+      const s = document.createElement('span');
+      s.textContent = u.name;
+      const b = document.createElement('strong');
+      b.textContent = `${formatVal(kg / u.factor, prec)} ${u.symbol}`;
+      li.append(s, b);
+      list.appendChild(li);
+    });
+  }
+
+  $('swap').addEventListener('click', () => {
+    const tmp = fromSel.value;
+    fromSel.value = toSel.value;
+    toSel.value = tmp;
+    convert();
+  });
+
+  document.querySelectorAll('.chip').forEach(btn => {
+    btn.addEventListener('click', () => {
+      fromSel.value = btn.dataset.from;
+      toSel.value = btn.dataset.to;
+      convert();
+    });
+  });
+
+  $('applyLbOz').addEventListener('click', () => {
+    const lb = Number($('compMajor').value || 0);
+    const oz = Number($('compMinor').value || 0);
+    if (!Number.isFinite(lb) || !Number.isFinite(oz) || lb < 0 || oz < 0) {
+      showError('Enter valid non-negative numbers for pounds and ounces.');
+      return;
+    }
+    const totalLb = lb + oz / 16;
+    fromSel.value = 'lb';
+    if (toSel.value === 'lb') toSel.value = 'kg';
+    $('amount').value = String(Number(totalLb.toFixed(6)));
+    statusEl.textContent = `Applied ${lb} lb ${oz} oz (${Number(totalLb.toFixed(4))} lb).`;
+    convert();
+  });
+
+  ['amount', 'fromUnit', 'toUnit', 'precision'].forEach(id => {
+    $(id).addEventListener('input', () => convert());
+    $(id).addEventListener('change', () => convert());
+  });
+
+  form.addEventListener('submit', convert);
+  form.addEventListener('reset', () => {
+    setTimeout(() => {
+      $('amount').value = '70';
+      $('precision').value = 'auto';
+      fromSel.value = 'kg';
+      toSel.value = 'lb';
+      $('compMajor').value = '8';
+      $('compMinor').value = '6';
+      statusEl.textContent = '';
+      convert();
+    }, 0);
+  });
+
+  $('copy').addEventListener('click', async () => {
+    const text = `Toolvantas Weight Conversion\nInput: ${$('amount').value} ${unitMap[fromSel.value].symbol}\nConverted: ${$('primary-out').textContent}\nPounds & ounces: ${$('lb-oz-out').textContent}\nStones & pounds: ${$('st-lb-out').textContent}\nKilograms: ${$('kg-out').textContent}`;
+    try {
+      if (!navigator.clipboard || !navigator.clipboard.writeText) throw new Error('Unavailable');
+      await navigator.clipboard.writeText(text);
+      statusEl.textContent = 'Results copied to clipboard.';
+    } catch {
+      statusEl.textContent = 'Clipboard access is unavailable. Select and copy the results manually.';
+    }
+  });
+
+  convert();
+})();
+</script>
+</body>
+</html>

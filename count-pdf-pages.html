@@ -3,25 +3,56 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Count pages in single or multiple PDF files online for free. 100% private and client-side with batch upload, print cost estimator, and CSV report export.">
+<meta name="description" content="Use this free PDF page counter to batch-count pages across multiple PDFs in your browser with portrait/landscape ratios, print cost, and CSV export.">
 <meta name="robots" content="index,follow">
 <meta name="theme-color" content="#173d35">
 <link rel="canonical" href="https://toolvantas.pages.dev/count-pdf-pages.html">
-<title>PDF Page Counter — Batch Count Pages in Multiple PDFs | Toolvantas</title>
+<title>PDF Page Counter — Batch Count Multiple PDFs | Toolvantas</title>
+<meta property="og:type" content="website">
+<meta property="og:title" content="PDF Page Counter — Batch Count Multiple PDFs | Toolvantas">
+<meta property="og:description" content="Use this free PDF page counter to batch-count pages across multiple PDFs in your browser with portrait/landscape ratios, print cost, and CSV export.">
+<meta property="og:url" content="https://toolvantas.pages.dev/count-pdf-pages.html">
+<meta property="og:site_name" content="Toolvantas">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PDF Page Counter — Batch Count Multiple PDFs | Toolvantas">
+<meta name="twitter:description" content="Count pages across multiple PDF documents client-side with orientation breakdown and CSV export.">
 <link rel="stylesheet" href="/site.css">
 <script src="/site.js" defer></script>
 <!-- Client-side PDF processing engine (Zero server uploads) -->
-<script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.9/dist/pdf-lib.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "Batch PDF Page Counter",
-  "url": "https://toolvantas.pages.dev/count-pdf-pages.html",
-  "applicationCategory": "UtilitiesApplication",
-  "operatingSystem": "Any",
-  "description": "Batch count pages across multiple PDF files in-memory with orientation inspection and cost calculation.",
-  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "PDF Page Counter",
+      "url": "https://toolvantas.pages.dev/count-pdf-pages.html",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "description": "Batch count pages across multiple PDF files in-memory with portrait/landscape inspection, cost estimation, and CSV export.",
+      "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://toolvantas.pages.dev/"},
+        {"@type": "ListItem", "position": 2, "name": "All Tools", "item": "https://toolvantas.pages.dev/tools.html"},
+        {"@type": "ListItem", "position": 3, "name": "PDF Page Counter", "item": "https://toolvantas.pages.dev/count-pdf-pages.html"}
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type": "Question", "name": "Are my PDF files uploaded to any server when counting pages?", "acceptedAnswer": {"@type": "Answer", "text": "No. All parsing and page inspections run 100% in-memory on your device using client-side JavaScript. None of your files or metadata are transmitted to any server."}},
+        {"@type": "Question", "name": "Can I upload dozens of PDF files at once?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Drag and drop multiple PDF files simultaneously and the counter inspects each file asynchronously in local browser memory."}},
+        {"@type": "Question", "name": "How does the print and billing cost estimator work?", "acceptedAnswer": {"@type": "Answer", "text": "Select your currency and enter a per-page rate (such as 0.08). The tool multiplies the rate by the total valid page count across all uploaded PDFs."}},
+        {"@type": "Question", "name": "Can I export an itemized breakdown of all file page counts?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Click Export CSV Report to download a spreadsheet listing every file name, byte size, page count, and portrait/landscape sheet count."}},
+        {"@type": "Question", "name": "Does this tool detect landscape vs. portrait pages?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. It reads each page's width, height, and native rotation angle to classify portrait and landscape sheets accurately."}}
+      ]
+    }
+  ]
 }
 </script>
 <style>
@@ -64,6 +95,7 @@
 .content-card ul{padding-left:22px}
 .faq-list details{border-bottom:1px solid var(--line);padding:14px 0}
 .faq-list summary{cursor:pointer;font-weight:750;line-height:1.5}
+.faq-list summary h3{display:inline;margin:0;font-size:1rem;font-weight:750}
 .faq-list details p{margin:10px 0 0}
 @media(max-width:760px){.counter-layout,.content-grid{grid-template-columns:1fr}.cost-row{grid-template-columns:1fr}}
 </style>
@@ -78,8 +110,8 @@
 <main id="main">
 <section class="page-hero"><div class="container">
 <p class="eyebrow">Client-side PDF tool</p>
-<h1>Batch PDF Page Counter</h1>
-<p>Quickly count total pages across one or multiple PDF documents. Features detailed orientation inspection, print/scanning cost estimation, and CSV audit export. 100% private and client-side.</p>
+<h1>PDF Page Counter</h1>
+<p>Use this free PDF page counter to batch-count total pages across one or dozens of PDF files locally in your browser—complete with orientation breakdown, print cost estimation, and CSV export.</p>
 </div></section>
 <section class="section"><div class="container"><div class="counter-layout">
 <div class="editor-card">
@@ -180,11 +212,20 @@ Choose PDF files or drag them here
 </div></section>
 <section class="section" style="padding-top:0"><div class="container content-card faq-list">
 <h2>Frequently asked questions</h2>
-<details><summary>Are my PDF files uploaded to any server when counting pages?</summary><p>No. All parsing and page inspections run 100% in-memory on your device using client-side JavaScript. None of your files or metadata are ever transmitted to any external server.</p></details>
-<details><summary>Can I upload dozens of PDF files at once?</summary><p>Yes. You can drag and drop dozens of PDF files simultaneously. The tool will process them asynchronously in local memory.</p></details>
-<details><summary>How does the print and billing cost estimator work?</summary><p>Simply select your currency and enter your rate per page (for example, <code>0.08</code> for 8 cents per page). The calculator multiplies this by the total page count across all files in real time.</p></details>
-<details><summary>Can I export an itemized breakdown of all file page counts?</summary><p>Yes. Click "Export CSV Report" to download a clean spreadsheet containing file names, file sizes, page counts, and orientation metrics.</p></details>
-<details><summary>Does this tool detect landscape vs. portrait pages?</summary><p>Yes. The tool reads the native width, height, and rotation angles of every page, reporting exact counts for portrait versus landscape sheets.</p></details>
+<details><summary><h3>Are my PDF files uploaded to any server when counting pages?</h3></summary><p>No. All parsing and page inspections run 100% in-memory on your device using client-side JavaScript. None of your files or metadata are ever transmitted to any external server.</p></details>
+<details><summary><h3>Can I upload dozens of PDF files at once?</h3></summary><p>Yes. Drag and drop multiple PDF files simultaneously and the counter inspects each file asynchronously in local browser memory.</p></details>
+<details><summary><h3>How does the print and billing cost estimator work?</h3></summary><p>Select your currency and enter your rate per page (for example, <code>0.08</code> for 8 cents per page). The calculator multiplies this rate by the total valid page count across all files.</p></details>
+<details><summary><h3>Can I export an itemized breakdown of all file page counts?</h3></summary><p>Yes. Click "Export CSV Report" to download a clean spreadsheet containing file names, file sizes, page counts, and portrait/landscape sheet counts.</p></details>
+<details><summary><h3>Does this tool detect landscape vs. portrait pages?</h3></summary><p>Yes. It reads the native width, height, and rotation angle of every page, reporting exact counts for portrait versus landscape sheets.</p></details>
+</div></section>
+<section class="section" style="padding-top:0"><div class="container">
+<div class="section-heading"><div><p class="eyebrow">More on Toolvantas</p><h2>Related tools you may need</h2></div><a class="text-link" href="/tools.html">Browse all tools <span>→</span></a></div>
+<div class="tool-grid" style="grid-template-columns:repeat(auto-fit,minmax(230px,1fr))">
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">📎</div><p class="card-category">PDF Tools</p><h3><a href="/merge-pdf.html">Merge PDF Files</a></h3><p>Combine multiple PDFs into one ordered file locally.</p><a class="card-link" href="/merge-pdf.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">✂️</div><p class="card-category">PDF Tools</p><h3><a href="/split-pdf.html">Split PDF Online</a></h3><p>Split large PDFs by custom ranges or fixed page intervals.</p><a class="card-link" href="/split-pdf.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">📑</div><p class="card-category">PDF Tools</p><h3><a href="/extract-pdf-pages.html">Extract PDF Pages</a></h3><p>Visually select specific pages into combined or separate PDFs.</p><a class="card-link" href="/extract-pdf-pages.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">🧾</div><p class="card-category">Business Tools</p><h3><a href="/invoice-generator.html">Free Invoice Generator</a></h3><p>Turn your page-count job quote into a printable client invoice.</p><a class="card-link" href="/invoice-generator.html">Open tool →</a></article>
+</div>
 </div></section>
 </main>
 <footer class="site-footer"><div class="container footer-top">
@@ -215,6 +256,7 @@ function fmtCurrency(val){
 
 function updateSummary(){
   const totalFiles=docs.length;
+  let validFiles=0;
   let totalPages=0;
   let totalBytes=0;
   let portraitPages=0;
@@ -222,6 +264,7 @@ function updateSummary(){
 
   docs.forEach(d=>{
     if(typeof d.pages==='number'){
+      validFiles++;
       totalPages+=d.pages;
       portraitPages+=d.portrait;
       landscapePages+=d.landscape;
@@ -229,19 +272,28 @@ function updateSummary(){
     totalBytes+=d.file.size;
   });
 
-  const rate=Number($('rate-input').value)||0;
-  const totalCost=totalPages*rate;
-  const avgPages=totalFiles>0?(totalPages/totalFiles).toFixed(1):'0.0';
+  const rawRate=Number($('rate-input').value);
+  let rate=0;
+  if(!Number.isFinite(rawRate)||rawRate<0){
+    $('status-msg').textContent='Rate per page must be 0 or greater.';
+    rate=0;
+  }else{
+    if($('status-msg').textContent==='Rate per page must be 0 or greater.')$('status-msg').textContent='';
+    rate=rawRate;
+  }
 
-  $('stat-hero-pages').textContent=`${totalPages} Pages`;
+  const totalCost=totalPages*rate;
+  const avgPages=validFiles>0?(totalPages/validFiles).toFixed(1):'0.0';
+
+  $('stat-hero-pages').textContent=`${totalPages} ${totalPages===1?'Page':'Pages'}`;
   $('stat-docs').textContent=`${totalFiles} ${totalFiles===1?'file':'files'}`;
-  $('stat-size').textContent=formatBytes(totalBytes);
+  $('stat-size').textContent=totalFiles===0?'0 KB':formatBytes(totalBytes);
   $('stat-avg').textContent=avgPages;
   $('stat-cost').textContent=fmtCurrency(totalCost);
-  $('stat-portrait').textContent=portraitPages;
-  $('stat-landscape').textContent=landscapePages;
+  $('stat-portrait').textContent=String(portraitPages);
+  $('stat-landscape').textContent=String(landscapePages);
   $('stat-rate').textContent=`${fmtCurrency(rate)} / page`;
-  $('stat-file-count').textContent=totalFiles;
+  $('stat-file-count').textContent=String(totalFiles);
 
   const hasDocs=totalFiles>0;
   $('btn-export-csv').disabled=!hasDocs;
@@ -255,37 +307,67 @@ function renderTable(){
   tbody.innerHTML='';
   docs.forEach((item,idx)=>{
     const tr=document.createElement('tr');
-    tr.innerHTML=`
-      <td>${idx+1}</td>
-      <td style="font-weight:700;max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${item.file.name}">${item.file.name}</td>
-      <td>${formatBytes(item.file.size)}</td>
-      <td><strong>${item.pages!==null?item.pages:'...'}</strong></td>
-      <td class="muted">${item.pages!==null?`${item.portrait}P / ${item.landscape}L`:'Inspecting'}</td>
-      <td style="text-align:right"><button type="button" class="btn-del" data-index="${idx}" title="Remove file">×</button></td>
-    `;
+    const tdIdx=document.createElement('td');
+    tdIdx.textContent=String(idx+1);
+
+    const tdName=document.createElement('td');
+    tdName.style.cssText='font-weight:700;max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap';
+    tdName.title=item.file.name;
+    tdName.textContent=item.file.name;
+
+    const tdSize=document.createElement('td');
+    tdSize.textContent=formatBytes(item.file.size);
+
+    const tdPages=document.createElement('td');
+    const strong=document.createElement('strong');
+    strong.textContent=item.pages!==null?String(item.pages):'...';
+    tdPages.appendChild(strong);
+
+    const tdOrient=document.createElement('td');
+    tdOrient.className='muted';
+    tdOrient.textContent=item.pages===null?'Inspecting':(typeof item.pages==='number'?`${item.portrait}P / ${item.landscape}L`:'—');
+
+    const tdAct=document.createElement('td');
+    tdAct.style.textAlign='right';
+    const delBtn=document.createElement('button');
+    delBtn.type='button';
+    delBtn.className='btn-del';
+    delBtn.dataset.index=String(idx);
+    delBtn.title=`Remove ${item.file.name}`;
+    delBtn.setAttribute('aria-label',`Remove ${item.file.name}`);
+    delBtn.textContent='×';
+    tdAct.appendChild(delBtn);
+
+    tr.append(tdIdx,tdName,tdSize,tdPages,tdOrient,tdAct);
     tbody.appendChild(tr);
   });
   updateSummary();
 }
 
 async function inspectDoc(item){
+  if(typeof window.PDFLib==='undefined'){
+    item.pages='Engine unavailable';
+    $('status-msg').textContent='PDF engine unavailable. Check your internet connection and reload.';
+    renderTable();
+    return;
+  }
   try{
     const bytes=await item.file.arrayBuffer();
-    const doc=await PDFLib.PDFDocument.load(bytes,{ignoreEncryption:true});
+    const doc=await PDFLib.PDFDocument.load(bytes);
     const pages=doc.getPages();
     item.pages=pages.length;
     let pCount=0;
     let lCount=0;
     pages.forEach(p=>{
       const {width,height}=p.getSize();
-      const rot=(p.getRotation().angle||0)%180;
+      const rot=(((p.getRotation().angle||0)%180)+180)%180;
       const isPortrait=rot===0?height>=width:width>=height;
       if(isPortrait)pCount++;else lCount++;
     });
     item.portrait=pCount;
     item.landscape=lCount;
   }catch(err){
-    item.pages='Error';
+    item.pages=(err&&err.message&&err.message.toLowerCase().includes('encrypt'))?'Encrypted':'Error';
     item.portrait=0;
     item.landscape=0;
   }
@@ -293,23 +375,27 @@ async function inspectDoc(item){
 }
 
 function addFiles(newFiles){
+  if(!newFiles||newFiles.length===0)return;
+  let added=0;
   for(const file of newFiles){
     if(file.type==='application/pdf'||file.name.toLowerCase().endsWith('.pdf')){
       const item={file,pages:null,portrait:0,landscape:0};
       docs.push(item);
+      added++;
       inspectDoc(item);
     }
   }
+  if(added===0)$('status-msg').textContent='Please select valid .pdf files.';
   renderTable();
 }
 
-$('pdf-picker').addEventListener('change',e=>addFiles(e.target.files));
-$('pdf-add').addEventListener('change',e=>addFiles(e.target.files));
+$('pdf-picker').addEventListener('change',e=>{addFiles(e.target.files);e.target.value='';});
+$('pdf-add').addEventListener('change',e=>{addFiles(e.target.files);e.target.value='';});
 
 const dropzone=$('dropzone');
 ['dragenter','dragover'].forEach(n=>dropzone.addEventListener(n,e=>{e.preventDefault();dropzone.classList.add('dragover');}));
 ['dragleave','drop'].forEach(n=>dropzone.addEventListener(n,e=>{e.preventDefault();dropzone.classList.remove('dragover');}));
-dropzone.addEventListener('drop',e=>{if(e.dataTransfer.files)addFiles(e.dataTransfer.files);});
+dropzone.addEventListener('drop',e=>{if(e.dataTransfer&&e.dataTransfer.files)addFiles(e.dataTransfer.files);});
 
 $('file-tbody').addEventListener('click',e=>{
   const btn=e.target.closest('.btn-del');
@@ -323,6 +409,7 @@ $('btn-clear').addEventListener('click',()=>{
   docs=[];
   $('pdf-picker').value='';
   $('pdf-add').value='';
+  $('status-msg').textContent='';
   renderTable();
 });
 
@@ -337,10 +424,12 @@ $('btn-export-csv').addEventListener('click',()=>{
     csv+=`${idx+1},${name},${item.file.size},"${formatBytes(item.file.size)}",${item.pages},${item.portrait},${item.landscape}\n`;
   });
   const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});
+  const url=URL.createObjectURL(blob);
   const a=document.createElement('a');
-  a.href=URL.createObjectURL(blob);
+  a.href=url;
   a.download='pdf-page-count-audit.csv';
   a.click();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
 });
 
 $('btn-copy-summary').addEventListener('click',async()=>{
@@ -355,11 +444,12 @@ Landscape Sheets: ${$('stat-landscape').textContent}
 Estimated Project Cost: ${$('stat-cost').textContent} (at ${$('stat-rate').textContent})
 Processed client-side in-memory via Toolvantas.`;
   try{
+    if(!navigator.clipboard||!navigator.clipboard.writeText)throw new Error('Unavailable');
     await navigator.clipboard.writeText(summaryText);
     $('copy-status').textContent='Audit summary copied to clipboard!';
     setTimeout(()=>{$('copy-status').textContent='';},2500);
   }catch{
-    $('copy-status').textContent='Clipboard unavailable. Please copy manually.';
+    $('copy-status').textContent='Clipboard unavailable. Please select and copy manually.';
   }
 });
 

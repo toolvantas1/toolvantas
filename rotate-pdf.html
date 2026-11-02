@@ -3,25 +3,56 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Rotate PDF pages permanently online for free. Rotate all pages or specific pages 90 or 180 degrees directly in your browser. 100% private, client-side.">
+<meta name="description" content="Rotate PDF pages online permanently for free. Turn individual, odd, even, or all PDF pages 90° or 180° locally in your browser with zero server uploads.">
 <meta name="robots" content="index,follow">
 <meta name="theme-color" content="#173d35">
 <link rel="canonical" href="https://toolvantas.pages.dev/rotate-pdf.html">
-<title>Rotate PDF Pages Online Free — Permanent &amp; Private | Toolvantas</title>
+<title>Rotate PDF Pages Online — Permanent &amp; Free | Toolvantas</title>
+<meta property="og:type" content="website">
+<meta property="og:title" content="Rotate PDF Pages Online — Permanent &amp; Free | Toolvantas">
+<meta property="og:description" content="Rotate PDF pages online permanently for free. Turn individual, odd, even, or all PDF pages 90° or 180° locally in your browser with zero server uploads.">
+<meta property="og:url" content="https://toolvantas.pages.dev/rotate-pdf.html">
+<meta property="og:site_name" content="Toolvantas">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Rotate PDF Pages Online — Permanent &amp; Free | Toolvantas">
+<meta name="twitter:description" content="Fix sideways or upside-down PDF pages permanently inside your browser with complete privacy.">
 <link rel="stylesheet" href="/site.css">
 <script src="/site.js" defer></script>
 <!-- Client-side PDF processing engine (Zero server uploads) -->
-<script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.9/dist/pdf-lib.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "Rotate PDF Pages Online",
-  "url": "https://toolvantas.pages.dev/rotate-pdf.html",
-  "applicationCategory": "UtilitiesApplication",
-  "operatingSystem": "Any",
-  "description": "Rotate PDF pages permanently 90, 180, or 270 degrees in-memory inside your web browser.",
-  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Rotate PDF Pages Online",
+      "url": "https://toolvantas.pages.dev/rotate-pdf.html",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "description": "Rotate PDF pages permanently 90, 180, or 270 degrees in-memory inside your web browser.",
+      "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://toolvantas.pages.dev/"},
+        {"@type": "ListItem", "position": 2, "name": "All Tools", "item": "https://toolvantas.pages.dev/tools.html"},
+        {"@type": "ListItem", "position": 3, "name": "Rotate PDF Pages Online", "item": "https://toolvantas.pages.dev/rotate-pdf.html"}
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type": "Question", "name": "Does rotating a PDF reduce text or image quality?", "acceptedAnswer": {"@type": "Answer", "text": "No. Rotation is 100% lossless because it updates the native PDF /Rotate page dictionary without re-rasterizing or recompressing fonts and graphics."}},
+        {"@type": "Question", "name": "Can I rotate only specific upside-down pages while leaving others intact?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Use the clockwise or counterclockwise buttons on any individual page card to rotate just that sheet."}},
+        {"@type": "Question", "name": "Are my PDF documents uploaded to any server?", "acceptedAnswer": {"@type": "Answer", "text": "No. Your files are processed in-memory directly within your web browser using client-side JavaScript. No document data is sent to any remote server."}},
+        {"@type": "Question", "name": "Is this rotation permanent when opened in Adobe Acrobat or browser viewers?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Orientation changes are saved into the downloaded PDF file itself so it opens upright in every standard PDF reader."}},
+        {"@type": "Question", "name": "How do I fix duplex scans where every other page is upside down?", "acceptedAnswer": {"@type": "Answer", "text": "Click Rotate Even Pages or Rotate Odd Pages twice (for 180 degrees) to flip alternating scanned sheets in a single batch."}}
+      ]
+    }
+  ]
 }
 </script>
 <style>
@@ -60,6 +91,7 @@
 .content-card ul{padding-left:22px}
 .faq-list details{border-bottom:1px solid var(--line);padding:14px 0}
 .faq-list summary{cursor:pointer;font-weight:750;line-height:1.5}
+.faq-list summary h3{display:inline;margin:0;font-size:1rem;font-weight:750}
 .faq-list details p{margin:10px 0 0}
 @media(max-width:760px){.pdf-layout,.content-grid{grid-template-columns:1fr}.doc-title{max-width:180px}}
 </style>
@@ -75,7 +107,7 @@
 <section class="page-hero"><div class="container">
 <p class="eyebrow">Client-side PDF tool</p>
 <h1>Rotate PDF Pages Online</h1>
-<p>Rotate entire PDF documents or fix specific upside-down pages permanently. 100% private and client-side: your files are processed in your browser without uploading to any server.</p>
+<p>Rotate PDF pages online to fix sideways scans or upside-down sheets permanently. 100% private and client-side: your files stay inside your browser without uploading to any server.</p>
 </div></section>
 <section class="section"><div class="container"><div class="pdf-layout">
 <div class="editor-card">
@@ -90,6 +122,7 @@ Choose a PDF file or drag it here
 <div class="muted" style="margin-top:4px;font-size:.78rem">Select 1 PDF document to rotate</div>
 </div>
 <div class="privacy-badge">🔒 100% Private — Processed in-memory inside your browser</div>
+<p id="error-msg" style="color:#a12626;font-size:.82rem;font-weight:750;margin-top:10px" role="alert" hidden></p>
 <div id="workspace" style="display:none">
 <div class="doc-header">
 <div>
@@ -148,10 +181,20 @@ Choose a PDF file or drag it here
 </div></section>
 <section class="section" style="padding-top:0"><div class="container content-card faq-list">
 <h2>Frequently asked questions</h2>
-<details><summary>Does rotating a PDF reduce text or image quality?</summary><p>No. The rotation is 100% lossless. The tool updates the viewing orientation tag in the PDF metadata without recompressing images or altering page vector elements.</p></details>
-<details><summary>Can I rotate only specific upside-down pages while leaving others intact?</summary><p>Yes. You can rotate individual pages independently using the rotation buttons located on each page card.</p></details>
-<details><summary>Are my PDF documents uploaded to any server?</summary><p>No. Your files are processed in-memory directly within your web browser using client-side JavaScript. No document data is ever sent to any remote server.</p></details>
-<details><summary>Is this rotation permanent when opened in Adobe Acrobat or browser viewers?</summary><p>Yes. The orientation changes are written directly into the PDF specification, ensuring the document opens in the intended orientation across all PDF readers.</p></details>
+<details><summary><h3>Does rotating a PDF reduce text or image quality?</h3></summary><p>No. Rotation is 100% lossless because it updates the native PDF <code>/Rotate</code> page dictionary without re-rasterizing or recompressing fonts and graphics.</p></details>
+<details><summary><h3>Can I rotate only specific upside-down pages while leaving others intact?</h3></summary><p>Yes. Use the clockwise or counterclockwise buttons on any individual page card to rotate just that sheet.</p></details>
+<details><summary><h3>Are my PDF documents uploaded to any server?</h3></summary><p>No. Your files are processed in-memory directly within your web browser using client-side JavaScript. No document data is sent to any remote server.</p></details>
+<details><summary><h3>Is this rotation permanent when opened in Adobe Acrobat or browser viewers?</h3></summary><p>Yes. Orientation changes are saved into the downloaded PDF file itself so it opens upright in every standard PDF reader.</p></details>
+<details><summary><h3>How do I fix duplex scans where every other page is upside down?</h3></summary><p>Click "Rotate Even Pages" or "Rotate Odd Pages" twice (for 180°) to flip alternating scanned sheets in a single batch.</p></details>
+</div></section>
+<section class="section" style="padding-top:0"><div class="container">
+<div class="section-heading"><div><p class="eyebrow">More on Toolvantas</p><h2>Related PDF tools</h2></div><a class="text-link" href="/tools.html">Browse all tools <span>→</span></a></div>
+<div class="tool-grid" style="grid-template-columns:repeat(auto-fit,minmax(230px,1fr))">
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">📎</div><p class="card-category">PDF Tools</p><h3><a href="/merge-pdf.html">Merge PDF Files</a></h3><p>Combine two or more PDF files in custom sequence.</p><a class="card-link" href="/merge-pdf.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">✂️</div><p class="card-category">PDF Tools</p><h3><a href="/split-pdf.html">Split PDF Online</a></h3><p>Divide PDFs by custom ranges or fixed page intervals.</p><a class="card-link" href="/split-pdf.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">📑</div><p class="card-category">PDF Tools</p><h3><a href="/extract-pdf-pages.html">Extract PDF Pages</a></h3><p>Pull specific pages into one combined or separate PDFs.</p><a class="card-link" href="/extract-pdf-pages.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">📊</div><p class="card-category">PDF Tools</p><h3><a href="/count-pdf-pages.html">PDF Page Counter</a></h3><p>Audit page counts and portrait/landscape ratios across PDFs.</p><a class="card-link" href="/count-pdf-pages.html">Open tool →</a></article>
+</div>
 </div></section>
 </main>
 <footer class="site-footer"><div class="container footer-top">
@@ -166,6 +209,16 @@ let currentFile=null;
 let pageAngles=[];
 let initialAngles=[];
 
+function normAngle(a){
+  return ((Number(a)||0)%360+360)%360;
+}
+
+function showError(msg){
+  const el=$('error-msg');
+  if(!msg){el.hidden=true;el.textContent='';}
+  else{el.hidden=false;el.textContent=msg;}
+}
+
 function formatBytes(bytes){
   if(bytes<1024)return bytes+' B';
   const kb=bytes/1024;
@@ -173,13 +226,13 @@ function formatBytes(bytes){
 }
 
 function updateSummary(){
-  $('stat-total').textContent=pageAngles.length;
+  $('stat-total').textContent=String(pageAngles.length);
   let modCount=0;
   for(let i=0;i<pageAngles.length;i++){
     if(pageAngles[i]!==initialAngles[i])modCount++;
   }
-  $('stat-mod').textContent=modCount;
-  $('stat-status').textContent=modCount>0?`${modCount} page(s) changed`:'Original orientation';
+  $('stat-mod').textContent=String(modCount);
+  $('stat-status').textContent=pageAngles.length===0?'Waiting for file':(modCount>0?`${modCount} page(s) changed`:'Original orientation');
   $('btn-save').disabled=pageAngles.length===0;
 }
 
@@ -193,8 +246,8 @@ function renderGrid(){
       <div class="page-sheet" id="sheet-${idx}" style="transform:rotate(${angle}deg)">P.${idx+1}</div>
       <span class="page-badge" id="badge-${idx}">${angle}°</span>
       <div class="page-actions">
-        <button type="button" class="btn-rot" data-action="ccw" data-index="${idx}" title="Rotate 90° CCW">↺</button>
-        <button type="button" class="btn-rot" data-action="cw" data-index="${idx}" title="Rotate 90° CW">↻</button>
+        <button type="button" class="btn-rot" data-action="ccw" data-index="${idx}" title="Rotate page ${idx+1} 90° counterclockwise" aria-label="Rotate page ${idx+1} 90 degrees counterclockwise">↺</button>
+        <button type="button" class="btn-rot" data-action="cw" data-index="${idx}" title="Rotate page ${idx+1} 90° clockwise" aria-label="Rotate page ${idx+1} 90 degrees clockwise">↻</button>
       </div>
     `;
     grid.appendChild(card);
@@ -203,30 +256,38 @@ function renderGrid(){
 }
 
 async function handleFile(file){
-  if(!file||(!file.type.includes('pdf')&&!file.name.toLowerCase().endsWith('.pdf')))return;
-  currentFile=file;
+  if(!file||(!file.type.includes('pdf')&&!file.name.toLowerCase().endsWith('.pdf'))){
+    showError('Please choose a valid .pdf document.');
+    return;
+  }
+  if(typeof window.PDFLib==='undefined'){
+    showError('PDF engine unavailable. Check your internet connection and reload.');
+    return;
+  }
+  showError('');
   try{
     const bytes=await file.arrayBuffer();
-    const doc=await PDFLib.PDFDocument.load(bytes,{ignoreEncryption:true});
+    const doc=await PDFLib.PDFDocument.load(bytes);
+    currentFile=file;
     const pages=doc.getPages();
     pageAngles=[];
     initialAngles=[];
     pages.forEach(p=>{
-      const rot=p.getRotation().angle||0;
+      const rot=normAngle(p.getRotation().angle||0);
       pageAngles.push(rot);
       initialAngles.push(rot);
     });
     $('doc-name').textContent=file.name;
-    $('doc-meta').textContent=`${formatBytes(file.size)} • ${pageAngles.length} pages`;
+    $('doc-meta').textContent=`${formatBytes(file.size)} • ${pageAngles.length} ${pageAngles.length===1?'page':'pages'}`;
     $('dropzone').style.display='none';
     $('workspace').style.display='block';
     renderGrid();
   }catch(err){
-    alert(err.message.includes('encrypt')?'This PDF is password-protected. Please decrypt it first.':'Error reading PDF document.');
+    showError(err&&err.message&&err.message.toLowerCase().includes('encrypt')?'This PDF is password-protected. Please remove password encryption first.':'Unable to read PDF document. The file may be corrupted.');
   }
 }
 
-$('pdf-picker').addEventListener('change',e=>{if(e.target.files[0])handleFile(e.target.files[0]);});
+$('pdf-picker').addEventListener('change',e=>{if(e.target.files[0])handleFile(e.target.files[0]);e.target.value='';});
 $('btn-change-file').addEventListener('click',()=>{
   currentFile=null;
   pageAngles=[];
@@ -234,6 +295,7 @@ $('btn-change-file').addEventListener('click',()=>{
   $('workspace').style.display='none';
   $('dropzone').style.display='block';
   $('pdf-picker').value='';
+  showError('');
   updateSummary();
 });
 
@@ -241,7 +303,7 @@ const dropzone=$('dropzone');
 ['dragenter','dragover'].forEach(n=>dropzone.addEventListener(n,e=>{e.preventDefault();dropzone.classList.add('dragover');}));
 ['dragleave','drop'].forEach(n=>dropzone.addEventListener(n,e=>{e.preventDefault();dropzone.classList.remove('dragover');}));
 dropzone.addEventListener('drop',e=>{
-  if(e.dataTransfer.files[0])handleFile(e.dataTransfer.files[0]);
+  if(e.dataTransfer&&e.dataTransfer.files[0])handleFile(e.dataTransfer.files[0]);
 });
 
 $('page-grid').addEventListener('click',e=>{
@@ -249,8 +311,8 @@ $('page-grid').addEventListener('click',e=>{
   if(!btn)return;
   const idx=Number(btn.dataset.index);
   const act=btn.dataset.action;
-  if(act==='cw') pageAngles[idx]=(pageAngles[idx]+90)%360;
-  else if(act==='ccw') pageAngles[idx]=(pageAngles[idx]-90+360)%360;
+  if(act==='cw') pageAngles[idx]=normAngle(pageAngles[idx]+90);
+  else if(act==='ccw') pageAngles[idx]=normAngle(pageAngles[idx]-90);
   const sheet=document.getElementById(`sheet-${idx}`);
   const badge=document.getElementById(`badge-${idx}`);
   if(sheet) sheet.style.transform=`rotate(${pageAngles[idx]}deg)`;
@@ -259,12 +321,7 @@ $('page-grid').addEventListener('click',e=>{
 });
 
 function rotateBatch(filterFn,delta){
-  pageAngles=pageAngles.map((angle,idx)=>{
-    if(filterFn(idx)){
-      return (angle+delta+360)%360;
-    }
-    return angle;
-  });
+  pageAngles=pageAngles.map((angle,idx)=>filterFn(idx)?normAngle(angle+delta):angle);
   renderGrid();
 }
 
@@ -291,13 +348,16 @@ $('btn-save').addEventListener('click',async()=>{
     });
     const savedBytes=await doc.save();
     const blob=new Blob([savedBytes],{type:'application/pdf'});
+    const url=URL.createObjectURL(blob);
     const a=document.createElement('a');
-    a.href=URL.createObjectURL(blob);
+    a.href=url;
     a.download=`rotated-${currentFile.name}`;
     a.click();
+    setTimeout(()=>URL.revokeObjectURL(url),1000);
     $('stat-status').textContent='Document saved successfully!';
   }catch(err){
-    $('stat-status').textContent='Error: '+err.message;
+    $('stat-status').textContent='Error saving PDF';
+    showError('Error saving rotated PDF: '+(err.message||'Unknown error'));
   }finally{
     $('btn-save').disabled=false;
   }

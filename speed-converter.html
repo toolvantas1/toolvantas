@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Speed Converter — km/h, mph, m/s, Knots &amp; Pace | Toolvantas</title>
+<meta name="description" content="Free online speed converter for km/h, mph, m/s, ft/s, knots, and Mach—complete with min/km and min/mi running pace and travel time estimates.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#173d35">
+<link rel="canonical" href="https://toolvantas.pages.dev/speed-converter.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Toolvantas">
+<meta property="og:title" content="Speed Converter — km/h, mph, m/s, Knots &amp; Pace | Toolvantas">
+<meta property="og:description" content="Free online speed converter for km/h, mph, m/s, ft/s, knots, and Mach—complete with min/km and min/mi running pace and travel time estimates.">
+<meta property="og:url" content="https://toolvantas.pages.dev/speed-converter.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Speed Converter — km/h, mph, m/s, Knots &amp; Pace | Toolvantas">
+<meta name="twitter:description" content="Free online speed converter for km/h, mph, m/s, ft/s, knots, and Mach—complete with min/km and min/mi running pace and travel time estimates.">
+<link rel="stylesheet" href="/site.css">
+<script src="/site.js" defer></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Speed Converter",
+      "url": "https://toolvantas.pages.dev/speed-converter.html",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "description": "Free online speed converter for km/h, mph, m/s, ft/s, knots, and Mach—complete with min/km and min/mi running pace and travel time estimates.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I convert km/h to mph?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Divide kilometers per hour by 1.609344 (or multiply by 0.621371). For example, 100 km/h × 0.621371 = 62.14 mph."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I convert m/s to km/h?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Multiply meters per second by 3.6. Because 1 hour has 3,600 seconds and 1 kilometer has 1,000 meters, 10 m/s equals exactly 36 km/h."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is a knot and why do ships and aircraft use it?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "One knot equals 1 nautical mile per hour (1.852 km/h or 1.15078 mph). Navigators prefer knots because 1 nautical mile corresponds directly to 1 minute of latitude on charts."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is running pace (min/km or min/mi) calculated from speed?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Pace is the inverse of speed: divide 60 minutes by your speed in km/h (or mph). At 10 km/h, 60 ÷ 10 = 6:00 minutes per kilometer."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Mach 1 always equal the same speed in km/h?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Mach 1 depends on air temperature. At sea level (15 °C), Mach 1 is about 1,225 km/h (761 mph), while at commercial cruising altitude (~11,000 m, −56.5 °C) it drops to about 1,062 km/h (660 mph)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How fast is the speed of light?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "In a vacuum, light travels at exactly 299,792,458 meters per second—about 1.079 billion km/h or 670.6 million mph."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://toolvantas.pages.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "All Tools",
+          "item": "https://toolvantas.pages.dev/tools.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Speed Converter",
+          "item": "https://toolvantas.pages.dev/speed-converter.html"
+        }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+.calc-layout{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(280px,.95fr);gap:22px;align-items:start}
+.calc-card,.results,.content-card{padding:22px;border:1px solid var(--line);border-radius:14px;background:#fff;min-width:0}
+.calc-card h2,.results h2,.content-card h2{margin:0 0 8px;font-size:1.2rem}
+.results h3,.calc-card h3{margin:16px 0 8px;font-size:.98rem}
+.muted{color:var(--muted);font-size:.88rem;line-height:1.55}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.field{min-width:0}
+.field label{display:block;font-size:.84rem;font-weight:750;margin-bottom:5px}
+.field input,.field select{box-sizing:border-box;width:100%;min-height:44px;padding:9px 10px;border:1px solid #cfdad2;border-radius:8px;background:#fff;color:var(--ink);font:inherit}
+.field input:focus-visible,.field select:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #8bb7a5;outline-offset:2px}
+.field small{display:block;color:var(--muted);font-size:.75rem;line-height:1.45;margin-top:4px}
+.unit-row{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:10px;align-items:end;margin-top:14px}
+.swap-btn{min-height:44px;padding:0 13px;border:1px solid #cfdad2;border-radius:8px;background:var(--soft);color:var(--forest);font:inherit;font-weight:800;cursor:pointer}
+.swap-btn:hover{background:var(--mint)}
+.presets{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}
+.chip{padding:6px 10px;border:1px solid var(--line);border-radius:7px;background:var(--soft);color:var(--ink);font:inherit;font-size:.77rem;font-weight:700;cursor:pointer}
+.chip:hover{border-color:#b9d1c1;background:var(--mint);color:var(--forest)}
+.trip-box{margin-top:16px;padding:13px;border:1px solid #e2ebe4;border-radius:10px;background:var(--soft)}
+.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}
+.actions button{cursor:pointer;font:inherit;font-weight:750;min-height:42px}
+.secondary{padding:10px 14px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--ink)}
+.secondary:hover{border-color:#b9d1c1}
+.results{background:#f7faf7;border-color:#dbe8dd}
+.big{display:block;font-size:clamp(1.85rem,3.8vw,2.65rem);font-weight:850;letter-spacing:-.05em;color:var(--forest);overflow-wrap:anywhere}
+.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:16px 0}
+.tile{padding:11px;border:1px solid #e0e9e1;border-radius:9px;background:#fff;min-width:0}
+.tile span{display:block;color:var(--muted);font-size:.75rem;line-height:1.4}
+.tile strong{display:block;margin-top:4px;overflow-wrap:anywhere}
+.breakdown{list-style:none;margin:0;padding:0;border-top:1px solid #dce6dd}
+.breakdown li{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid #e1e9e2;font-size:.82rem}
+.breakdown span{color:var(--muted)}
+.breakdown strong{text-align:right;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+.error{color:#a12626;font-weight:700;font-size:.85rem}
+.status{min-height:1.3em}
+.content-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.content-card p,.content-card li{color:#52675d;font-size:.93rem;line-height:1.75}
+.content-card ul{padding-left:22px}
+.faq-list details{border-bottom:1px solid var(--line);padding:14px 0}
+.faq-list summary{cursor:pointer;font-weight:750;line-height:1.5}
+.faq-list summary h3{display:inline;margin:0;font-size:1rem;font-weight:750}
+.faq-list details p{margin:10px 0 0}
+@media(max-width:760px){.calc-layout,.content-grid{grid-template-columns:1fr}.calc-card,.results,.content-card{padding:18px}}
+@media(max-width:520px){.unit-row{grid-template-columns:1fr}.swap-btn{width:100%}}
+@media(max-width:420px){.fields,.tiles{grid-template-columns:1fr}.calc-card,.results,.content-card{padding:15px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="container header-inner">
+<a class="brand" href="/" aria-label="Toolvantas home"><span class="brand-mark" aria-hidden="true">T</span><span>Toolvantas</span></a>
+<button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+<nav class="primary-nav" id="primary-nav" aria-label="Main navigation"><a href="/">Home</a><a href="/tools.html">All tools</a><a href="/#about">About</a></nav>
+</div></header>
+<main id="main">
+<section class="page-hero"><div class="container">
+<p class="eyebrow">Unit converter</p>
+<h1>Speed Converter</h1>
+<p>Use this free speed converter to convert kilometers per hour, miles per hour, meters per second, knots, and Mach—plus running pace and travel time.</p>
+</div></section>
+<section class="section"><div class="container"><div class="calc-layout">
+<form class="calc-card" id="speed-form" novalidate>
+<h2>Convert speed or velocity</h2>
+<p class="muted">Enter any speed value to see equivalent speeds, athletic pace, and travel duration.</p>
+<div class="fields">
+<div class="field">
+<label for="amount">Speed value</label>
+<input id="amount" name="amount" type="number" min="0" step="any" value="100" required>
+<small>Enter zero or any positive speed.</small>
+</div>
+<div class="field">
+<label for="precision">Display precision</label>
+<select id="precision" name="precision">
+<option value="auto" selected>Smart precision (auto)</option>
+<option value="2">2 decimal places</option>
+<option value="4">4 decimal places</option>
+<option value="6">6 decimal places</option>
+<option value="sci">Scientific notation</option>
+</select>
+<small>Controls rounding for converted outputs.</small>
+</div>
+</div>
+<div class="unit-row">
+<div class="field">
+<label for="fromUnit">From unit</label>
+<select id="fromUnit" name="fromUnit"></select>
+</div>
+<button class="swap-btn" type="button" id="swap" aria-label="Swap speed units" title="Swap units">⇄ Swap</button>
+<div class="field">
+<label for="toUnit">To unit</label>
+<select id="toUnit" name="toUnit"></select>
+</div>
+</div>
+<div class="presets" aria-label="Common speed conversions">
+<button class="chip" type="button" data-from="kmh" data-to="mph">km/h → mph</button>
+<button class="chip" type="button" data-from="mph" data-to="kmh">mph → km/h</button>
+<button class="chip" type="button" data-from="mps" data-to="kmh">m/s → km/h</button>
+<button class="chip" type="button" data-from="kn" data-to="kmh">knots → km/h</button>
+<button class="chip" type="button" data-from="mach" data-to="kmh">Mach → km/h</button>
+<button class="chip" type="button" data-from="fps" data-to="mps">ft/s → m/s</button>
+</div>
+<div class="trip-box">
+<h3>Optional travel time estimator</h3>
+<div class="fields" style="margin-top:8px">
+<div class="field">
+<label for="tripDist">Distance</label>
+<input id="tripDist" type="number" min="0" step="any" value="50">
+</div>
+<div class="field">
+<label for="tripUnit">Distance unit</label>
+<select id="tripUnit">
+<option value="km" selected>Kilometers (km)</option>
+<option value="mi">Miles (mi)</option>
+<option value="nmi">Nautical miles (nmi)</option>
+<option value="m">Meters (m)</option>
+</select>
+</div>
+</div>
+</div>
+<div class="actions">
+<button class="button button-primary" type="submit">Convert speed</button>
+<button class="secondary" type="reset">Reset defaults</button>
+<button class="secondary" type="button" id="copy">Copy results</button>
+</div>
+<p class="error" id="error" role="alert" hidden></p>
+<p id="copy-status" class="muted status" aria-live="polite"></p>
+</form>
+
+<section class="results" aria-live="polite" aria-labelledby="results-title">
+<h2 id="results-title">Converted speed</h2>
+<p class="muted" id="pair-label">100 Kilometers per hour equals</p>
+<output class="big" id="primary-out" for="amount fromUnit toUnit precision">62.137119 mph</output>
+<div class="tiles">
+<div class="tile"><span>Metric pace (min/km)</span><strong id="pace-km">0:36 /km</strong></div>
+<div class="tile"><span>Imperial pace (min/mi)</span><strong id="pace-mi">0:58 /mi</strong></div>
+<div class="tile"><span>Travel time for distance</span><strong id="trip-time">30m 0s (50 km)</strong></div>
+<div class="tile"><span>Direct conversion factor</span><strong id="factor-out">1 km/h = 0.621371 mph</strong></div>
+</div>
+<h3>All speed unit equivalents</h3>
+<ul class="breakdown" id="all-units"></ul>
+<p class="muted" id="formula" style="margin-top:12px">Mach 1 is referenced to International Standard Atmosphere sea level at 15 °C (340.29 m/s). Actual speed of sound varies with air temperature.</p>
+</section>
+</div></div></section>
+
+<section class="section" style="padding-top:0"><div class="container content-grid">
+<article class="content-card">
+<h2>How speed &amp; velocity conversions work</h2>
+<p>Speed measures distance traveled per unit of time. Every unit in this converter is anchored to the SI derived unit, meters per second (m/s), using exact international definitions:</p>
+<ul>
+<li><strong>Kilometers per hour (km/h):</strong> <code>1 m/s = 3.6 km/h</code> exactly.</li>
+<li><strong>Miles per hour (mph):</strong> <code>1 mph = 0.44704 m/s = 1.609344 km/h</code> exactly.</li>
+<li><strong>Knots (kn):</strong> One international nautical mile per hour—<code>1 kn = 1.852 km/h ≈ 1.15078 mph</code>.</li>
+<li><strong>Feet per second (ft/s):</strong> Used in physics, ballistics, and wind engineering—<code>1 ft/s = 0.3048 m/s</code>.</li>
+<li><strong>Mach number:</strong> Ratio of speed to the local speed of sound (<code>340.29 m/s</code> or <code>1,225.04 km/h</code> at ISA sea level, 15 °C).</li>
+</ul>
+</article>
+<article class="content-card">
+<h2>Practical uses for speed &amp; pace</h2>
+<ul>
+<li><strong>Driving &amp; road limits:</strong> 100 km/h is ~62.14 mph; 60 mph is ~96.56 km/h; 70 mph is ~112.65 km/h.</li>
+<li><strong>Weather &amp; wind reports:</strong> Meteorologists report wind in m/s, knots, or km/h. A tropical storm begins at 34 knots (~63 km/h or ~39 mph), and a Category 1 hurricane begins at 64 knots (~119 km/h or ~74 mph).</li>
+<li><strong>Running &amp; treadmill training:</strong> Treadmills show speed in mph or km/h, whereas race plans use pace in minutes per kilometer or mile. A treadmill set to <code>12 km/h</code> equals a <code>5:00 /km</code> (<code>8:03 /mi</code>) pace.</li>
+</ul>
+</article>
+</div></section>
+
+<section class="section" style="padding-top:0"><div class="container content-card faq-list">
+<h2>Frequently asked questions</h2>
+<details><summary><h3>How do I convert km/h to mph?</h3></summary><p>Divide kilometers per hour by 1.609344 (or multiply by 0.621371). For example, 100 km/h × 0.621371 = 62.14 mph.</p></details>
+<details><summary><h3>How do I convert m/s to km/h?</h3></summary><p>Multiply meters per second by 3.6. Because 1 hour has 3,600 seconds and 1 kilometer has 1,000 meters, 10 m/s equals exactly 36 km/h.</p></details>
+<details><summary><h3>What is a knot and why do ships and aircraft use it?</h3></summary><p>One knot equals 1 nautical mile per hour (1.852 km/h or 1.15078 mph). Navigators prefer knots because 1 nautical mile corresponds directly to 1 minute of latitude on charts.</p></details>
+<details><summary><h3>How is running pace (min/km or min/mi) calculated from speed?</h3></summary><p>Pace is the inverse of speed: divide 60 minutes by your speed in km/h (or mph). At 10 km/h, 60 ÷ 10 = 6:00 minutes per kilometer.</p></details>
+<details><summary><h3>Does Mach 1 always equal the same speed in km/h?</h3></summary><p>No. Mach 1 depends on air temperature. At sea level (15 °C), Mach 1 is about 1,225 km/h (761 mph), while at commercial cruising altitude (~11,000 m, −56.5 °C) it drops to about 1,062 km/h (660 mph).</p></details>
+<details><summary><h3>How fast is the speed of light?</h3></summary><p>In a vacuum, light travels at exactly 299,792,458 meters per second—about 1.079 billion km/h or 670.6 million mph.</p></details>
+</div></section>
+<section class="section" style="padding-top:0"><div class="container">
+<div class="section-heading"><div><p class="eyebrow">More on Toolvantas</p><h2>Related tools you may need</h2></div><a class="text-link" href="/tools.html">Browse all tools <span>→</span></a></div>
+<div class="tool-grid" style="grid-template-columns:repeat(auto-fit,minmax(230px,1fr))">
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">L</div><p class="card-category">Unit Converters</p><h3><a href="/length-converter.html">Length Converter</a></h3><p>Convert meters, feet, inches, miles, and feet-inches.</p><a class="card-link" href="/length-converter.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">Hr</div><p class="card-category">Everyday Calculators</p><h3><a href="/time-duration-calculator.html">Time Duration Calculator</a></h3><p>Calculate shift hours, breaks, and payroll decimals.</p><a class="card-link" href="/time-duration-calculator.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">°C</div><p class="card-category">Unit Converters</p><h3><a href="/temperature-converter.html">Temperature Converter</a></h3><p>Convert Celsius, Fahrenheit, Kelvin, and Rankine.</p><a class="card-link" href="/temperature-converter.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">W</div><p class="card-category">Unit Converters</p><h3><a href="/weight-converter.html">Weight Converter</a></h3><p>Convert kg, lb, oz, stones, grams, tons, and troy oz.</p><a class="card-link" href="/weight-converter.html">Open tool →</a></article>
+</div>
+</div></section>
+</main>
+<footer class="site-footer"><div class="container footer-top">
+<a class="brand brand-footer" href="/"><span class="brand-mark" aria-hidden="true">T</span><span>Toolvantas</span></a><p>Practical tools for everyday tasks.</p>
+<nav aria-label="Footer navigation"><a href="/">Home</a><a href="/tools.html">All tools</a><a href="/#about">About</a></nav>
+</div><div class="container footer-bottom"><small>© <span data-current-year>2026</span> Toolvantas</small><small>Built to be useful.</small></div></footer>
+<script>
+(() => {
+  'use strict';
+  const UNITS = [
+    { id: 'kmh', name: 'Kilometers per hour (km/h)', symbol: 'km/h', factor: 1 / 3.6 },
+    { id: 'mph', name: 'Miles per hour (mph)', symbol: 'mph', factor: 0.44704 },
+    { id: 'mps', name: 'Meters per second (m/s)', symbol: 'm/s', factor: 1 },
+    { id: 'fps', name: 'Feet per second (ft/s)', symbol: 'ft/s', factor: 0.3048 },
+    { id: 'kn', name: 'Knots (kn)', symbol: 'kn', factor: 1852 / 3600 },
+    { id: 'mach', name: 'Mach (ISA sea level)', symbol: 'Mach', factor: 340.29 },
+    { id: 'cms', name: 'Centimeters per second (cm/s)', symbol: 'cm/s', factor: 0.01 },
+    { id: 'kms', name: 'Kilometers per second (km/s)', symbol: 'km/s', factor: 1000 },
+    { id: 'mpm', name: 'Miles per minute (mi/min)', symbol: 'mi/min', factor: 26.8224 },
+    { id: 'c', name: 'Speed of light (c)', symbol: 'c', factor: 299792458 }
+  ];
+  const DIST_FACTORS = { km: 1000, mi: 1609.344, nmi: 1852, m: 1 };
+  const unitMap = Object.fromEntries(UNITS.map(u => [u.id, u]));
+  const $ = id => document.getElementById(id);
+  const form = $('speed-form');
+  const fromSel = $('fromUnit');
+  const toSel = $('toUnit');
+  const errorEl = $('error');
+  const statusEl = $('copy-status');
+
+  UNITS.forEach(u => {
+    fromSel.add(new Option(u.name, u.id));
+    toSel.add(new Option(u.name, u.id));
+  });
+  fromSel.value = 'kmh';
+  toSel.value = 'mph';
+
+  function formatVal(val, mode) {
+    if (!Number.isFinite(val)) return '—';
+    if (val === 0) return '0';
+    const abs = Math.abs(val);
+    if (mode === 'sci') return val.toExponential(6);
+    if (mode !== 'auto') {
+      const d = Number(mode);
+      return new Intl.NumberFormat('en-US', { minimumFractionDigits: 0, maximumFractionDigits: d }).format(val);
+    }
+    if (abs >= 1e12 || (abs > 0 && abs < 1e-6)) return val.toExponential(5);
+    if (abs >= 1000) return new Intl.NumberFormat('en-US', { maximumFractionDigits: 4 }).format(val);
+    if (abs >= 1) return new Intl.NumberFormat('en-US', { maximumFractionDigits: 6 }).format(val);
+    return new Intl.NumberFormat('en-US', { maximumFractionDigits: 8 }).format(val);
+  }
+
+  function formatPace(mps, metersPerUnit, unitLabel) {
+    if (mps <= 0) return '—';
+    const secPerUnit = metersPerUnit / mps;
+    if (secPerUnit < 0.01) return `< 0:01 /${unitLabel}`;
+    if (secPerUnit > 359999) return `> 99h /${unitLabel}`;
+    const totalSec = Math.round(secPerUnit);
+    const hrs = Math.floor(totalSec / 3600);
+    const mins = Math.floor((totalSec % 3600) / 60);
+    const secs = totalSec % 60;
+    const pad = n => String(n).padStart(2, '0');
+    return hrs > 0 ? `${hrs}:${pad(mins)}:${pad(secs)} /${unitLabel}` : `${mins}:${pad(secs)} /${unitLabel}`;
+  }
+
+  function formatDuration(seconds) {
+    if (!Number.isFinite(seconds) || seconds < 0) return '—';
+    if (seconds === 0) return '0s';
+    if (seconds < 1) return `${(seconds * 1000).toFixed(2)} ms`;
+    const d = Math.floor(seconds / 86400);
+    const h = Math.floor((seconds % 86400) / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
+    const s = Math.round(seconds % 60);
+    const parts = [];
+    if (d > 0) parts.push(`${d}d`);
+    if (h > 0) parts.push(`${h}h`);
+    if (m > 0) parts.push(`${m}m`);
+    if (s > 0 || parts.length === 0) parts.push(`${s}s`);
+    return parts.slice(0, 3).join(' ');
+  }
+
+  function showError(msg) {
+    errorEl.hidden = !msg;
+    errorEl.textContent = msg || '';
+  }
+
+  function convert(e) {
+    if (e) e.preventDefault();
+    const raw = $('amount').value.trim();
+    const val = Number(raw);
+    if (raw === '' || !Number.isFinite(val) || val < 0) {
+      showError('Please enter a valid non-negative speed value.');
+      return;
+    }
+    const from = unitMap[fromSel.value];
+    const to = unitMap[toSel.value];
+    const prec = $('precision').value;
+    const mps = val * from.factor;
+    const converted = mps / to.factor;
+    if (!Number.isFinite(mps) || !Number.isFinite(converted)) {
+      showError('This value is too large to calculate reliably.');
+      return;
+    }
+    showError('');
+
+    $('pair-label').textContent = `${formatVal(val, prec)} ${from.name} equals`;
+    $('primary-out').textContent = `${formatVal(converted, prec)} ${to.symbol}`;
+    $('pace-km').textContent = formatPace(mps, 1000, 'km');
+    $('pace-mi').textContent = formatPace(mps, 1609.344, 'mi');
+    $('factor-out').textContent = `1 ${from.symbol} = ${formatVal(from.factor / to.factor, 'auto')} ${to.symbol}`;
+
+    const distVal = Number($('tripDist').value);
+    const distUnit = $('tripUnit').value;
+    if (Number.isFinite(distVal) && distVal > 0 && mps > 0) {
+      const distMeters = distVal * DIST_FACTORS[distUnit];
+      $('trip-time').textContent = `${formatDuration(distMeters / mps)} (${distVal} ${distUnit})`;
+    } else {
+      $('trip-time').textContent = mps === 0 ? 'Stationary (0 speed)' : 'Enter distance > 0';
+    }
+
+    const list = $('all-units');
+    list.innerHTML = '';
+    UNITS.forEach(u => {
+      const li = document.createElement('li');
+      const sp = document.createElement('span');
+      sp.textContent = u.name;
+      const st = document.createElement('strong');
+      st.textContent = `${formatVal(mps / u.factor, prec)} ${u.symbol}`;
+      li.append(sp, st);
+      list.appendChild(li);
+    });
+  }
+
+  $('swap').addEventListener('click', () => {
+    const tmp = fromSel.value;
+    fromSel.value = toSel.value;
+    toSel.value = tmp;
+    convert();
+  });
+
+  document.querySelectorAll('.chip').forEach(btn => {
+    btn.addEventListener('click', () => {
+      fromSel.value = btn.dataset.from;
+      toSel.value = btn.dataset.to;
+      convert();
+    });
+  });
+
+  ['amount', 'fromUnit', 'toUnit', 'precision', 'tripDist', 'tripUnit'].forEach(id => {
+    $(id).addEventListener('input', () => convert());
+    $(id).addEventListener('change', () => convert());
+  });
+
+  form.addEventListener('submit', convert);
+  form.addEventListener('reset', () => {
+    setTimeout(() => {
+      $('amount').value = '100';
+      $('precision').value = 'auto';
+      fromSel.value = 'kmh';
+      toSel.value = 'mph';
+      $('tripDist').value = '50';
+      $('tripUnit').value = 'km';
+      statusEl.textContent = '';
+      convert();
+    }, 0);
+  });
+
+  $('copy').addEventListener('click', async () => {
+    const text = `Toolvantas Speed Conversion\nInput: ${$('amount').value} ${unitMap[fromSel.value].symbol}\nConverted: ${$('primary-out').textContent}\nMetric pace: ${$('pace-km').textContent}\nImperial pace: ${$('pace-mi').textContent}\nTravel estimate: ${$('trip-time').textContent}`;
+    try {
+      if (!navigator.clipboard || !navigator.clipboard.writeText) throw new Error('Unavailable');
+      await navigator.clipboard.writeText(text);
+      statusEl.textContent = 'Results copied to clipboard.';
+    } catch {
+      statusEl.textContent = 'Clipboard access is unavailable. Select and copy the results manually.';
+    }
+  });
+
+  convert();
+})();
+</script>
+</body>
+</html>

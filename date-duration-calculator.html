@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Date Duration Calculator — Days Between Dates | Toolvantas</title>
+<meta name="description" content="Free date duration calculator to count calendar days, weeks, months, years, and business days between two dates or add and subtract days.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#173d35">
+<link rel="canonical" href="https://toolvantas.pages.dev/date-duration-calculator.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Toolvantas">
+<meta property="og:title" content="Date Duration Calculator — Days Between Dates | Toolvantas">
+<meta property="og:description" content="Free date duration calculator to count calendar days, weeks, months, years, and business days between two dates or add and subtract days.">
+<meta property="og:url" content="https://toolvantas.pages.dev/date-duration-calculator.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Date Duration Calculator — Days Between Dates | Toolvantas">
+<meta name="twitter:description" content="Free date duration calculator to count calendar days, weeks, months, years, and business days between two dates or add and subtract days.">
+<link rel="stylesheet" href="/site.css">
+<script src="/site.js" defer></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Date Duration Calculator",
+      "url": "https://toolvantas.pages.dev/date-duration-calculator.html",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "description": "Free date duration calculator to count calendar days, weeks, months, years, and business days between two dates or add and subtract days.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Does \"Days between dates\" include the end date?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "By default it calculates the difference (End − Start), matching standard subtraction and hotel-night rules. Enable \"Include end date in count (+1 calendar day)\" when both start and end dates are full active days."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What happens if my start date is later than my end date?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The calculator automatically detects reversed chronological order, displays the exact positive duration, and notes that the end date precedes the start date (or click \"Swap dates\" to flip them)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How are working (business) days calculated?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Every Monday through Friday in the date span counts as 1 working day, while Saturdays, Sundays, and any valid weekday dates listed in your custom holidays field are excluded."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does adding 1 month to January 31 work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "When adding calendar months lands past the end of a shorter month (such as February), the date clamps cleanly to the final valid day of that month (February 28, or February 29 in a leap year)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are leap years handled automatically?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. All calculations use Gregorian calendar rules including 366-day leap years."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does timezone or Daylight Saving Time change the day count?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Dates are evaluated using timezone-neutral UTC calendar days so local clock shifts never alter day counts."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://toolvantas.pages.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "All Tools",
+          "item": "https://toolvantas.pages.dev/tools.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Date Duration Calculator",
+          "item": "https://toolvantas.pages.dev/date-duration-calculator.html"
+        }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+.calc-layout{display:grid;grid-template-columns:minmax(0,1.06fr) minmax(280px,.94fr);gap:22px;align-items:start}
+.calc-card,.results,.content-card{padding:22px;border:1px solid var(--line);border-radius:14px;background:#fff;min-width:0}
+.calc-card h2,.results h2,.content-card h2{margin:0 0 8px;font-size:1.2rem}
+.results h3,.calc-card h3{margin:16px 0 8px;font-size:.98rem}
+.muted{color:var(--muted);font-size:.88rem;line-height:1.55}
+.mode-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 16px}
+.mode-btn{padding:8px 13px;border:1px solid #cfdad2;border-radius:8px;background:var(--soft);color:var(--ink);font:inherit;font-size:.82rem;font-weight:750;cursor:pointer}
+.mode-btn[aria-pressed="true"]{background:var(--forest);border-color:var(--forest);color:#fff}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.field{min-width:0}
+.field-full{grid-column:1 / -1}
+.field label{display:block;font-size:.84rem;font-weight:750;margin-bottom:5px}
+.field input,.field select,.field textarea{box-sizing:border-box;width:100%;min-height:44px;padding:9px 10px;border:1px solid #cfdad2;border-radius:8px;background:#fff;color:var(--ink);font:inherit}
+.field textarea{min-height:72px;resize:vertical}
+.field input:focus-visible,.field select:focus-visible,.field textarea:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #8bb7a5;outline-offset:2px}
+.field small{display:block;color:var(--muted);font-size:.75rem;line-height:1.45;margin-top:4px}
+.check-row{display:flex;align-items:center;gap:8px;margin-top:12px;font-size:.84rem;font-weight:650;color:var(--ink);cursor:pointer}
+.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}
+.actions button{cursor:pointer;font:inherit;font-weight:700;min-height:42px}
+.secondary{padding:10px 14px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--ink)}
+.secondary:hover{border-color:#b9d1c1}
+.results{background:#f7faf7;border-color:#dbe8dd}
+.big{display:block;font-size:clamp(1.8rem,3.6vw,2.5rem);font-weight:850;letter-spacing:-.05em;color:var(--forest);overflow-wrap:anywhere}
+.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:16px 0}
+.tile{padding:11px;border:1px solid #e0e9e1;border-radius:9px;background:#fff;min-width:0}
+.tile span{display:block;color:var(--muted);font-size:.75rem;line-height:1.4}
+.tile strong{display:block;margin-top:4px;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+.breakdown{list-style:none;margin:0;padding:0;border-top:1px solid #dce6dd}
+.breakdown li{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid #e1e9e2;font-size:.82rem}
+.breakdown span{color:var(--muted)}
+.breakdown strong{text-align:right;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+.error{color:#a12626;font-weight:700;font-size:.85rem}
+.status{min-height:1.3em}
+.content-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.content-card p,.content-card li{color:#52675d;font-size:.93rem;line-height:1.75}
+.content-card ul{padding-left:22px}
+.faq-list details{border-bottom:1px solid var(--line);padding:14px 0}
+.faq-list summary{cursor:pointer;font-weight:750;line-height:1.5}
+.faq-list summary h3{display:inline;margin:0;font-size:1rem;font-weight:750}
+.faq-list details p{margin:10px 0 0}
+@media(max-width:760px){.calc-layout,.content-grid{grid-template-columns:1fr}.calc-card,.results,.content-card{padding:18px}}
+@media(max-width:420px){.fields,.tiles{grid-template-columns:1fr}.calc-card,.results,.content-card{padding:15px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="container header-inner">
+<a class="brand" href="/" aria-label="Toolvantas home"><span class="brand-mark" aria-hidden="true">T</span><span>Toolvantas</span></a>
+<button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+<nav class="primary-nav" id="primary-nav" aria-label="Main navigation"><a href="/">Home</a><a href="/tools.html">All tools</a><a href="/#about">About</a></nav>
+</div></header>
+<main id="main">
+<section class="page-hero"><div class="container">
+<p class="eyebrow">Everyday calculator</p>
+<h1>Date Duration Calculator</h1>
+<p>Use this free date duration calculator to count exact calendar days, weeks, months, years, and Mon–Fri business days between two dates—or add/subtract days.</p>
+</div></section>
+<section class="section"><div class="container"><div class="calc-layout">
+<form class="calc-card" id="date-form" novalidate>
+<h2>Date calculation settings</h2>
+<div class="mode-tabs" role="group" aria-label="Date calculator mode">
+<button type="button" class="mode-btn" data-mode="between" aria-pressed="true">Days between dates</button>
+<button type="button" class="mode-btn" data-mode="offset" aria-pressed="false">Add / subtract from date</button>
+</div>
+
+<div id="between-panel">
+<div class="fields">
+<div class="field">
+<label for="startDate">Start date</label>
+<input id="startDate" type="date" required>
+</div>
+<div class="field">
+<label for="endDate">End date</label>
+<input id="endDate" type="date" required>
+</div>
+<div class="field field-full">
+<label for="holidays">Optional custom holidays to exclude from working days (YYYY-MM-DD)</label>
+<textarea id="holidays" placeholder="e.g. 2026-12-25, 2027-01-01 (comma or line separated)"></textarea>
+<small>Weekends (Saturday &amp; Sunday) are excluded from working days automatically.</small>
+</div>
+</div>
+<label class="check-row"><input type="checkbox" id="includeEnd"> Include end date in count (+1 calendar day)</label>
+</div>
+
+<div id="offset-panel" hidden>
+<div class="fields">
+<div class="field">
+<label for="baseDate">Start date</label>
+<input id="baseDate" type="date">
+</div>
+<div class="field">
+<label for="direction">Operation</label>
+<select id="direction">
+<option value="add" selected>Add (+) forward</option>
+<option value="sub">Subtract (−) backward</option>
+</select>
+</div>
+<div class="field">
+<label for="addYears">Years</label>
+<input id="addYears" type="number" min="0" max="5000" step="1" value="0">
+</div>
+<div class="field">
+<label for="addMonths">Months</label>
+<input id="addMonths" type="number" min="0" max="60000" step="1" value="1">
+</div>
+<div class="field">
+<label for="addWeeks">Weeks</label>
+<input id="addWeeks" type="number" min="0" max="200000" step="1" value="0">
+</div>
+<div class="field">
+<label for="addDays">Days</label>
+<input id="addDays" type="number" min="0" max="1000000" step="1" value="14">
+</div>
+</div>
+<label class="check-row"><input type="checkbox" id="bizOnly"> Count "Days" above as Mon–Fri business days only</label>
+</div>
+
+<div class="actions">
+<button class="button button-primary" type="submit">Calculate</button>
+<button class="secondary" type="button" id="swap-dates">Swap dates</button>
+<button class="secondary" type="reset">Reset defaults</button>
+<button class="secondary" type="button" id="copy">Copy results</button>
+</div>
+<p class="error" id="error" role="alert" hidden></p>
+<p id="copy-status" class="muted status" aria-live="polite"></p>
+</form>
+
+<section class="results" aria-live="polite" aria-labelledby="results-title">
+<h2 id="results-title">Duration summary</h2>
+<p class="muted" id="span-label">—</p>
+<output class="big" id="primary-out">—</output>
+<div class="tiles">
+<div class="tile"><span id="t1-label">Years, months, days</span><strong id="t1-val">—</strong></div>
+<div class="tile"><span id="t2-label">Working days (Mon–Fri)</span><strong id="t2-val">—</strong></div>
+<div class="tile"><span id="t3-label">Weekend days</span><strong id="t3-val">—</strong></div>
+<div class="tile"><span id="t4-label">Weeks &amp; days</span><strong id="t4-val">—</strong></div>
+</div>
+<h3>Detailed calendar breakdown</h3>
+<ul class="breakdown" id="detail-list"></ul>
+</section>
+</div></div></section>
+
+<section class="section" style="padding-top:0"><div class="container content-grid">
+<article class="content-card">
+<h2>Inclusive vs. exclusive date counting</h2>
+<p>When counting days between two dates, check whether your contract, hotel booking, or visa rule counts nights (exclusive) or calendar days occupied (inclusive):</p>
+<ul>
+<li><strong>Exclusive (default):</strong> From June 1 to June 10 is <code>10 − 1 = 9 days</code> (9 hotel nights).</li>
+<li><strong>Inclusive (+1 end day):</strong> If a vacation or festival runs from June 1 through June 10 inclusive, you are away for <code>10 full days</code>. Check <em>Include end date in count</em> for inclusive schedules.</li>
+</ul>
+</article>
+<article class="content-card">
+<h2>Working days &amp; business deadlines</h2>
+<ul>
+<li><strong>Shipping &amp; legal notices:</strong> Deadlines stated as "10 business days" skip Saturdays and Sundays. Switch to <em>Add / subtract from date</em> and check <em>Count Days as Mon–Fri business days only</em> to find the exact due date.</li>
+<li><strong>Public holidays:</strong> Paste regional holidays in <code>YYYY-MM-DD</code> format into the custom holidays box to deduct weekday holidays from your working-day total.</li>
+</ul>
+</article>
+</div></section>
+
+<section class="section" style="padding-top:0"><div class="container content-card faq-list">
+<h2>Frequently asked questions</h2>
+<details><summary><h3>Does "Days between dates" include the end date?</h3></summary><p>By default it calculates the difference (End − Start), matching standard subtraction and hotel-night rules. Enable "Include end date in count (+1 calendar day)" when both start and end dates are full active days.</p></details>
+<details><summary><h3>What happens if my start date is later than my end date?</h3></summary><p>The calculator automatically detects reversed chronological order, displays the exact positive duration, and notes that the end date precedes the start date (or click "Swap dates" to flip them).</p></details>
+<details><summary><h3>How are working (business) days calculated?</h3></summary><p>Every Monday through Friday in the date span counts as 1 working day, while Saturdays, Sundays, and any valid weekday dates listed in your custom holidays field are excluded.</p></details>
+<details><summary><h3>How does adding 1 month to January 31 work?</h3></summary><p>When adding calendar months lands past the end of a shorter month (such as February), the date clamps cleanly to the final valid day of that month (February 28, or February 29 in a leap year).</p></details>
+<details><summary><h3>Are leap years handled automatically?</h3></summary><p>Yes. All calculations use Gregorian calendar rules including 366-day leap years.</p></details>
+<details><summary><h3>Does timezone or Daylight Saving Time change the day count?</h3></summary><p>No. Dates are evaluated using timezone-neutral UTC calendar days so local clock shifts never alter day counts.</p></details>
+</div></section>
+<section class="section" style="padding-top:0"><div class="container">
+<div class="section-heading"><div><p class="eyebrow">More on Toolvantas</p><h2>Related tools you may need</h2></div><a class="text-link" href="/tools.html">Browse all tools <span>→</span></a></div>
+<div class="tool-grid" style="grid-template-columns:repeat(auto-fit,minmax(230px,1fr))">
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">Hr</div><p class="card-category">Everyday Calculators</p><h3><a href="/time-duration-calculator.html">Time Duration Calculator</a></h3><p>Calculate shift hours, breaks, and payroll decimals.</p><a class="card-link" href="/time-duration-calculator.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">Yr</div><p class="card-category">Everyday Calculators</p><h3><a href="/age-calculator.html">Age Calculator</a></h3><p>Calculate exact age in years, months, days, and hours.</p><a class="card-link" href="/age-calculator.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">Fr</div><p class="card-category">Freelance Pricing</p><h3><a href="/freelance-rate-calculator.html">Freelance Rate Calculator</a></h3><p>Estimate sustainable hourly, day, and project rates.</p><a class="card-link" href="/freelance-rate-calculator.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">%</div><p class="card-category">Everyday Calculators</p><h3><a href="/percentage-calculator.html">Percentage Calculator</a></h3><p>Solve % of, ratio %, % change, and reverse % math.</p><a class="card-link" href="/percentage-calculator.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">Ts</div><p class="card-category">Developer Tools</p><h3><a href="/unix-timestamp-converter.html">Unix Timestamp Converter</a></h3><p>Convert calendar dates and UTC times to Unix epoch seconds.</p><a class="card-link" href="/unix-timestamp-converter.html">Open tool →</a></article>
+</div>
+</div></section>
+</main>
+<footer class="site-footer"><div class="container footer-top">
+<a class="brand brand-footer" href="/"><span class="brand-mark" aria-hidden="true">T</span><span>Toolvantas</span></a><p>Practical tools for everyday tasks.</p>
+<nav aria-label="Footer navigation"><a href="/">Home</a><a href="/tools.html">All tools</a><a href="/#about">About</a></nav>
+</div><div class="container footer-bottom"><small>© <span data-current-year>2026</span> Toolvantas</small><small>Built to be useful.</small></div></footer>
+<script>
+(() => {
+  'use strict';
+  const DOW = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const $ = id => document.getElementById(id);
+  const form = $('date-form');
+  const errorEl = $('error');
+  const statusEl = $('copy-status');
+  let mode = 'between';
+
+  function isoFromUTC(ms) {
+    const d = new Date(ms);
+    return `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}-${String(d.getUTCDate()).padStart(2, '0')}`;
+  }
+
+  function readableUTC(ms) {
+    const d = new Date(ms);
+    return `${DOW[d.getUTCDay()].slice(0, 3)}, ${MONTHS[d.getUTCMonth()]} ${d.getUTCDate()}, ${d.getUTCFullYear()}`;
+  }
+
+  function parseYMD(str) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(str)) return null;
+    const [y, m, d] = str.split('-').map(Number);
+    const dt = new Date(Date.UTC(y, m - 1, d));
+    if (dt.getUTCFullYear() !== y || dt.getUTCMonth() !== m - 1 || dt.getUTCDate() !== d) return null;
+    return { y, m, d, utc: dt.getTime() };
+  }
+
+  function parseHolidaySet(raw) {
+    const tokens = raw.split(/[\s,;]+/).map(s => s.trim()).filter(Boolean);
+    const set = new Set();
+    for (const tok of tokens) {
+      const p = parseYMD(tok);
+      if (p) set.add(isoFromUTC(p.utc));
+    }
+    return set;
+  }
+
+  function countWeekdays(startUtc, totalDays, holidaySet) {
+    if (totalDays <= 0) return { workdays: 0, weekends: 0, holidaysHit: 0 };
+    const fullWeeks = Math.floor(totalDays / 7);
+    let weekends = fullWeeks * 2;
+    const rem = totalDays % 7;
+    const startDow = new Date(startUtc).getUTCDay();
+    for (let i = 0; i < rem; i++) {
+      const dow = (startDow + i) % 7;
+      if (dow === 0 || dow === 6) weekends++;
+    }
+    let holidaysHit = 0;
+    const endUtcExclusive = startUtc + totalDays * 86400000;
+    for (const iso of holidaySet) {
+      const p = parseYMD(iso);
+      if (p && p.utc >= startUtc && p.utc < endUtcExclusive) {
+        const dow = new Date(p.utc).getUTCDay();
+        if (dow !== 0 && dow !== 6) holidaysHit++;
+      }
+    }
+    return {
+      workdays: Math.max(0, totalDays - weekends - holidaysHit),
+      weekends,
+      holidaysHit
+    };
+  }
+
+  function calcYMD(a, b) {
+    let years = b.y - a.y;
+    let months = b.m - a.m;
+    let days = b.d - a.d;
+    if (days < 0) {
+      const prevDays = new Date(Date.UTC(b.y, b.m - 1, 0)).getUTCDate();
+      days = prevDays - Math.min(a.d, prevDays) + b.d;
+      months -= 1;
+    }
+    if (months < 0) {
+      months += 12;
+      years -= 1;
+    }
+    return { years, months, days };
+  }
+
+  function showError(msg) {
+    errorEl.hidden = !msg;
+    errorEl.textContent = msg || '';
+  }
+
+  function renderDetails(rows) {
+    const ul = $('detail-list');
+    ul.innerHTML = '';
+    rows.forEach(([k, v]) => {
+      const li = document.createElement('li');
+      const sp = document.createElement('span');
+      sp.textContent = k;
+      const st = document.createElement('strong');
+      st.textContent = v;
+      li.append(sp, st);
+      ul.appendChild(li);
+    });
+  }
+
+  function calculate(e) {
+    if (e) e.preventDefault();
+    const fmt = n => new Intl.NumberFormat('en-US').format(n);
+
+    if (mode === 'between') {
+      const s = parseYMD($('startDate').value);
+      const en = parseYMD($('endDate').value);
+      if (!s || !en) {
+        showError('Please enter valid Start and End calendar dates.');
+        return;
+      }
+      showError('');
+      const reversed = en.utc < s.utc;
+      const first = reversed ? en : s;
+      const last = reversed ? s : en;
+      const includeEnd = $('includeEnd').checked;
+
+      const rawDiffDays = Math.round((last.utc - first.utc) / 86400000);
+      const totalDays = rawDiffDays + (includeEnd ? 1 : 0);
+      const effectiveLastUtc = last.utc + (includeEnd ? 86400000 : 0);
+      const effectiveLast = parseYMD(isoFromUTC(effectiveLastUtc));
+      const ymd = calcYMD(first, effectiveLast);
+      const holidaySet = parseHolidaySet($('holidays').value);
+      const { workdays, weekends, holidaysHit } = countWeekdays(first.utc, totalDays, holidaySet);
+
+      const weeks = Math.floor(totalDays / 7);
+      const remDays = totalDays % 7;
+
+      $('span-label').textContent = `${readableUTC(s.utc)} → ${readableUTC(en.utc)}${reversed ? ' (end precedes start)' : ''}${includeEnd ? ' · inclusive' : ''}`;
+      $('primary-out').textContent = `${fmt(totalDays)} ${totalDays === 1 ? 'day' : 'days'}`;
+      $('t1-label').textContent = 'Calendar span';
+      $('t1-val').textContent = `${ymd.years}y ${ymd.months}m ${ymd.days}d`;
+      $('t2-label').textContent = 'Working days (Mon–Fri)';
+      $('t2-val').textContent = `${fmt(workdays)} days`;
+      $('t3-label').textContent = 'Weekend days (Sat–Sun)';
+      $('t3-val').textContent = `${fmt(weekends)} days`;
+      $('t4-label').textContent = 'Weeks + days';
+      $('t4-val').textContent = `${fmt(weeks)} wk, ${remDays} d`;
+
+      renderDetails([
+        ['Start day of week', DOW[new Date(s.utc).getUTCDay()]],
+        ['End day of week', DOW[new Date(en.utc).getUTCDay()]],
+        ['Custom weekday holidays excluded', fmt(holidaysHit)],
+        ['Total hours', `${fmt(totalDays * 24)} hours`],
+        ['Total minutes', `${fmt(totalDays * 1440)} minutes`],
+        ['Share of 365-day year', `${((totalDays / 365) * 100).toFixed(2)}%`]
+      ]);
+    } else {
+      const base = parseYMD($('baseDate').value);
+      const yrs = Number($('addYears').value || 0);
+      const mos = Number($('addMonths').value || 0);
+      const wks = Number($('addWeeks').value || 0);
+      const dys = Number($('addDays').value || 0);
+      if (!base || [yrs, mos, wks, dys].some(n => !Number.isFinite(n) || n < 0 || n > 1000000)) {
+        showError('Enter a valid start date and non-negative offset numbers (up to 1,000,000).');
+        return;
+      }
+      showError('');
+      const sign = $('direction').value === 'sub' ? -1 : 1;
+      const totalMonths = base.m - 1 + sign * (yrs * 12 + mos);
+      const targetYear = base.y + Math.floor(totalMonths / 12);
+      const targetMonthIdx = ((totalMonths % 12) + 12) % 12;
+      const maxDayInTargetMonth = new Date(Date.UTC(targetYear, targetMonthIdx + 1, 0)).getUTCDate();
+      const clampedDay = Math.min(base.d, maxDayInTargetMonth);
+      let currentUtc = Date.UTC(targetYear, targetMonthIdx, clampedDay) + sign * wks * 7 * 86400000;
+
+      const holidaySet = parseHolidaySet($('holidays').value);
+      if ($('bizOnly').checked && dys > 0) {
+        let remaining = Math.floor(dys);
+        while (remaining > 0) {
+          currentUtc += sign * 86400000;
+          const dow = new Date(currentUtc).getUTCDay();
+          if (dow !== 0 && dow !== 6 && !holidaySet.has(isoFromUTC(currentUtc))) {
+            remaining--;
+          }
+        }
+      } else {
+        currentUtc += sign * Math.floor(dys) * 86400000;
+      }
+
+      const spanDays = Math.round(Math.abs(currentUtc - base.utc) / 86400000);
+      const resIso = isoFromUTC(currentUtc);
+      const resDow = DOW[new Date(currentUtc).getUTCDay()];
+
+      $('span-label').textContent = `${$('direction').value === 'sub' ? 'Subtracting from' : 'Adding to'} ${readableUTC(base.utc)}`;
+      $('primary-out').textContent = readableUTC(currentUtc);
+      $('t1-label').textContent = 'ISO date (YYYY-MM-DD)';
+      $('t1-val').textContent = resIso;
+      $('t2-label').textContent = 'Day of the week';
+      $('t2-val').textContent = resDow;
+      $('t3-label').textContent = 'Total calendar days shifted';
+      $('t3-val').textContent = `${fmt(spanDays)} days`;
+      $('t4-label').textContent = 'Weeks shifted';
+      $('t4-val').textContent = `${(spanDays / 7).toFixed(2)} weeks`;
+
+      renderDetails([
+        ['Starting date', readableUTC(base.utc)],
+        ['Resulting date', readableUTC(currentUtc)],
+        ['Offset applied', `${yrs}y, ${mos}m, ${wks}w, ${dys} ${$('bizOnly').checked ? 'business' : 'calendar'} days`],
+        ['Weekend status', (resDow === 'Saturday' || resDow === 'Sunday') ? 'Falls on a weekend' : 'Falls on a weekday']
+      ]);
+    }
+  }
+
+  function initDefaults() {
+    const now = new Date();
+    const todayUtc = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
+    const plus90Utc = todayUtc + 90 * 86400000;
+    $('startDate').value = isoFromUTC(todayUtc);
+    $('endDate').value = isoFromUTC(plus90Utc);
+    $('baseDate').value = isoFromUTC(todayUtc);
+    $('holidays').value = '';
+    $('includeEnd').checked = false;
+    $('direction').value = 'add';
+    $('addYears').value = '0';
+    $('addMonths').value = '1';
+    $('addWeeks').value = '0';
+    $('addDays').value = '14';
+    $('bizOnly').checked = false;
+  }
+
+  document.querySelectorAll('.mode-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      mode = btn.dataset.mode;
+      document.querySelectorAll('.mode-btn').forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
+      $('between-panel').hidden = mode !== 'between';
+      $('offset-panel').hidden = mode !== 'offset';
+      $('swap-dates').hidden = mode !== 'between';
+      calculate();
+    });
+  });
+
+  $('swap-dates').addEventListener('click', () => {
+    const tmp = $('startDate').value;
+    $('startDate').value = $('endDate').value;
+    $('endDate').value = tmp;
+    calculate();
+  });
+
+  ['startDate', 'endDate', 'holidays', 'includeEnd', 'baseDate', 'direction', 'addYears', 'addMonths', 'addWeeks', 'addDays', 'bizOnly'].forEach(id => {
+    $(id).addEventListener('input', () => calculate());
+    $(id).addEventListener('change', () => calculate());
+  });
+
+  form.addEventListener('submit', calculate);
+  form.addEventListener('reset', () => {
+    setTimeout(() => {
+      initDefaults();
+      statusEl.textContent = '';
+      calculate();
+    }, 0);
+  });
+
+  $('copy').addEventListener('click', async () => {
+    const text = `Toolvantas Date Duration Result\n${$('span-label').textContent}\nResult: ${$('primary-out').textContent}\n${$('t1-label').textContent}: ${$('t1-val').textContent}\n${$('t2-label').textContent}: ${$('t2-val').textContent}`;
+    try {
+      await navigator.clipboard.writeText(text);
+      statusEl.textContent = 'Date result copied to clipboard.';
+    } catch {
+      statusEl.textContent = 'Clipboard unavailable. Select and copy manually.';
+    }
+  });
+
+  initDefaults();
+  calculate();
+})();
+</script>
+</body>
+</html>

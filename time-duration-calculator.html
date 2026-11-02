@@ -1,0 +1,597 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Time Duration Calculator — Hours &amp; Timesheets | Toolvantas</title>
+<meta name="description" content="Free time duration calculator to find exact hours, minutes, seconds, break deductions, and payroll decimal hours between times or sum logs.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#173d35">
+<link rel="canonical" href="https://toolvantas.pages.dev/time-duration-calculator.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Toolvantas">
+<meta property="og:title" content="Time Duration Calculator — Hours &amp; Timesheets | Toolvantas">
+<meta property="og:description" content="Free time duration calculator to find exact hours, minutes, seconds, break deductions, and payroll decimal hours between times or sum logs.">
+<meta property="og:url" content="https://toolvantas.pages.dev/time-duration-calculator.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Time Duration Calculator — Hours &amp; Timesheets | Toolvantas">
+<meta name="twitter:description" content="Free time duration calculator to find exact hours, minutes, seconds, break deductions, and payroll decimal hours between times or sum logs.">
+<link rel="stylesheet" href="/site.css">
+<script src="/site.js" defer></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Time Duration Calculator",
+      "url": "https://toolvantas.pages.dev/time-duration-calculator.html",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "description": "Free time duration calculator to find exact hours, minutes, seconds, break deductions, and payroll decimal hours between times or sum logs.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I convert hours and minutes to decimal hours?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Keep the whole hours, divide the minutes by 60, and divide any seconds by 3,600. For example, 7 hours 45 minutes = 7 + (45 ÷ 60) = 7.75 decimal hours."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does the calculator handle overnight shifts past midnight?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Whenever the End time is earlier on the clock than the Start time (such as 11:00 PM to 7:00 AM), the calculator automatically treats the End time as occurring on the next calendar day."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What if my break deduction is longer than the shift?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The calculator flags an alert whenever the unpaid break exceeds total elapsed time so negative payroll hours cannot slip through unnoticed."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I enter more than 60 minutes in \"Add / subtract durations\"?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Entering 90 minutes in a row automatically carries into 1 hour 30 minutes without error."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Clock time +/− duration show both 12-hour AM/PM and 24-hour formats?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. The primary output displays 12-hour AM/PM clock time while the breakdown tiles show 24-hour military time and exact day rollover (+1 day, −1 day)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are my timesheet entries saved externally?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. All calculations execute locally inside your browser tab."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://toolvantas.pages.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "All Tools",
+          "item": "https://toolvantas.pages.dev/tools.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Time Duration Calculator",
+          "item": "https://toolvantas.pages.dev/time-duration-calculator.html"
+        }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+.calc-layout{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(280px,.92fr);gap:22px;align-items:start}
+.calc-card,.results,.content-card{padding:22px;border:1px solid var(--line);border-radius:14px;background:#fff;min-width:0}
+.calc-card h2,.results h2,.content-card h2{margin:0 0 8px;font-size:1.2rem}
+.results h3,.calc-card h3{margin:16px 0 8px;font-size:.98rem}
+.muted{color:var(--muted);font-size:.88rem;line-height:1.55}
+.mode-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 16px}
+.mode-btn{padding:8px 12px;border:1px solid #cfdad2;border-radius:8px;background:var(--soft);color:var(--ink);font:inherit;font-size:.8rem;font-weight:750;cursor:pointer}
+.mode-btn[aria-pressed="true"]{background:var(--forest);border-color:var(--forest);color:#fff}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.field{min-width:0}
+.field label{display:block;font-size:.84rem;font-weight:750;margin-bottom:5px}
+.field input,.field select{box-sizing:border-box;width:100%;min-height:44px;padding:9px 10px;border:1px solid #cfdad2;border-radius:8px;background:#fff;color:var(--ink);font:inherit}
+.field input:focus-visible,.field select:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #8bb7a5;outline-offset:2px}
+.field small{display:block;color:var(--muted);font-size:.75rem;line-height:1.45;margin-top:4px}
+.sum-rows{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.sum-row{display:grid;grid-template-columns:74px repeat(3,minmax(0,1fr)) auto;gap:7px;align-items:center;padding:8px;border:1px solid #e2ebe4;border-radius:8px;background:var(--soft)}
+.sum-row select,.sum-row input{box-sizing:border-box;width:100%;min-height:38px;padding:6px 8px;border:1px solid #cfdad2;border-radius:7px;background:#fff;color:var(--ink);font:inherit}
+.del-btn{min-height:38px;padding:0 10px;border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--muted);font:inherit;font-weight:750;cursor:pointer}
+.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}
+.actions button{cursor:pointer;font:inherit;font-weight:700;min-height:42px}
+.secondary{padding:10px 14px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--ink)}
+.secondary:hover{border-color:#b9d1c1}
+.results{background:#f7faf7;border-color:#dbe8dd}
+.big{display:block;font-size:clamp(1.85rem,3.8vw,2.6rem);font-weight:850;letter-spacing:-.05em;color:var(--forest);overflow-wrap:anywhere}
+.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:16px 0}
+.tile{padding:11px;border:1px solid #e0e9e1;border-radius:9px;background:#fff;min-width:0}
+.tile span{display:block;color:var(--muted);font-size:.75rem;line-height:1.4}
+.tile strong{display:block;margin-top:4px;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+.breakdown{list-style:none;margin:0;padding:0;border-top:1px solid #dce6dd}
+.breakdown li{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid #e1e9e2;font-size:.82rem}
+.breakdown span{color:var(--muted)}
+.breakdown strong{text-align:right;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+.error{color:#a12626;font-weight:700;font-size:.85rem}
+.status{min-height:1.3em}
+.content-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.content-card p,.content-card li{color:#52675d;font-size:.93rem;line-height:1.75}
+.content-card ul{padding-left:22px}
+.faq-list details{border-bottom:1px solid var(--line);padding:14px 0}
+.faq-list summary{cursor:pointer;font-weight:750;line-height:1.5}
+.faq-list summary h3{display:inline;margin:0;font-size:1rem;font-weight:750}
+.faq-list details p{margin:10px 0 0}
+@media(max-width:760px){.calc-layout,.content-grid{grid-template-columns:1fr}.calc-card,.results,.content-card{padding:18px}}
+@media(max-width:520px){.sum-row{grid-template-columns:1fr 1fr}.fields,.tiles{grid-template-columns:1fr}.calc-card,.results,.content-card{padding:15px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="container header-inner">
+<a class="brand" href="/" aria-label="Toolvantas home"><span class="brand-mark" aria-hidden="true">T</span><span>Toolvantas</span></a>
+<button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+<nav class="primary-nav" id="primary-nav" aria-label="Main navigation"><a href="/">Home</a><a href="/tools.html">All tools</a><a href="/#about">About</a></nav>
+</div></header>
+<main id="main">
+<section class="page-hero"><div class="container">
+<p class="eyebrow">Everyday calculator</p>
+<h1>Time Duration Calculator</h1>
+<p>Use this free time duration calculator to compute shift hours, decimal payroll hours, and break deductions between two times or sum HH:MM:SS durations.</p>
+</div></section>
+<section class="section"><div class="container"><div class="calc-layout">
+<form class="calc-card" id="time-form" novalidate>
+<h2>Choose time calculation mode</h2>
+<div class="mode-tabs" role="group" aria-label="Time calculation mode">
+<button type="button" class="mode-btn" data-mode="shift" aria-pressed="true">Between two times</button>
+<button type="button" class="mode-btn" data-mode="sum" aria-pressed="false">Add / subtract durations</button>
+<button type="button" class="mode-btn" data-mode="clock" aria-pressed="false">Clock time +/− duration</button>
+</div>
+
+<div id="shift-panel">
+<div class="fields">
+<div class="field">
+<label for="startTime">Start time</label>
+<input id="startTime" type="time" step="1" value="09:00:00" required>
+<small>If end time is earlier, overnight midnight rollover is applied.</small>
+</div>
+<div class="field">
+<label for="endTime">End time</label>
+<input id="endTime" type="time" step="1" value="17:30:00" required>
+</div>
+<div class="field">
+<label for="extraDays">Additional full days (24h)</label>
+<input id="extraDays" type="number" min="0" max="3650" step="1" value="0">
+<small>For multi-day trips or events.</small>
+</div>
+<div class="field">
+<label for="breakMins">Unpaid break deduction (minutes)</label>
+<input id="breakMins" type="number" min="0" max="10000" step="1" value="30">
+<small>Subtracted from gross elapsed time.</small>
+</div>
+<div class="field">
+<label for="hourlyPay">Optional hourly rate (for pay estimate)</label>
+<input id="hourlyPay" type="number" min="0" step="any" placeholder="e.g. 25">
+</div>
+</div>
+</div>
+
+<div id="sum-panel" hidden>
+<p class="muted" style="margin:0">Enter hours, minutes, and seconds for each clip, split, or task log.</p>
+<div class="sum-rows" id="sum-rows"></div>
+<div style="margin-top:10px">
+<button class="secondary" type="button" id="add-row">+ Add time row</button>
+</div>
+</div>
+
+<div id="clock-panel" hidden>
+<div class="fields">
+<div class="field">
+<label for="clockBase">Starting clock time</label>
+<input id="clockBase" type="time" step="1" value="14:45:00">
+</div>
+<div class="field">
+<label for="clockOp">Operation</label>
+<select id="clockOp">
+<option value="1" selected>Add (+) forward</option>
+<option value="-1">Subtract (−) backward</option>
+</select>
+</div>
+<div class="field">
+<label for="offHrs">Hours</label>
+<input id="offHrs" type="number" min="0" step="1" value="3">
+</div>
+<div class="field">
+<label for="offMins">Minutes</label>
+<input id="offMins" type="number" min="0" step="1" value="40">
+</div>
+<div class="field">
+<label for="offSecs">Seconds</label>
+<input id="offSecs" type="number" min="0" step="1" value="0">
+</div>
+</div>
+</div>
+
+<div class="actions">
+<button class="button button-primary" type="submit">Calculate time</button>
+<button class="secondary" type="reset">Reset defaults</button>
+<button class="secondary" type="button" id="copy">Copy results</button>
+</div>
+<p class="error" id="error" role="alert" hidden></p>
+<p id="copy-status" class="muted status" aria-live="polite"></p>
+</form>
+
+<section class="results" aria-live="polite" aria-labelledby="results-title">
+<h2 id="results-title">Calculated duration</h2>
+<p class="muted" id="summary-label">Net duration after 30 min break</p>
+<output class="big" id="primary-out">8h 00m 00s</output>
+<div class="tiles">
+<div class="tile"><span id="t1-label">Decimal hours (payroll)</span><strong id="t1-val">8.00 hrs</strong></div>
+<div class="tile"><span id="t2-label">HH:MM:SS format</span><strong id="t2-val">08:00:00</strong></div>
+<div class="tile"><span id="t3-label">Total minutes</span><strong id="t3-val">480 min</strong></div>
+<div class="tile"><span id="t4-label">Gross pay / Seconds</span><strong id="t4-val">28,800 sec</strong></div>
+</div>
+<h3>Breakdown</h3>
+<ul class="breakdown" id="detail-list"></ul>
+</section>
+</div></div></section>
+
+<section class="section" style="padding-top:0"><div class="container content-grid">
+<article class="content-card">
+<h2>Standard hours/minutes vs. payroll decimal hours</h2>
+<p>Payroll and invoicing software requires decimal hours rather than colon-separated minutes. Mixing the two is a costly timesheet mistake:</p>
+<ul>
+<li><code>8 hours 15 minutes</code> = <code>8 + (15 ÷ 60) = 8.25 hours</code> (not 8.15).</li>
+<li><code>8 hours 30 minutes</code> = <code>8.50 hours</code> (not 8.30).</li>
+<li><code>8 hours 45 minutes</code> = <code>8.75 hours</code> (not 8.45).</li>
+<li>Always copy the <strong>Decimal hours (payroll)</strong> tile when multiplying hours by an hourly billing rate.</li>
+</ul>
+</article>
+<article class="content-card">
+<h2>Overnight shifts &amp; video/audio timeline sums</h2>
+<ul>
+<li><strong>Night shifts across midnight:</strong> If you start at <code>22:00</code> (10:00 PM) and finish at <code>06:30</code> (6:30 AM), the calculator automatically rolls across midnight to compute <code>8h 30m</code> gross time.</li>
+<li><strong>Media &amp; race splits:</strong> Switch to <em>Add / subtract durations</em> to total multiple <code>HH:MM:SS</code> segments for YouTube chapters, podcast edits, aviation logs, or marathon splits.</li>
+</ul>
+</article>
+</div></section>
+
+<section class="section" style="padding-top:0"><div class="container content-card faq-list">
+<h2>Frequently asked questions</h2>
+<details><summary><h3>How do I convert hours and minutes to decimal hours?</h3></summary><p>Keep the whole hours, divide the minutes by 60, and divide any seconds by 3,600. For example, 7 hours 45 minutes = 7 + (45 ÷ 60) = 7.75 decimal hours.</p></details>
+<details><summary><h3>How does the calculator handle overnight shifts past midnight?</h3></summary><p>Whenever the End time is earlier on the clock than the Start time (such as 11:00 PM to 7:00 AM), the calculator automatically treats the End time as occurring on the next calendar day.</p></details>
+<details><summary><h3>What if my break deduction is longer than the shift?</h3></summary><p>The calculator flags an alert whenever the unpaid break exceeds total elapsed time so negative payroll hours cannot slip through unnoticed.</p></details>
+<details><summary><h3>Can I enter more than 60 minutes in "Add / subtract durations"?</h3></summary><p>Yes. Entering 90 minutes in a row automatically carries into 1 hour 30 minutes without error.</p></details>
+<details><summary><h3>Does Clock time +/− duration show both 12-hour AM/PM and 24-hour formats?</h3></summary><p>Yes. The primary output displays 12-hour AM/PM clock time while the breakdown tiles show 24-hour military time and exact day rollover (+1 day, −1 day).</p></details>
+<details><summary><h3>Are my timesheet entries saved externally?</h3></summary><p>No. All calculations execute locally inside your browser tab.</p></details>
+</div></section>
+<section class="section" style="padding-top:0"><div class="container">
+<div class="section-heading"><div><p class="eyebrow">More on Toolvantas</p><h2>Related tools you may need</h2></div><a class="text-link" href="/tools.html">Browse all tools <span>→</span></a></div>
+<div class="tool-grid" style="grid-template-columns:repeat(auto-fit,minmax(230px,1fr))">
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">Dt</div><p class="card-category">Everyday Calculators</p><h3><a href="/date-duration-calculator.html">Date Duration Calculator</a></h3><p>Count calendar and business days between two dates.</p><a class="card-link" href="/date-duration-calculator.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">Fr</div><p class="card-category">Freelance Pricing</p><h3><a href="/freelance-rate-calculator.html">Freelance Rate Calculator</a></h3><p>Estimate sustainable hourly, day, and project rates.</p><a class="card-link" href="/freelance-rate-calculator.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">Yr</div><p class="card-category">Everyday Calculators</p><h3><a href="/age-calculator.html">Age Calculator</a></h3><p>Calculate exact age in years, months, days, and hours.</p><a class="card-link" href="/age-calculator.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">S</div><p class="card-category">Unit Converters</p><h3><a href="/speed-converter.html">Speed Converter</a></h3><p>Convert km/h, mph, m/s, knots, Mach, and pace.</p><a class="card-link" href="/speed-converter.html">Open tool →</a></article>
+</div>
+</div></section>
+</main>
+<footer class="site-footer"><div class="container footer-top">
+<a class="brand brand-footer" href="/"><span class="brand-mark" aria-hidden="true">T</span><span>Toolvantas</span></a><p>Practical tools for everyday tasks.</p>
+<nav aria-label="Footer navigation"><a href="/">Home</a><a href="/tools.html">All tools</a><a href="/#about">About</a></nav>
+</div><div class="container footer-bottom"><small>© <span data-current-year>2026</span> Toolvantas</small><small>Built to be useful.</small></div></footer>
+<script>
+(() => {
+  'use strict';
+  const $ = id => document.getElementById(id);
+  const form = $('time-form');
+  const sumContainer = $('sum-rows');
+  const errorEl = $('error');
+  const statusEl = $('copy-status');
+  let mode = 'shift';
+
+  function parseClockToSec(str) {
+    if (!str) return null;
+    const parts = str.split(':').map(Number);
+    if (parts.some(n => !Number.isFinite(n))) return null;
+    const [h = 0, m = 0, s = 0] = parts;
+    return h * 3600 + m * 60 + s;
+  }
+
+  function pad(n) {
+    return String(Math.floor(Math.abs(n))).padStart(2, '0');
+  }
+
+  function fmtHMS(sec) {
+    const sign = sec < 0 ? '−' : '';
+    const abs = Math.round(Math.abs(sec));
+    const h = Math.floor(abs / 3600);
+    const m = Math.floor((abs % 3600) / 60);
+    const s = abs % 60;
+    return {
+      words: `${sign}${h}h ${pad(m)}m ${pad(s)}s`,
+      colon: `${sign}${pad(h)}:${pad(m)}:${pad(s)}`
+    };
+  }
+
+  function fmt12Hour(daySec) {
+    const h24 = Math.floor(daySec / 3600);
+    const m = Math.floor((daySec % 3600) / 60);
+    const s = Math.floor(daySec % 60);
+    const period = h24 >= 12 ? 'PM' : 'AM';
+    const h12 = h24 % 12 || 12;
+    return `${h12}:${pad(m)}:${pad(s)} ${period}`;
+  }
+
+  function addSumRow(op = '+', h = 0, m = 0, s = 0) {
+    const row = document.createElement('div');
+    row.className = 'sum-row';
+
+    const sel = document.createElement('select');
+    sel.className = 'row-op';
+    sel.setAttribute('aria-label', 'Add or subtract');
+    sel.add(new Option('+ Add', '+'));
+    sel.add(new Option('− Sub', '-'));
+    sel.value = op;
+
+    const mkIn = (val, ph, label) => {
+      const inp = document.createElement('input');
+      inp.type = 'number';
+      inp.min = '0';
+      inp.step = '1';
+      inp.value = String(val);
+      inp.placeholder = ph;
+      inp.setAttribute('aria-label', label);
+      inp.addEventListener('input', calculate);
+      return inp;
+    };
+    const hIn = mkIn(h, 'hh', 'Hours'); hIn.className = 'row-h';
+    const mIn = mkIn(m, 'mm', 'Minutes'); mIn.className = 'row-m';
+    const sIn = mkIn(s, 'ss', 'Seconds'); sIn.className = 'row-s';
+
+    const del = document.createElement('button');
+    del.type = 'button';
+    del.className = 'del-btn';
+    del.textContent = '×';
+    del.setAttribute('aria-label', 'Remove row');
+    del.addEventListener('click', () => {
+      if (sumContainer.children.length > 1) row.remove();
+      else { hIn.value = '0'; mIn.value = '0'; sIn.value = '0'; }
+      calculate();
+    });
+
+    sel.addEventListener('change', calculate);
+    row.append(sel, hIn, mIn, sIn, del);
+    sumContainer.appendChild(row);
+  }
+
+  function showError(msg) {
+    errorEl.hidden = !msg;
+    errorEl.textContent = msg || '';
+  }
+
+  function renderDetails(rows) {
+    const ul = $('detail-list');
+    ul.innerHTML = '';
+    rows.forEach(([k, v]) => {
+      const li = document.createElement('li');
+      const sp = document.createElement('span');
+      sp.textContent = k;
+      const st = document.createElement('strong');
+      st.textContent = v;
+      li.append(sp, st);
+      ul.appendChild(li);
+    });
+  }
+
+  function calculate(e) {
+    if (e) e.preventDefault();
+    const fmtNum = (n, d = 2) => new Intl.NumberFormat('en-US', { maximumFractionDigits: d }).format(n);
+
+    if (mode === 'shift') {
+      const sSec = parseClockToSec($('startTime').value);
+      const eSec = parseClockToSec($('endTime').value);
+      const extraDays = Number($('extraDays').value || 0);
+      const breakMins = Number($('breakMins').value || 0);
+      const rateRaw = $('hourlyPay').value.trim();
+      const rate = rateRaw === '' ? null : Number(rateRaw);
+
+      if (sSec === null || eSec === null || !Number.isFinite(extraDays) || extraDays < 0 || !Number.isFinite(breakMins) || breakMins < 0 || (rate !== null && (!Number.isFinite(rate) || rate < 0))) {
+        showError('Please enter valid times, non-negative break minutes, and optional hourly rate.');
+        return;
+      }
+
+      const overnight = eSec < sSec;
+      const grossSec = (overnight ? (86400 - sSec + eSec) : (eSec - sSec)) + Math.floor(extraDays) * 86400;
+      const breakSec = Math.round(breakMins * 60);
+      if (breakSec > grossSec) {
+        showError('Unpaid break deduction exceeds the total elapsed time between start and end.');
+        return;
+      }
+      showError('');
+      const netSec = grossSec - breakSec;
+      const netFmt = fmtHMS(netSec);
+      const grossFmt = fmtHMS(grossSec);
+      const decHours = netSec / 3600;
+
+      $('summary-label').textContent = `Net shift duration${overnight ? ' (overnight across midnight)' : ''}`;
+      $('primary-out').textContent = netFmt.words;
+      $('t1-label').textContent = 'Decimal hours (payroll)';
+      $('t1-val').textContent = `${decHours.toFixed(2)} hrs`;
+      $('t2-label').textContent = 'HH:MM:SS format';
+      $('t2-val').textContent = netFmt.colon;
+      $('t3-label').textContent = 'Total net minutes';
+      $('t3-val').textContent = `${fmtNum(netSec / 60, 2)} min`;
+      $('t4-label').textContent = rate !== null ? 'Estimated gross pay' : 'Total net seconds';
+      $('t4-val').textContent = rate !== null ? `$${fmtNum(decHours * rate, 2)}` : `${fmtNum(netSec, 0)} sec`;
+
+      renderDetails([
+        ['Gross elapsed time (before break)', grossFmt.words],
+        ['Unpaid break deducted', `${fmtNum(breakMins, 1)} minutes`],
+        ['Exact decimal hours (4 places)', `${decHours.toFixed(4)} hours`],
+        ['Total net seconds', `${fmtNum(netSec, 0)} seconds`]
+      ]);
+    } else if (mode === 'sum') {
+      const rows = Array.from(sumContainer.querySelectorAll('.sum-row'));
+      let totalSec = 0;
+      for (const r of rows) {
+        const sign = r.querySelector('.row-op').value === '-' ? -1 : 1;
+        const h = Number(r.querySelector('.row-h').value || 0);
+        const m = Number(r.querySelector('.row-m').value || 0);
+        const s = Number(r.querySelector('.row-s').value || 0);
+        if ([h, m, s].some(n => !Number.isFinite(n) || n < 0)) {
+          showError('All hour, minute, and second fields must be non-negative numbers.');
+          return;
+        }
+        totalSec += sign * (h * 3600 + m * 60 + s);
+      }
+      showError('');
+      const f = fmtHMS(totalSec);
+      const avgSec = rows.length > 0 ? totalSec / rows.length : 0;
+
+      $('summary-label').textContent = `Combined total across ${rows.length} ${rows.length === 1 ? 'entry' : 'entries'}`;
+      $('primary-out').textContent = f.words;
+      $('t1-label').textContent = 'Decimal hours';
+      $('t1-val').textContent = `${(totalSec / 3600).toFixed(2)} hrs`;
+      $('t2-label').textContent = 'HH:MM:SS';
+      $('t2-val').textContent = f.colon;
+      $('t3-label').textContent = 'Total minutes';
+      $('t3-val').textContent = `${fmtNum(totalSec / 60, 2)} min`;
+      $('t4-label').textContent = 'Average per row';
+      $('t4-val').textContent = fmtHMS(avgSec).words;
+
+      renderDetails([
+        ['Entries counted', String(rows.length)],
+        ['Total seconds', `${fmtNum(totalSec, 0)} sec`],
+        ['Equivalent 24-hour days', `${(totalSec / 86400).toFixed(3)} days`]
+      ]);
+    } else {
+      const baseSec = parseClockToSec($('clockBase').value);
+      const sign = Number($('clockOp').value);
+      const h = Number($('offHrs').value || 0);
+      const m = Number($('offMins').value || 0);
+      const s = Number($('offSecs').value || 0);
+      if (baseSec === null || [h, m, s].some(n => !Number.isFinite(n) || n < 0)) {
+        showError('Enter a valid start clock time and non-negative hours, minutes, and seconds.');
+        return;
+      }
+      showError('');
+      const deltaSec = sign * (h * 3600 + m * 60 + s);
+      const rawTarget = baseSec + deltaSec;
+      const dayShift = Math.floor(rawTarget / 86400);
+      const wrappedSec = ((rawTarget % 86400) + 86400) % 86400;
+      const dayNote = dayShift === 0 ? 'Same day' : dayShift > 0 ? `+${dayShift} ${dayShift === 1 ? 'day' : 'days'} later` : `${dayShift} ${dayShift === -1 ? 'day' : 'days'} earlier`;
+
+      $('summary-label').textContent = `${sign > 0 ? 'Adding' : 'Subtracting'} ${fmtHMS(Math.abs(deltaSec)).words} (${dayNote})`;
+      $('primary-out').textContent = fmt12Hour(wrappedSec);
+      $('t1-label').textContent = '24-hour clock format';
+      $('t1-val').textContent = fmtHMS(wrappedSec).colon;
+      $('t2-label').textContent = 'Day rollover';
+      $('t2-val').textContent = dayNote;
+      $('t3-label').textContent = 'Starting time';
+      $('t3-val').textContent = fmt12Hour(baseSec);
+      $('t4-label').textContent = 'Offset in minutes';
+      $('t4-val').textContent = `${fmtNum(Math.abs(deltaSec) / 60, 2)} min`;
+
+      renderDetails([
+        ['12-hour result', fmt12Hour(wrappedSec)],
+        ['24-hour result', fmtHMS(wrappedSec).colon],
+        ['Calendar day offset', dayNote]
+      ]);
+    }
+  }
+
+  function initSumRows() {
+    sumContainer.innerHTML = '';
+    addSumRow('+', 2, 15, 30);
+    addSumRow('+', 1, 45, 0);
+    addSumRow('+', 0, 50, 15);
+  }
+
+  document.querySelectorAll('.mode-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      mode = btn.dataset.mode;
+      document.querySelectorAll('.mode-btn').forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
+      $('shift-panel').hidden = mode !== 'shift';
+      $('sum-panel').hidden = mode !== 'sum';
+      $('clock-panel').hidden = mode !== 'clock';
+      calculate();
+    });
+  });
+
+  $('add-row').addEventListener('click', () => addSumRow('+', 0, 30, 0));
+
+  ['startTime', 'endTime', 'extraDays', 'breakMins', 'hourlyPay', 'clockBase', 'clockOp', 'offHrs', 'offMins', 'offSecs'].forEach(id => {
+    $(id).addEventListener('input', () => calculate());
+    $(id).addEventListener('change', () => calculate());
+  });
+
+  form.addEventListener('submit', calculate);
+  form.addEventListener('reset', () => {
+    setTimeout(() => {
+      $('startTime').value = '09:00:00';
+      $('endTime').value = '17:30:00';
+      $('extraDays').value = '0';
+      $('breakMins').value = '30';
+      $('hourlyPay').value = '';
+      $('clockBase').value = '14:45:00';
+      $('clockOp').value = '1';
+      $('offHrs').value = '3';
+      $('offMins').value = '40';
+      $('offSecs').value = '0';
+      initSumRows();
+      statusEl.textContent = '';
+      calculate();
+    }, 0);
+  });
+
+  $('copy').addEventListener('click', async () => {
+    const text = `Toolvantas Time Duration Result\n${$('summary-label').textContent}\nResult: ${$('primary-out').textContent}\n${$('t1-label').textContent}: ${$('t1-val').textContent}\n${$('t2-label').textContent}: ${$('t2-val').textContent}`;
+    try {
+      await navigator.clipboard.writeText(text);
+      statusEl.textContent = 'Time result copied to clipboard.';
+    } catch {
+      statusEl.textContent = 'Clipboard unavailable. Select and copy manually.';
+    }
+  });
+
+  initSumRows();
+  calculate();
+})();
+</script>
+</body>
+</html>

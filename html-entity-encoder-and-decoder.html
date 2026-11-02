@@ -3,23 +3,93 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Encode and decode HTML entities online. Convert special characters to named, decimal, or hex entities, decode HTML symbols back to raw text, or strip HTML tags.">
+<meta name="description" content="Encode and decode HTML5 entities online. Convert special characters and Unicode emojis to named, decimal, or hex entities, or strip HTML tags client-side.">
 <meta name="robots" content="index,follow">
 <meta name="theme-color" content="#173d35">
 <link rel="canonical" href="https://toolvantas.pages.dev/html-entity-encoder-and-decoder.html">
-<title>HTML Entity Encoder and Decoder — Named &amp; Numeric | Toolvantas</title>
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Toolvantas">
+<meta property="og:title" content="HTML Entity Encoder and Decoder — Named &amp; Hex | Toolvantas">
+<meta property="og:description" content="Encode and decode HTML5 entities online. Convert special characters and Unicode emojis to named, decimal, or hex entities, or strip HTML tags client-side.">
+<meta property="og:url" content="https://toolvantas.pages.dev/html-entity-encoder-and-decoder.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HTML Entity Encoder and Decoder — Named &amp; Hex | Toolvantas">
+<meta name="twitter:description" content="Convert HTML special characters and full Unicode code points to named, decimal, or hexadecimal entities.">
+<title>HTML Entity Encoder and Decoder — Named &amp; Hex | Toolvantas</title>
 <link rel="stylesheet" href="/site.css">
 <script src="/site.js" defer></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "HTML Entity Encoder and Decoder",
-  "url": "https://toolvantas.pages.dev/html-entity-encoder-and-decoder.html",
-  "applicationCategory": "DeveloperApplication",
-  "operatingSystem": "Any",
-  "description": "Convert special characters to HTML entities, decode numerical and named entities, and strip HTML tags safely.",
-  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "HTML Entity Encoder and Decoder",
+      "url": "https://toolvantas.pages.dev/html-entity-encoder-and-decoder.html",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "description": "Encode and decode named, decimal, and hexadecimal HTML5 character entities with full Unicode code-point support.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://toolvantas.pages.dev/" },
+        { "@type": "ListItem", "position": 2, "name": "All Tools", "item": "https://toolvantas.pages.dev/tools.html#developer" },
+        { "@type": "ListItem", "position": 3, "name": "HTML Entity Encoder and Decoder", "item": "https://toolvantas.pages.dev/html-entity-encoder-and-decoder.html" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Does this tool support all HTML5 entities and emojis?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Encoding iterates true Unicode code points (for example, 🚀 becomes &#128640; or &#x1F680; rather than invalid UTF-16 surrogate pairs), and decoding supports over 2,000 official HTML5 named, decimal, and hex entities."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What does the Strip HTML Tags button do?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It removes HTML markup tags (such as <div>, <span>, or <p>) from the input box so only plain text and entities remain."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does entity encoding help prevent Cross-Site Scripting (XSS)?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Escaping reserved HTML characters (&, <, >, \", and ') prevents untrusted text placed inside HTML element bodies or double-quoted attributes from executing as markup or scripts."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between named, decimal, and hex HTML entities?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Named entities use human-readable aliases like &copy; or &euro;, whereas decimal (&#169;) and hexadecimal (&#xA9;) entities reference the Unicode code point directly in base 10 or base 16."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my HTML snippet sent to an external server?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. All HTML entity encoding, decoding, and tag stripping execute locally in your browser memory."
+          }
+        }
+      ]
+    }
+  ]
 }
 </script>
 <style>
@@ -27,13 +97,13 @@
 .editor-card,.results,.content-card{padding:22px;border:1px solid var(--line);border-radius:14px;background:#fff;min-width:0}
 .editor-card h2,.results h2,.content-card h2{margin:0 0 8px;font-size:1.2rem}
 .muted{color:var(--muted);font-size:.88rem;line-height:1.55}
-.mode-toggle{display:flex;gap:8px;margin:14px 0}
-.mode-btn{flex:1;padding:9px;border:1px solid var(--line);border-radius:8px;background:#fbfcfb;font:inherit;font-weight:750;cursor:pointer;color:var(--muted)}
+.mode-toggle{display:flex;gap:8px;margin:0 0 14px}
+.mode-btn{flex:1;padding:9px;border:1px solid var(--line);border-radius:8px;background:#fbfcfb;font:inherit;font-weight:750;cursor:pointer;color:var(--muted);min-height:40px}
 .mode-btn.active{background:var(--forest);color:#fff;border-color:var(--forest)}
-.options-bar{display:flex;flex-wrap:wrap;gap:12px;margin:10px 0 14px}
-.tool-select{min-height:38px;padding:6px 10px;border:1px solid #cfdad2;border-radius:8px;font:inherit;font-size:.84rem;background:#fff}
-.text-area{box-sizing:border-box;width:100%;height:220px;padding:12px;border:1px solid #cfdad2;border-radius:8px;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:.85rem;line-height:1.5;color:var(--ink);resize:vertical}
-.text-area:focus-visible,button:focus-visible,.tool-select:focus-visible{outline:3px solid #8bb7a5;outline-offset:2px}
+.options-bar{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 12px}
+.tool-select{min-height:38px;padding:6px 10px;border:1px solid #cfdad2;border-radius:8px;font:inherit;font-size:.83rem;background:#fff;color:var(--ink)}
+.text-area{box-sizing:border-box;width:100%;height:215px;padding:12px;border:1px solid #cfdad2;border-radius:8px;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:.85rem;line-height:1.5;color:var(--ink);resize:vertical}
+.text-area:focus-visible,button:focus-visible,.tool-select:focus-visible,summary:focus-visible{outline:3px solid #8bb7a5;outline-offset:2px}
 .actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .actions button{cursor:pointer;font:inherit;font-weight:700;min-height:38px}
 .secondary{padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:white;color:var(--ink);font-size:.84rem}
@@ -46,6 +116,7 @@
 .content-card ul{padding-left:22px}
 .faq-list details{border-bottom:1px solid var(--line);padding:14px 0}
 .faq-list summary{cursor:pointer;font-weight:750;line-height:1.5}
+.faq-list summary h3{display:inline;font-size:1rem;font-weight:750;margin:0}
 .faq-list details p{margin:10px 0 0}
 @media(max-width:760px){.entity-layout,.content-grid{grid-template-columns:1fr}.tiles{grid-template-columns:1fr}}
 </style>
@@ -61,24 +132,26 @@
 <section class="page-hero"><div class="container">
 <p class="eyebrow">Developer utility</p>
 <h1>HTML Entity Encoder and Decoder</h1>
-<p>Convert reserved characters and symbols to safe HTML entities (named, decimal, or hexadecimal), or decode entities back into clean readable text without mangling content.</p>
+<p>Convert reserved HTML characters, symbols, and Unicode emojis into valid named, decimal, or hexadecimal HTML5 entities—or decode entities back into clean readable text.</p>
 </div></section>
 <section class="section"><div class="container"><div class="entity-layout">
 <div class="editor-card">
-<div class="mode-toggle">
-<button type="button" class="mode-btn active" id="btn-mode-encode">Encode Mode</button>
-<button type="button" class="mode-btn" id="btn-mode-decode">Decode Mode</button>
+<div class="mode-toggle" role="group" aria-label="Entity conversion mode">
+<button type="button" class="mode-btn active" id="btn-mode-encode" aria-pressed="true">Encode Mode</button>
+<button type="button" class="mode-btn" id="btn-mode-decode" aria-pressed="false">Decode Mode</button>
 </div>
 <div class="options-bar" id="encode-options">
 <label for="encode-type" style="font-size:.82rem;font-weight:750;align-self:center">Format:</label>
 <select id="encode-type" class="tool-select">
 <option value="special">HTML Special Characters Only (&lt;, &gt;, &amp;, &quot;, &#39;)</option>
-<option value="nonascii">Non-ASCII &amp; Symbols Only (Keep standard text)</option>
+<option value="named">Named Entities + Non-ASCII (&amp;copy;, &amp;euro;, &amp;#...;)</option>
+<option value="nonascii">Non-ASCII &amp; Special (Decimal &amp;#...;)</option>
 <option value="decimal">Complete Numeric Decimal (&amp;#...;)</option>
 <option value="hex">Complete Numeric Hex (&amp;#x...;)</option>
 </select>
 </div>
-<textarea id="entity-input" class="text-area" placeholder="Enter text or HTML entities here..." spellcheck="false">&lt;div class="quote"&gt;Tom &amp; Jerry said &copy; 2026 &euro;50 is 100% "awesome"!&lt;/div&gt;</textarea>
+<label for="entity-input" id="lbl-entity-in" style="display:block;font-size:.82rem;font-weight:750;margin-bottom:5px">Input Text or HTML</label>
+<textarea id="entity-input" class="text-area" placeholder="Enter text or HTML entities here..." spellcheck="false">&lt;div class="quote"&gt;Tom &amp; Jerry said © 2026 €50 is 100% "awesome" 🚀!&lt;/div&gt;</textarea>
 <div class="actions">
 <button type="button" class="button button-primary" id="btn-convert">Convert Text</button>
 <button type="button" class="secondary" id="btn-swap">Swap ⇄</button>
@@ -87,8 +160,8 @@
 </div>
 </div>
 <div class="results" aria-live="polite">
-<h2>Converted Output</h2>
-<textarea id="entity-output" class="text-area" readonly placeholder="Output will appear here..." spellcheck="false"></textarea>
+<h2><label for="entity-output" style="cursor:pointer">Converted Output</label></h2>
+<textarea id="entity-output" class="text-area" aria-label="Converted HTML entity output" readonly placeholder="Output will appear here..." spellcheck="false"></textarea>
 <div class="tiles">
 <div class="tile"><span>Input Characters</span><strong id="stat-in">0</strong></div>
 <div class="tile"><span>Output Characters</span><strong id="stat-out">0</strong></div>
@@ -102,30 +175,40 @@
 </div></div></section>
 <section class="section" style="padding-top:0"><div class="container content-grid">
 <article class="content-card"><h2>Why use HTML entities?</h2>
-<p>In HTML, certain characters are reserved for code syntax. For example, web browsers interpret <code>&lt;</code> and <code>&gt;</code> as opening and closing HTML tags. If you want these characters to display as visible text on a page, they must be converted into their respective entity representations.</p>
+<p>In HTML documents, characters like <code>&lt;</code>, <code>&gt;</code>, <code>&amp;</code>, and quotes control tag and attribute parsing. Converting them into character entities lets browsers render literal code snippets and symbols safely.</p>
 <ul>
 <li><strong>&amp;lt;</strong> displays the less-than symbol (<code>&lt;</code>).</li>
 <li><strong>&amp;gt;</strong> displays the greater-than symbol (<code>&gt;</code>).</li>
 <li><strong>&amp;amp;</strong> displays the ampersand symbol (<code>&amp;</code>).</li>
 <li><strong>&amp;quot;</strong> displays a double quote (<code>"</code>).</li>
-<li><strong>&amp;#39;</strong> displays a single quote (<code>'</code>).</li>
+<li><strong>&amp;#39;</strong> displays an apostrophe / single quote (<code>'</code>).</li>
 </ul>
 </article>
-<article class="content-card"><h2>Named vs. Numeric Entities</h2>
-<p>Entities can be written in three distinct formats:</p>
+<article class="content-card"><h2>Named, Decimal &amp; Hex Unicode Code Points</h2>
+<p>Unlike older tools that split emojis into invalid UTF-16 surrogate pairs, this encoder iterates full Unicode code points:</p>
 <ul>
-<li><strong>Named Entities:</strong> Easy to read human shorthand (e.g., <code>&amp;copy;</code> for © or <code>&amp;euro;</code> for €). Note that not all symbols have official named entity aliases.</li>
-<li><strong>Decimal Entities:</strong> Uses the Unicode code point in base 10 (e.g., <code>&amp;#169;</code> for ©). Universally supported by all web browsers and XML parsers.</li>
-<li><strong>Hexadecimal Entities:</strong> Uses the hexadecimal Unicode value (e.g., <code>&amp;#xA9;</code> for ©). Frequently used in programming strings and stylesheets.</li>
+<li><strong>Named Entities:</strong> Readable aliases such as <code>&amp;copy;</code> (©), <code>&amp;euro;</code> (€), and <code>&amp;mdash;</code> (—).</li>
+<li><strong>Decimal Entities:</strong> Base-10 code points such as <code>&amp;#169;</code> (©) or <code>&amp;#128640;</code> (🚀).</li>
+<li><strong>Hexadecimal Entities:</strong> Base-16 code points such as <code>&amp;#xA9;</code> (©) or <code>&amp;#x1F680;</code> (🚀).</li>
 </ul>
 </article>
 </div></section>
 <section class="section" style="padding-top:0"><div class="container content-card faq-list">
 <h2>Frequently asked questions</h2>
-<details><summary>Does this tool support all HTML5 entities?</summary><p>Yes. Decoding uses the browser's native HTML parser engine, ensuring support for all 2,000+ official HTML5 named entities, decimal points, and hexadecimal codes.</p></details>
-<details><summary>What does the "Strip HTML Tags" button do?</summary><p>It safely strips out all surrounding HTML markup tags (e.g., <code>&lt;p&gt;</code>, <code>&lt;div&gt;</code>, <code>&lt;span&gt;</code>), leaving behind only the plain text content.</p></details>
-<details><summary>Will entity encoding protect against XSS (Cross-Site Scripting)?</summary><p>Encoding special characters such as <code>&lt;</code>, <code>&gt;</code>, and <code>&amp;</code> prevents untrusted user input from being executed as active HTML or JavaScript when rendered into web documents.</p></details>
-<details><summary>What is the difference between named, decimal, and hex entities?</summary><p>Named entities use friendly alphanumeric aliases (e.g. <code>&amp;amp;</code>), while decimal (<code>&amp;#38;</code>) and hexadecimal (<code>&amp;#x26;</code>) represent the underlying Unicode code point directly.</p></details>
+<details><summary><h3>Does this tool support all HTML5 entities and emojis?</h3></summary><p>Yes. Encoding uses full Unicode code points (so emojis like 🚀 become valid <code>&amp;#128640;</code> or <code>&amp;#x1F680;</code>), and decoding supports over 2,000 official HTML5 named, decimal, and hex entities.</p></details>
+<details><summary><h3>What does the "Strip HTML Tags" button do?</h3></summary><p>It removes surrounding HTML markup tags (such as <code>&lt;p&gt;</code>, <code>&lt;div&gt;</code>, and <code>&lt;span&gt;</code>), leaving behind plain text content.</p></details>
+<details><summary><h3>Does entity encoding help prevent Cross-Site Scripting (XSS)?</h3></summary><p>Encoding reserved characters such as <code>&lt;</code>, <code>&gt;</code>, <code>&amp;</code>, <code>"</code>, and <code>'</code> prevents untrusted user text inside HTML elements and quoted attributes from executing as active markup.</p></details>
+<details><summary><h3>What is the difference between named, decimal, and hex HTML entities?</h3></summary><p>Named entities use friendly aliases (<code>&amp;amp;</code>), while decimal (<code>&amp;#38;</code>) and hexadecimal (<code>&amp;#x26;</code>) represent the Unicode code point numerically.</p></details>
+<details><summary><h3>Is my HTML snippet sent to an external server?</h3></summary><p>No. All encoding, decoding, and tag stripping execute locally inside your browser.</p></details>
+</div></section>
+<section class="section" style="padding-top:0"><div class="container">
+<div class="section-heading"><div><p class="eyebrow">More on Toolvantas</p><h2>Related developer &amp; text tools</h2></div><a class="text-link" href="/tools.html">Browse all tools <span>→</span></a></div>
+<div class="tool-grid" style="grid-template-columns:repeat(auto-fit,minmax(230px,1fr))">
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">🔗</div><p class="card-category">Developer Tools</p><h3><a href="/url-encoder-and-decoder.html">URL Encoder &amp; Decoder</a></h3><p>Percent-encode URLs and inspect parsed query parameters.</p><a class="card-link" href="/url-encoder-and-decoder.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">🔐</div><p class="card-category">Developer Tools</p><h3><a href="/base64-encoder-and-decoder.html">Base64 Encoder &amp; Decoder</a></h3><p>Encode and decode UTF-8 text, URL-safe strings, and files.</p><a class="card-link" href="/base64-encoder-and-decoder.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">🧩</div><p class="card-category">Developer Tools</p><h3><a href="/json-formatter-and-validator.html">JSON Formatter &amp; Validator</a></h3><p>Beautify, validate, sort, and minify JSON payloads.</p><a class="card-link" href="/json-formatter-and-validator.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">🔢</div><p class="card-category">Text Tools</p><h3><a href="/character-counter.html">Character Counter</a></h3><p>Audit exact character, UTF-8 byte, and meta length limits.</p><a class="card-link" href="/character-counter.html">Open tool →</a></article>
+</div>
 </div></section>
 </main>
 <footer class="site-footer"><div class="container footer-top">
@@ -140,6 +223,13 @@ let mode='encode';
 const input=$('entity-input'),output=$('entity-output');
 
 const specialMap={'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'};
+const namedMap={
+  '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;',
+  '\u00A0':'&nbsp;','©':'&copy;','®':'&reg;','™':'&trade;','€':'&euro;',
+  '£':'&pound;','¥':'&yen;','¢':'&cent;','§':'&sect;','°':'&deg;',
+  '±':'&plusmn;','×':'&times;','÷':'&divide;','–':'&ndash;','—':'&mdash;',
+  '…':'&hellip;','•':'&bull;','←':'&larr;','→':'&rarr;','↑':'&uarr;','↓':'&darr;'
+};
 
 function encodeSpecial(str){
   let count=0;
@@ -147,45 +237,100 @@ function encodeSpecial(str){
   return {text:res,count};
 }
 
+function encodeNamed(str){
+  let count=0;
+  let out='';
+  for(const ch of str){
+    if(namedMap[ch]){
+      count++;
+      out+=namedMap[ch];
+    }else{
+      const cp=ch.codePointAt(0);
+      if(cp>127){
+        count++;
+        out+=`&#${cp};`;
+      }else{
+        out+=ch;
+      }
+    }
+  }
+  return {text:out,count};
+}
+
 function encodeNonAscii(str){
   let count=0;
-  const res=str.replace(/[&<>"']/g,m=>{count++;return specialMap[m];})
-               .replace(/[^\x00-\x7F]/g,m=>{count++;return `&#${m.charCodeAt(0)};`;});
-  return {text:res,count};
+  let out='';
+  for(const ch of str){
+    if(specialMap[ch]){
+      count++;
+      out+=specialMap[ch];
+    }else{
+      const cp=ch.codePointAt(0);
+      if(cp>127){
+        count++;
+        out+=`&#${cp};`;
+      }else{
+        out+=ch;
+      }
+    }
+  }
+  return {text:out,count};
 }
 
 function encodeDecimal(str){
-  let count=str.length;
-  let res='';
-  for(let i=0;i<str.length;i++){
-    res+=`&#${str.charCodeAt(i)};`;
+  let count=0;
+  let out='';
+  for(const ch of str){
+    count++;
+    out+=`&#${ch.codePointAt(0)};`;
   }
-  return {text:res,count};
+  return {text:out,count};
 }
 
 function encodeHex(str){
-  let count=str.length;
-  let res='';
-  for(let i=0;i<str.length;i++){
-    res+=`&#x${str.charCodeAt(i).toString(16).toUpperCase()};`;
+  let count=0;
+  let out='';
+  for(const ch of str){
+    count++;
+    out+=`&#x${ch.codePointAt(0).toString(16).toUpperCase()};`;
   }
-  return {text:res,count};
+  return {text:out,count};
 }
 
 function decodeHtmlEntities(str){
   let count=0;
-  const res=str.replace(/&[a-zA-Z0-9#x]+;/g,match=>{
-    count++;
-    const txt=document.createElement('textarea');
-    txt.innerHTML=match;
-    return txt.value;
+  const decoderEl=document.createElement('textarea');
+  const res=str.replace(/&(?:#(\d+)|#x([0-9a-fA-F]+)|([a-zA-Z][a-zA-Z0-9]+));/g,(match,dec,hex)=>{
+    if(dec!==undefined){
+      const cp=parseInt(dec,10);
+      if(cp>=0&&cp<=0x10FFFF){
+        count++;
+        return String.fromCodePoint(cp);
+      }
+      return match;
+    }
+    if(hex!==undefined){
+      const cp=parseInt(hex,16);
+      if(cp>=0&&cp<=0x10FFFF){
+        count++;
+        return String.fromCodePoint(cp);
+      }
+      return match;
+    }
+    decoderEl.innerHTML=match;
+    const decoded=decoderEl.value;
+    if(decoded!==match){
+      count++;
+      return decoded;
+    }
+    return match;
   });
   return {text:res,count};
 }
 
 function convert(){
   const raw=input.value;
-  $('stat-in').textContent=raw.length;
+  $('stat-in').textContent=String([...raw].length);
   if(!raw){
     output.value='';
     $('stat-out').textContent='0';
@@ -196,6 +341,7 @@ function convert(){
   if(mode==='encode'){
     const opt=$('encode-type').value;
     if(opt==='special') result=encodeSpecial(raw);
+    else if(opt==='named') result=encodeNamed(raw);
     else if(opt==='nonascii') result=encodeNonAscii(raw);
     else if(opt==='decimal') result=encodeDecimal(raw);
     else if(opt==='hex') result=encodeHex(raw);
@@ -203,23 +349,28 @@ function convert(){
     result=decodeHtmlEntities(raw);
   }
   output.value=result.text;
-  $('stat-out').textContent=result.text.length;
-  $('stat-count').textContent=result.count;
+  $('stat-out').textContent=String([...result.text].length);
+  $('stat-count').textContent=String(result.count);
+}
+
+function syncModeUi(){
+  $('btn-mode-encode').classList.toggle('active',mode==='encode');
+  $('btn-mode-encode').setAttribute('aria-pressed',String(mode==='encode'));
+  $('btn-mode-decode').classList.toggle('active',mode==='decode');
+  $('btn-mode-decode').setAttribute('aria-pressed',String(mode==='decode'));
+  $('encode-options').style.display=mode==='encode'?'flex':'none';
+  $('lbl-entity-in').textContent=mode==='encode'?'Input Text or HTML':'Input HTML Entities to Decode';
 }
 
 $('btn-mode-encode').addEventListener('click',()=>{
   mode='encode';
-  $('btn-mode-encode').classList.add('active');
-  $('btn-mode-decode').classList.remove('active');
-  $('encode-options').style.display='flex';
+  syncModeUi();
   convert();
 });
 
 $('btn-mode-decode').addEventListener('click',()=>{
   mode='decode';
-  $('btn-mode-decode').classList.add('active');
-  $('btn-mode-encode').classList.remove('active');
-  $('encode-options').style.display='none';
+  syncModeUi();
   convert();
 });
 
@@ -232,14 +383,12 @@ $('btn-swap').addEventListener('click',()=>{
   input.value=output.value;
   output.value=temp;
   mode=mode==='encode'?'decode':'encode';
-  $('btn-mode-encode').classList.toggle('active',mode==='encode');
-  $('btn-mode-decode').classList.toggle('active',mode==='decode');
-  $('encode-options').style.display=mode==='encode'?'flex':'none';
+  syncModeUi();
   convert();
 });
 
 $('btn-strip').addEventListener('click',()=>{
-  input.value=input.value.replace(/<\/?[^>]+(>|$)/g,'');
+  input.value=input.value.replace(/<\/?[a-zA-Z][^>]*>/g,'');
   convert();
 });
 
@@ -249,19 +398,22 @@ $('btn-clear').addEventListener('click',()=>{
   $('stat-in').textContent='0';
   $('stat-out').textContent='0';
   $('stat-count').textContent='0';
+  $('copy-status').textContent='';
 });
 
 $('btn-copy').addEventListener('click',async()=>{
   if(!output.value)return;
   try{
+    if(!navigator.clipboard||!navigator.clipboard.writeText)throw new Error('Unavailable');
     await navigator.clipboard.writeText(output.value);
     $('copy-status').textContent='Copied to clipboard!';
     setTimeout(()=>{$('copy-status').textContent='';},2000);
   }catch{
-    alert('Copy failed. Please copy manually.');
+    $('copy-status').textContent='Clipboard unavailable. Select and copy manually.';
   }
 });
 
+syncModeUi();
 convert();
 })();
 </script>

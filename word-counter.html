@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Word Counter — Words, Reading Time &amp; Density | Toolvantas</title>
+<meta name="description" content="Free online word counter to track words, characters, sentences, paragraphs, reading time, readability score, and 1–3 word keyword density.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#173d35">
+<link rel="canonical" href="https://toolvantas.pages.dev/word-counter.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Toolvantas">
+<meta property="og:title" content="Word Counter — Words, Reading Time &amp; Density | Toolvantas">
+<meta property="og:description" content="Free online word counter to track words, characters, sentences, paragraphs, reading time, readability score, and 1–3 word keyword density.">
+<meta property="og:url" content="https://toolvantas.pages.dev/word-counter.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Word Counter — Words, Reading Time &amp; Density | Toolvantas">
+<meta name="twitter:description" content="Free online word counter to track words, characters, sentences, paragraphs, reading time, readability score, and 1–3 word keyword density.">
+<link rel="stylesheet" href="/site.css">
+<script src="/site.js" defer></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Word Counter",
+      "url": "https://toolvantas.pages.dev/word-counter.html",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "description": "Free online word counter to track words, characters, sentences, paragraphs, reading time, readability score, and 1–3 word keyword density.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Does a hyphenated word count as one word or two?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Standard hyphenated compounds such as \"well-known\" or \"twenty-five\" and contractions like \"we're\" count as one word, matching modern editorial and academic conventions."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is speaking time different from reading time?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Adults read silently at roughly 200–250 words per minute, whereas clear public speaking, podcasting, and voiceover narration average 125–140 words per minute to leave room for pauses."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my pasted document uploaded or stored anywhere?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Every count, readability calculation, and keyword analysis runs strictly inside your browser memory and disappears when you close or clear the page."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What are stop words in keyword density?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Stop words are common grammatical words (\"the\", \"and\", \"of\", \"to\", \"in\") that appear frequently in every English text. Hiding them surfaces your real topic keywords."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How many words are on a single-spaced vs. double-spaced page?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "With standard 12-point font and 1-inch margins, one double-spaced page holds roughly 250–275 words, while one single-spaced page holds roughly 500 words."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why might Microsoft Word or Google Docs differ by a few words?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Some editors count standalone punctuation dashes, bullet symbols, or URLs as words, whereas pure lexical counters count alphanumeric word tokens."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://toolvantas.pages.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "All Tools",
+          "item": "https://toolvantas.pages.dev/tools.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Word Counter",
+          "item": "https://toolvantas.pages.dev/word-counter.html"
+        }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+.calc-layout{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);gap:22px;align-items:start}
+.calc-card,.results,.content-card{padding:22px;border:1px solid var(--line);border-radius:14px;background:#fff;min-width:0}
+.calc-card h2,.results h2,.content-card h2{margin:0 0 8px;font-size:1.2rem}
+.results h3,.calc-card h3{margin:16px 0 8px;font-size:.98rem}
+.muted{color:var(--muted);font-size:.88rem;line-height:1.55}
+.editor{box-sizing:border-box;width:100%;min-height:290px;padding:12px;border:1px solid #cfdad2;border-radius:10px;background:#fff;color:var(--ink);font:inherit;line-height:1.65;resize:vertical}
+.editor:focus-visible,.field input:focus-visible,.field select:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #8bb7a5;outline-offset:2px}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}
+.field{min-width:0}
+.field label{display:block;font-size:.84rem;font-weight:750;margin-bottom:5px}
+.field input,.field select{box-sizing:border-box;width:100%;min-height:42px;padding:8px 10px;border:1px solid #cfdad2;border-radius:8px;background:#fff;color:var(--ink);font:inherit}
+.field small{display:block;color:var(--muted);font-size:.75rem;line-height:1.45;margin-top:4px}
+.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:16px}
+.actions button{cursor:pointer;font:inherit;font-weight:700;min-height:42px}
+.secondary{padding:10px 14px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--ink)}
+.secondary:hover{border-color:#b9d1c1}
+.results{background:#f7faf7;border-color:#dbe8dd}
+.big{display:block;font-size:clamp(2rem,4vw,2.75rem);font-weight:850;letter-spacing:-.05em;color:var(--forest);overflow-wrap:anywhere}
+.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:15px 0}
+.tile{padding:11px;border:1px solid #e0e9e1;border-radius:9px;background:#fff;min-width:0}
+.tile span{display:block;color:var(--muted);font-size:.75rem;line-height:1.4}
+.tile strong{display:block;margin-top:4px;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+.breakdown{list-style:none;margin:0;padding:0;border-top:1px solid #dce6dd}
+.breakdown li{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid #e1e9e2;font-size:.82rem}
+.breakdown span{color:var(--muted)}
+.breakdown strong{text-align:right;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+.kw-controls{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
+.ngram-tabs{display:inline-flex;gap:5px}
+.tab-btn{padding:5px 10px;border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--ink);font:inherit;font-size:.76rem;font-weight:750;cursor:pointer}
+.tab-btn[aria-pressed="true"]{background:var(--forest);border-color:var(--forest);color:#fff}
+.check-inline{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;color:var(--muted);cursor:pointer}
+.status{min-height:1.3em}
+.content-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.content-card p,.content-card li{color:#52675d;font-size:.93rem;line-height:1.75}
+.content-card ul{padding-left:22px}
+.faq-list details{border-bottom:1px solid var(--line);padding:14px 0}
+.faq-list summary{cursor:pointer;font-weight:750;line-height:1.5}
+.faq-list summary h3{display:inline;margin:0;font-size:1rem;font-weight:750}
+.faq-list details p{margin:10px 0 0}
+@media(max-width:760px){.calc-layout,.content-grid{grid-template-columns:1fr}.calc-card,.results,.content-card{padding:18px}}
+@media(max-width:420px){.fields,.tiles{grid-template-columns:1fr}.calc-card,.results,.content-card{padding:15px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="container header-inner">
+<a class="brand" href="/" aria-label="Toolvantas home"><span class="brand-mark" aria-hidden="true">T</span><span>Toolvantas</span></a>
+<button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+<nav class="primary-nav" id="primary-nav" aria-label="Main navigation"><a href="/">Home</a><a href="/tools.html">All tools</a><a href="/#about">About</a></nav>
+</div></header>
+<main id="main">
+<section class="page-hero"><div class="container">
+<p class="eyebrow">Text &amp; writing utility</p>
+<h1>Word Counter</h1>
+<p>Use this free word counter to count words, characters, sentences, paragraphs, reading and speaking time, readability, and keyword density in your browser.</p>
+</div></section>
+<section class="section"><div class="container"><div class="calc-layout">
+<div class="calc-card">
+<h2>Enter or paste your text</h2>
+<p class="muted">Metrics update automatically as you type. Nothing leaves your browser.</p>
+<label for="text-input" class="skip-link">Text to analyze</label>
+<textarea id="text-input" class="editor" placeholder="Type or paste an article, essay, script, social post, or report here..."></textarea>
+<div class="fields">
+<div class="field">
+<label for="goal">Optional word count goal</label>
+<input id="goal" type="number" min="0" step="10" value="500" placeholder="e.g. 500">
+<small>Track progress toward an essay, blog, or word limit.</small>
+</div>
+<div class="field">
+<label for="wpm">Reading speed (words/min)</label>
+<select id="wpm">
+<option value="150">Slow / Careful (150 WPM)</option>
+<option value="200" selected>Average adult (200 WPM)</option>
+<option value="250">Fast reader (250 WPM)</option>
+<option value="300">Skimming (300 WPM)</option>
+</select>
+<small>Speaking time uses 130 WPM.</small>
+</div>
+</div>
+<div class="actions">
+<button class="button button-primary" type="button" id="copy-text">Copy text</button>
+<button class="secondary" type="button" id="copy-stats">Copy stats</button>
+<button class="secondary" type="button" id="sample">Load sample</button>
+<button class="secondary" type="button" id="clear">Clear text</button>
+</div>
+<p id="copy-status" class="muted status" aria-live="polite"></p>
+</div>
+
+<section class="results" aria-live="polite" aria-labelledby="results-title">
+<h2 id="results-title">Live document metrics</h2>
+<p class="muted">Total words</p>
+<output class="big" id="words-out" for="text-input">0 words</output>
+<div class="tiles">
+<div class="tile"><span>Characters (with spaces)</span><strong id="chars-out">0</strong></div>
+<div class="tile"><span>Characters (no spaces)</span><strong id="chars-nospace-out">0</strong></div>
+<div class="tile"><span>Sentences / Paragraphs</span><strong id="sent-para-out">0 / 0</strong></div>
+<div class="tile"><span>Reading / Speaking time</span><strong id="time-out">0 sec / 0 sec</strong></div>
+<div class="tile"><span>Goal progress</span><strong id="goal-out">0% of 500</strong></div>
+<div class="tile"><span>Readability estimate</span><strong id="readability-out">Add text</strong></div>
+</div>
+
+<h3>Writing structure</h3>
+<ul class="breakdown">
+<li><span>Unique words</span><strong id="unique-out">0</strong></li>
+<li><span>Lines</span><strong id="lines-out">0</strong></li>
+<li><span>Average word length</span><strong id="avg-word-out">0 chars</strong></li>
+<li><span>Average sentence length</span><strong id="avg-sent-out">0 words</strong></li>
+<li><span>Longest word</span><strong id="longest-out">—</strong></li>
+</ul>
+
+<h3>Top keyword density</h3>
+<div class="kw-controls">
+<div class="ngram-tabs" role="group" aria-label="Phrase length">
+<button type="button" class="tab-btn" data-n="1" aria-pressed="true">1 word</button>
+<button type="button" class="tab-btn" data-n="2" aria-pressed="false">2 words</button>
+<button type="button" class="tab-btn" data-n="3" aria-pressed="false">3 words</button>
+</div>
+<label class="check-inline"><input type="checkbox" id="stop-words" checked> Hide stop words</label>
+</div>
+<ul class="breakdown" id="keyword-list">
+<li><span>Type or paste text to inspect top keywords.</span><strong>—</strong></li>
+</ul>
+</section>
+</div></div></section>
+
+<section class="section" style="padding-top:0"><div class="container content-grid">
+<article class="content-card">
+<h2>How word count, reading time &amp; readability are calculated</h2>
+<p>Different word processors define words slightly differently around hyphens, apostrophes, and non-Latin scripts. This tool uses Unicode-aware tokenization so English, European, South Asian, and Middle Eastern scripts are counted reliably.</p>
+<ul>
+<li><strong>Words:</strong> Contiguous letter or number sequences, keeping internal contractions and hyphenations (such as <code>don't</code> or <code>long-term</code>) as single words.</li>
+<li><strong>Reading &amp; speaking time:</strong> Divides total words by your chosen silent reading speed (default 200 WPM) and a conversational presentation pace (130 WPM).</li>
+<li><strong>Readability (Flesch Reading Ease):</strong> Estimates sentence and syllable complexity on a 0–100 scale—scores of 60–70 suit general web readers, while 30–50 reflect academic or technical prose.</li>
+</ul>
+</article>
+<article class="content-card">
+<h2>Target word count benchmarks</h2>
+<ul>
+<li><strong>Academic abstracts &amp; short essays:</strong> 150–300 words (abstracts) and 500–1,000 words (short college essays).</li>
+<li><strong>Blog articles &amp; guides:</strong> 800–1,800 words depending on search intent and topic depth.</li>
+<li><strong>Speeches &amp; video scripts:</strong> A 5-minute keynote or YouTube script needs roughly 650 words at 130 words per minute.</li>
+<li><strong>Keyword density tip:</strong> Aim for natural phrasing; primary single keywords typically fall around 1%–2.5% in balanced articles rather than repetitive stuffing.</li>
+</ul>
+</article>
+</div></section>
+
+<section class="section" style="padding-top:0"><div class="container content-card faq-list">
+<h2>Frequently asked questions</h2>
+<details><summary><h3>Does a hyphenated word count as one word or two?</h3></summary><p>Standard hyphenated compounds such as "well-known" or "twenty-five" and contractions like "we're" count as one word, matching modern editorial and academic conventions.</p></details>
+<details><summary><h3>How is speaking time different from reading time?</h3></summary><p>Adults read silently at roughly 200–250 words per minute, whereas clear public speaking, podcasting, and voiceover narration average 125–140 words per minute to leave room for pauses.</p></details>
+<details><summary><h3>Is my pasted document uploaded or stored anywhere?</h3></summary><p>No. Every count, readability calculation, and keyword analysis runs strictly inside your browser memory and disappears when you close or clear the page.</p></details>
+<details><summary><h3>What are stop words in keyword density?</h3></summary><p>Stop words are common grammatical words ("the", "and", "of", "to", "in") that appear frequently in every English text. Hiding them surfaces your real topic keywords.</p></details>
+<details><summary><h3>How many words are on a single-spaced vs. double-spaced page?</h3></summary><p>With standard 12-point font and 1-inch margins, one double-spaced page holds roughly 250–275 words, while one single-spaced page holds roughly 500 words.</p></details>
+<details><summary><h3>Why might Microsoft Word or Google Docs differ by a few words?</h3></summary><p>Some editors count standalone punctuation dashes, bullet symbols, or URLs as words, whereas pure lexical counters count alphanumeric word tokens.</p></details>
+</div></section>
+<section class="section" style="padding-top:0"><div class="container">
+<div class="section-heading"><div><p class="eyebrow">More on Toolvantas</p><h2>Related tools you may need</h2></div><a class="text-link" href="/tools.html">Browse all tools <span>→</span></a></div>
+<div class="tool-grid" style="grid-template-columns:repeat(auto-fit,minmax(230px,1fr))">
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">#</div><p class="card-category">Text Tools</p><h3><a href="/character-counter.html">Character Counter</a></h3><p>Track characters, UTF-8 bytes, SMS, and SEO limits.</p><a class="card-link" href="/character-counter.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">Tt</div><p class="card-category">Text Tools</p><h3><a href="/text-case-converter.html">Text Case Converter</a></h3><p>Convert text to Title Case, Sentence case, or snake_case.</p><a class="card-link" href="/text-case-converter.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">⇄</div><p class="card-category">Text Tools</p><h3><a href="/find-and-replace-text.html">Find and Replace Text</a></h3><p>Bulk find and replace plain text or Regex patterns.</p><a class="card-link" href="/find-and-replace-text.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">≡</div><p class="card-category">Text Tools</p><h3><a href="/remove-duplicate-lines.html">Remove Duplicate Lines</a></h3><p>Clean, trim, audit, and sort multi-line text lists.</p><a class="card-link" href="/remove-duplicate-lines.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">P#</div><p class="card-category">PDF Tools</p><h3><a href="/count-pdf-pages.html">PDF Page Counter</a></h3><p>Batch-count pages across exported PDF reports and essays.</p><a class="card-link" href="/count-pdf-pages.html">Open tool →</a></article>
+</div>
+</div></section>
+</main>
+<footer class="site-footer"><div class="container footer-top">
+<a class="brand brand-footer" href="/"><span class="brand-mark" aria-hidden="true">T</span><span>Toolvantas</span></a><p>Practical tools for everyday tasks.</p>
+<nav aria-label="Footer navigation"><a href="/">Home</a><a href="/tools.html">All tools</a><a href="/#about">About</a></nav>
+</div><div class="container footer-bottom"><small>© <span data-current-year>2026</span> Toolvantas</small><small>Built to be useful.</small></div></footer>
+<script>
+(() => {
+  'use strict';
+  const STOP_WORDS = new Set([
+    'a','an','the','and','or','but','if','then','else','when','at','by','for','with','about','against','between',
+    'into','through','during','before','after','above','below','to','from','up','down','in','out','on','off','over',
+    'under','again','further','once','here','there','all','any','both','each','few','more','most','other','some',
+    'such','no','nor','not','only','own','same','so','than','too','very','can','will','just','should','now','is',
+    'are','was','were','be','been','being','have','has','had','do','does','did','of','as','it','its','this','that',
+    'these','those','i','you','he','she','we','they','them','his','her','our','your','their','my','me','us','who','what','which'
+  ]);
+  const SAMPLE_TEXT = `Clear writing respects the reader's time. Every sentence should earn its place by explaining a concrete idea, answering a practical question, or guiding the next decision.\n\nWhen editing a draft, check two signals first: sentence length variety and topic focus. Short sentences create momentum. Longer sentences connect cause and effect when an idea needs context, nuance, or a worked example.`;
+
+  const $ = id => document.getElementById(id);
+  const input = $('text-input');
+  const statusEl = $('copy-status');
+  let activeNgram = 1;
+
+  let wordRegex;
+  try {
+    wordRegex = new RegExp("[\\p{L}\\p{N}]+(?:['’\\-][\\p{L}\\p{N}]+)*", 'gu');
+  } catch {
+    wordRegex = /[A-Za-z0-9]+(?:['’-][A-Za-z0-9]+)*/g;
+  }
+
+  function countSyllables(word) {
+    const w = word.toLowerCase().replace(/[^a-z]/g, '');
+    if (!w) return 1;
+    if (w.length <= 3) return 1;
+    const cleaned = w.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/, '').replace(/^y/, '');
+    const matches = cleaned.match(/[aeiouy]{1,2}/g);
+    return matches ? Math.max(1, matches.length) : 1;
+  }
+
+  function formatDuration(minutes) {
+    if (minutes <= 0) return '0 sec';
+    const totalSec = Math.ceil(minutes * 60);
+    if (totalSec < 60) return `${totalSec} sec`;
+    const hrs = Math.floor(totalSec / 3600);
+    const mins = Math.floor((totalSec % 3600) / 60);
+    const secs = totalSec % 60;
+    if (hrs > 0) return `${hrs}h ${mins}m`;
+    return secs > 0 ? `${mins}m ${secs}s` : `${mins} min`;
+  }
+
+  function readabilityLabel(score) {
+    if (score >= 80) return `${Math.round(score)} (Easy)`;
+    if (score >= 60) return `${Math.round(score)} (Standard)`;
+    if (score >= 40) return `${Math.round(score)} (Moderate)`;
+    return `${Math.round(score)} (Academic)`;
+  }
+
+  function analyze() {
+    const text = input.value;
+    const chars = Array.from(text).length;
+    const charsNoSpace = Array.from(text.replace(/\s/g, '')).length;
+    const words = text.match(wordRegex) || [];
+    const wordCount = words.length;
+    const trimmed = text.trim();
+
+    const sentences = trimmed ? trimmed.split(/[.!?]+(?:\s|$)/).map(s => s.trim()).filter(Boolean).length : 0;
+    const paragraphs = trimmed ? trimmed.split(/\n\s*\n+/).map(p => p.trim()).filter(Boolean).length : 0;
+    const lines = text.length === 0 ? 0 : text.split(/\r\n|\r|\n/).length;
+
+    const lowerWords = words.map(w => w.toLowerCase());
+    const uniqueCount = new Set(lowerWords).size;
+    const totalWordChars = words.reduce((acc, w) => acc + Array.from(w).length, 0);
+    const avgWordLen = wordCount > 0 ? (totalWordChars / wordCount).toFixed(1) : '0';
+    const sentenceCountSafe = Math.max(sentences, wordCount > 0 ? 1 : 0);
+    const avgSentLen = wordCount > 0 ? (wordCount / sentenceCountSafe).toFixed(1) : '0';
+
+    let longest = '—';
+    if (wordCount > 0) {
+      longest = words.reduce((a, b) => (Array.from(b).length > Array.from(a).length ? b : a), words[0]);
+      if (longest.length > 24) longest = longest.slice(0, 22) + '…';
+    }
+
+    const wpm = Number($('wpm').value) || 200;
+    const readTime = formatDuration(wordCount / wpm);
+    const speakTime = formatDuration(wordCount / 130);
+
+    const goal = Number($('goal').value);
+    if (Number.isFinite(goal) && goal > 0) {
+      const pct = Math.min(999, Math.round((wordCount / goal) * 100));
+      const diff = goal - wordCount;
+      $('goal-out').textContent = diff > 0 ? `${pct}% (${new Intl.NumberFormat('en-US').format(diff)} left)` : `${pct}% (Goal met)`;
+    } else {
+      $('goal-out').textContent = 'Set a goal > 0';
+    }
+
+    if (wordCount >= 5) {
+      const syllables = words.reduce((sum, w) => sum + countSyllables(w), 0);
+      const fre = Math.max(0, Math.min(100, 206.835 - 1.015 * (wordCount / sentenceCountSafe) - 84.6 * (syllables / wordCount)));
+      $('readability-out').textContent = readabilityLabel(fre);
+    } else {
+      $('readability-out').textContent = wordCount === 0 ? 'Add text' : 'Need 5+ words';
+    }
+
+    const fmtInt = n => new Intl.NumberFormat('en-US').format(n);
+    $('words-out').textContent = `${fmtInt(wordCount)} ${wordCount === 1 ? 'word' : 'words'}`;
+    $('chars-out').textContent = fmtInt(chars);
+    $('chars-nospace-out').textContent = fmtInt(charsNoSpace);
+    $('sent-para-out').textContent = `${fmtInt(sentenceCountSafe)} / ${fmtInt(paragraphs)}`;
+    $('time-out').textContent = `${readTime} / ${speakTime}`;
+    $('unique-out').textContent = fmtInt(uniqueCount);
+    $('lines-out').textContent = fmtInt(lines);
+    $('avg-word-out').textContent = `${avgWordLen} chars`;
+    $('avg-sent-out').textContent = `${avgSentLen} words`;
+    $('longest-out').textContent = longest;
+
+    renderKeywords(lowerWords, wordCount);
+  }
+
+  function renderKeywords(lowerWords, totalWords) {
+    const list = $('keyword-list');
+    list.innerHTML = '';
+    if (totalWords === 0 || lowerWords.length < activeNgram) {
+      const li = document.createElement('li');
+      const sp = document.createElement('span');
+      sp.textContent = 'Type or paste text to inspect top keywords.';
+      const st = document.createElement('strong');
+      st.textContent = '—';
+      li.append(sp, st);
+      list.appendChild(li);
+      return;
+    }
+
+    const hideStops = $('stop-words').checked;
+    const counts = new Map();
+    for (let i = 0; i <= lowerWords.length - activeNgram; i++) {
+      const slice = lowerWords.slice(i, i + activeNgram);
+      if (hideStops) {
+        if (activeNgram === 1 && (STOP_WORDS.has(slice[0]) || slice[0].length < 2)) continue;
+        if (activeNgram > 1 && slice.every(w => STOP_WORDS.has(w))) continue;
+      }
+      const phrase = slice.join(' ');
+      counts.set(phrase, (counts.get(phrase) || 0) + 1);
+    }
+
+    const top = Array.from(counts.entries())
+      .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+      .slice(0, 8);
+
+    if (top.length === 0) {
+      const li = document.createElement('li');
+      const sp = document.createElement('span');
+      sp.textContent = 'No non-stopword phrases found.';
+      const st = document.createElement('strong');
+      st.textContent = '0';
+      li.append(sp, st);
+      list.appendChild(li);
+      return;
+    }
+
+    const denom = Math.max(1, totalWords - activeNgram + 1);
+    top.forEach(([phrase, count]) => {
+      const pct = ((count / denom) * 100).toFixed(1);
+      const li = document.createElement('li');
+      const sp = document.createElement('span');
+      sp.textContent = phrase;
+      const st = document.createElement('strong');
+      st.textContent = `${count} (${pct}%)`;
+      li.append(sp, st);
+      list.appendChild(li);
+    });
+  }
+
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      activeNgram = Number(btn.dataset.n);
+      document.querySelectorAll('.tab-btn').forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
+      analyze();
+    });
+  });
+
+  ['input', 'change'].forEach(ev => {
+    input.addEventListener(ev, analyze);
+    $('goal').addEventListener(ev, analyze);
+    $('wpm').addEventListener(ev, analyze);
+    $('stop-words').addEventListener(ev, analyze);
+  });
+
+  $('sample').addEventListener('click', () => {
+    input.value = SAMPLE_TEXT;
+    statusEl.textContent = 'Sample paragraph loaded.';
+    analyze();
+  });
+
+  $('clear').addEventListener('click', () => {
+    input.value = '';
+    statusEl.textContent = 'Text cleared.';
+    analyze();
+    input.focus();
+  });
+
+  $('copy-text').addEventListener('click', async () => {
+    if (!input.value) { statusEl.textContent = 'Nothing to copy yet.'; return; }
+    try {
+      await navigator.clipboard.writeText(input.value);
+      statusEl.textContent = 'Text copied to clipboard.';
+    } catch {
+      statusEl.textContent = 'Clipboard unavailable. Select and copy manually.';
+    }
+  });
+
+  $('copy-stats').addEventListener('click', async () => {
+    const report = `Toolvantas Word Count Summary\nWords: ${$('words-out').textContent}\nCharacters (with spaces): ${$('chars-out').textContent}\nCharacters (no spaces): ${$('chars-nospace-out').textContent}\nSentences / Paragraphs: ${$('sent-para-out').textContent}\nReading / Speaking time: ${$('time-out').textContent}\nUnique words: ${$('unique-out').textContent}\nReadability: ${$('readability-out').textContent}`;
+    try {
+      await navigator.clipboard.writeText(report);
+      statusEl.textContent = 'Statistics report copied to clipboard.';
+    } catch {
+      statusEl.textContent = 'Clipboard unavailable. Select and copy manually.';
+    }
+  });
+
+  analyze();
+})();
+</script>
+</body>
+</html>

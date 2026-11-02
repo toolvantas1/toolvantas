@@ -1,47 +1,273 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Use this free freelance income calculator to estimate monthly and annual take-home income after platform fees, payment costs, business expenses, and a tax reserve.">
-<meta name="robots" content="index,follow"><meta name="theme-color" content="#173d35">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Estimate monthly and annual freelance take-home pay after platform commissions, payment fees, fixed payout costs, business expenses, and tax reserves.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#173d35">
 <link rel="canonical" href="https://toolvantas.pages.dev/freelance-income-calculator.html">
-<title>Freelance Income Calculator: Monthly Take-Home Pay | Toolvantas</title>
-<link rel="stylesheet" href="/site.css"><script src="/site.js" defer></script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Freelance Income Calculator","url":"https://toolvantas.pages.dev/freelance-income-calculator.html","applicationCategory":"FinanceApplication","operatingSystem":"Any","description":"Estimate freelance take-home income after fees, expenses and a user-selected tax reserve.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Toolvantas">
+<meta property="og:title" content="Freelance Income Calculator — Net Take-Home Pay | Toolvantas">
+<meta property="og:description" content="Estimate monthly and annual freelance take-home pay after platform commissions, payment fees, fixed payout costs, business expenses, and tax reserves.">
+<meta property="og:url" content="https://toolvantas.pages.dev/freelance-income-calculator.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Freelance Income Calculator — Net Take-Home Pay | Toolvantas">
+<meta name="twitter:description" content="Calculate monthly and annual freelance take-home income after platform fees, expenses, and tax reserves.">
+<title>Freelance Income Calculator — Net Take-Home Pay | Toolvantas</title>
+<link rel="stylesheet" href="/site.css">
+<script src="/site.js" defer></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Freelance Income Calculator",
+      "url": "https://toolvantas.pages.dev/freelance-income-calculator.html",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "description": "Estimate monthly and annual freelance take-home income after platform commissions, payment fees, expenses, and a user-selected tax reserve.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://toolvantas.pages.dev/" },
+        { "@type": "ListItem", "position": 2, "name": "All Tools", "item": "https://toolvantas.pages.dev/tools.html#calculators" },
+        { "@type": "ListItem", "position": 3, "name": "Freelance Income Calculator", "item": "https://toolvantas.pages.dev/freelance-income-calculator.html" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is this my exact after-tax income?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. It is a planning estimate, not a statutory tax calculation. Tax rules vary by jurisdiction and individual deductions; consult a qualified tax professional."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does it support different currencies?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Choose a display currency such as USD, BDT, EUR, GBP, CAD, AUD, INR, or PKR. Enter all amounts in the selected currency."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What if my freelance income changes every month?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Change gross monthly income to compare conservative, typical, and peak months. Annual figures multiply the monthly net estimate by 12."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use this for direct client work without marketplace fees?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Set the platform fee to 0% when working directly with clients, and keep only applicable payment processing or wire fees."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is the tax reserve applied when expenses exceed income?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The tax reserve percentage applies only to positive pre-tax profit remaining after fees and business expenses. If pre-tax profit is zero or negative, the tax reserve is $0.00."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
 <style>
-.layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.9fr);gap:20px;align-items:start}.panel{padding:20px;border:1px solid var(--line);border-radius:14px;background:#fff;min-width:0}.results{background:#f7faf7}.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.field label{display:block;font-weight:700;font-size:.86rem;margin-bottom:5px}.field input,.field select{box-sizing:border-box;width:100%;min-height:44px;padding:9px;border:1px solid #cfdad2;border-radius:8px;font:inherit}.field small,.muted{display:block;color:var(--muted);font-size:.85rem;line-height:1.55;margin-top:4px}.big{display:block;font-size:clamp(2rem,4vw,2.8rem);font-weight:850;color:var(--forest);overflow-wrap:anywhere}.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:15px 0}.tile{background:#fff;border:1px solid #e0e9e1;border-radius:9px;padding:11px;min-width:0}.tile span{display:block;color:var(--muted);font-size:.78rem}.tile strong{display:block;margin-top:4px;overflow-wrap:anywhere}.breakdown{list-style:none;padding:0}.breakdown li{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid #e1e9e2;font-size:.87rem}.breakdown strong{text-align:right;overflow-wrap:anywhere}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.actions button{min-height:42px;font:inherit;font-weight:700;cursor:pointer}.secondary{padding:9px 13px;border:1px solid var(--line);border-radius:8px;background:white}.error{color:#a12626;font-weight:700}.status{min-height:1.3em;font-size:.85rem;color:var(--muted)}.content-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.content p,.content li{line-height:1.7;color:#52675d}.faq details{padding:13px 0;border-bottom:1px solid var(--line)}.faq summary{font-weight:700;cursor:pointer}@media(max-width:760px){.layout,.content-grid{grid-template-columns:1fr}}@media(max-width:440px){.fields{grid-template-columns:1fr}.panel{padding:15px}}button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #8bb7a5;outline-offset:2px}
-</style></head>
-<body><a class="skip-link" href="#main">Skip to content</a>
-<header class="site-header"><div class="container header-inner"><a class="brand" href="/" aria-label="Toolvantas home"><span class="brand-mark" aria-hidden="true">T</span><span>Toolvantas</span></a><button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu</button><nav class="primary-nav" id="primary-nav" aria-label="Main navigation"><a href="/">Home</a><a href="/tools.html">All tools</a><a href="/#about">About</a></nav></div></header>
-<main id="main"><section class="page-hero"><div class="container"><p class="eyebrow">Free freelance finance tool</p><h1>Freelance Income Calculator</h1><p>Use this freelance income calculator to estimate monthly and annual take-home pay after platform fees, payment costs, business expenses, and a tax reserve. Adjust the values to compare scenarios in your own currency.</p></div></section>
-<section class="container section layout"><form class="panel" id="form" novalidate><h2>Your income and costs</h2><p class="muted">Enter average monthly amounts. Tax is a user-selected reserve, not a legal tax calculation.</p><div class="fields">
-<div class="field"><label for="currency">Currency</label><select id="currency"><option>USD</option><option>BDT</option><option>EUR</option><option>GBP</option><option>CAD</option><option>AUD</option><option>INR</option><option>PKR</option></select></div>
+.layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.9fr);gap:20px;align-items:start}
+.panel{padding:22px;border:1px solid var(--line);border-radius:14px;background:#fff;min-width:0}
+.results{background:#f7faf7;border-color:#dbe8dd}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.field label{display:block;font-weight:750;font-size:.86rem;margin-bottom:5px}
+.field input,.field select{box-sizing:border-box;width:100%;min-height:44px;padding:9px 10px;border:1px solid #cfdad2;border-radius:8px;background:#fff;color:var(--ink);font:inherit}
+.field small,.muted{display:block;color:var(--muted);font-size:.85rem;line-height:1.55;margin-top:4px}
+.big{display:block;font-size:clamp(2rem,4vw,2.8rem);font-weight:850;color:var(--forest);overflow-wrap:anywhere}
+.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:15px 0}
+.tile{background:#fff;border:1px solid #e0e9e1;border-radius:9px;padding:11px;min-width:0}
+.tile span{display:block;color:var(--muted);font-size:.78rem}
+.tile strong{display:block;margin-top:4px;overflow-wrap:anywhere}
+.breakdown{list-style:none;padding:0;margin:0;border-top:1px solid #dce6dd}
+.breakdown li{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid #e1e9e2;font-size:.87rem}
+.breakdown span{color:var(--muted)}
+.breakdown strong{text-align:right;overflow-wrap:anywhere}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.actions button{min-height:42px;font:inherit;font-weight:700;cursor:pointer}
+.secondary{padding:9px 13px;border:1px solid var(--line);border-radius:8px;background:white;color:var(--ink)}
+.error{color:#a12626;font-weight:700;font-size:.85rem;margin-top:10px}
+.status{min-height:1.3em;font-size:.85rem;color:var(--muted);margin-top:8px}
+.content-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.content p,.content li{line-height:1.7;color:#52675d;font-size:.93rem}
+.faq details{padding:14px 0;border-bottom:1px solid var(--line)}
+.faq summary{font-weight:750;cursor:pointer;line-height:1.5}
+.faq summary h3{display:inline;font-size:1rem;font-weight:750;margin:0}
+.faq details p{margin:10px 0 0;color:#52675d}
+@media(max-width:760px){.layout,.content-grid{grid-template-columns:1fr}}
+@media(max-width:440px){.fields{grid-template-columns:1fr}.panel{padding:15px}}
+button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #8bb7a5;outline-offset:2px}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="container header-inner">
+<a class="brand" href="/" aria-label="Toolvantas home"><span class="brand-mark" aria-hidden="true">T</span><span>Toolvantas</span></a>
+<button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+<nav class="primary-nav" id="primary-nav" aria-label="Main navigation"><a href="/">Home</a><a href="/tools.html">All tools</a><a href="/#about">About</a></nav>
+</div></header>
+<main id="main">
+<section class="page-hero"><div class="container">
+<p class="eyebrow">Free freelance finance tool</p>
+<h1>Freelance Income Calculator</h1>
+<p>Use this freelance income calculator to estimate monthly and annual take-home pay after platform fees, payment costs, business expenses, and a tax reserve. Adjust the values to compare scenarios in your own currency.</p>
+</div></section>
+<section class="section"><div class="container layout">
+<form class="panel" id="form" novalidate>
+<h2>Your income and costs</h2>
+<p class="muted">Enter average monthly amounts. Tax is a user-selected reserve, not a legal tax calculation.</p>
+<div class="fields">
+<div class="field"><label for="currency">Currency</label><select id="currency"><option value="USD">USD — US Dollar</option><option value="BDT">BDT — Bangladeshi Taka</option><option value="EUR">EUR — Euro</option><option value="GBP">GBP — British Pound</option><option value="CAD">CAD — Canadian Dollar</option><option value="AUD">AUD — Australian Dollar</option><option value="INR">INR — Indian Rupee</option><option value="PKR">PKR — Pakistani Rupee</option></select></div>
 <div class="field"><label for="gross">Gross monthly income</label><input id="gross" type="number" min="0" max="1000000000000" step=".01" value="4000" required><small>Before deductions.</small></div>
 <div class="field"><label for="platform">Platform fee (%)</label><input id="platform" type="number" min="0" max="100" step=".1" value="10" required><small>Use 0 for direct clients.</small></div>
 <div class="field"><label for="payment">Payment / withdrawal fee (%)</label><input id="payment" type="number" min="0" max="100" step=".1" value="2" required><small>Applied to gross income.</small></div>
 <div class="field"><label for="fixed">Fixed payout fees / month</label><input id="fixed" type="number" min="0" max="1000000000000" step=".01" value="5" required></div>
 <div class="field"><label for="expenses">Business expenses / month</label><input id="expenses" type="number" min="0" max="1000000000000" step=".01" value="250" required></div>
-<div class="field"><label for="tax">Tax reserve (%)</label><input id="tax" type="number" min="0" max="100" step=".1" value="15" required><small>Applied to positive profit after fees and expenses.</small></div></div>
-<p class="error" id="error" role="alert" hidden></p><div class="actions"><button class="button" type="submit">Calculate income</button><button class="secondary" type="button" id="reset">Reset</button><button class="secondary" type="button" id="copy">Copy summary</button></div><p class="status" id="status" aria-live="polite"></p></form>
-<section class="panel results" aria-live="polite"><h2>Your estimated take-home income</h2><span class="muted">Monthly after estimated deductions</span><strong class="big" id="net">—</strong><div class="tiles"><div class="tile"><span>Annual take-home</span><strong id="annual">—</strong></div><div class="tile"><span>Effective deductions</span><strong id="effective">—</strong></div><div class="tile"><span>Profit before tax reserve</span><strong id="pretax">—</strong></div><div class="tile"><span>Income kept</span><strong id="kept">—</strong></div></div><h3>Monthly breakdown</h3><ul class="breakdown"><li><span>Gross income</span><strong id="o-gross">—</strong></li><li><span>Platform fees</span><strong id="o-platform">—</strong></li><li><span>Payment fees</span><strong id="o-payment">—</strong></li><li><span>Fixed payout fees</span><strong id="o-fixed">—</strong></li><li><span>Business expenses</span><strong id="o-expenses">—</strong></li><li><span>Estimated tax reserve</span><strong id="o-tax">—</strong></li></ul><p class="muted">Percentage fees use gross income. The tax reserve applies only to positive income remaining after fees and expenses.</p></section></section>
-<section class="container section content-grid content"><article class="panel"><h2>How freelance take-home income is estimated</h2><p>Start with average monthly earnings. Subtract platform commissions, payment or withdrawal costs, fixed payout charges and business expenses. Then reserve a percentage of positive profit for estimated taxes.</p><p><strong>Take-home = gross income − percentage fees − fixed fees − expenses − tax reserve.</strong></p><p>Annual figures multiply the monthly estimate by 12. Compare low, typical and high scenarios if your income varies.</p></article><article class="panel"><h2>What should you include?</h2><ul><li><strong>Gross income:</strong> earnings before deductions.</li><li><strong>Platform fees:</strong> marketplace commissions.</li><li><strong>Payment costs:</strong> processing, withdrawal or conversion fees.</li><li><strong>Business expenses:</strong> software, internet, equipment and other work costs.</li><li><strong>Tax reserve:</strong> a planning percentage chosen for your situation.</li></ul></article></section>
-<section class="container section panel faq"><h2>Frequently asked questions</h2><details><summary>Is this my exact after-tax income?</summary><p>No. It is an estimate, not a tax return or statutory tax calculation. Rules vary by country and individual circumstances; consult a qualified tax professional.</p></details><details><summary>Does it support different currencies?</summary><p>Yes. Choose a display currency. It does not convert currencies or fetch exchange rates, so enter all amounts in the selected currency.</p></details><details><summary>What if my income changes monthly?</summary><p>Change gross income to compare low, typical and high scenarios. Annual figures are monthly estimates multiplied by 12.</p></details><details><summary>Can I include direct-client work?</summary><p>Yes. Set platform fees to zero when no platform commission applies.</p></details></section></main>
-<footer class="site-footer"><div class="container"><p>Toolvantas provides free browser-based tools. Results are estimates and are not financial, legal, or tax advice.</p><p><a href="/">Home</a> · <a href="/tools.html">All tools</a></p></div></footer>
+<div class="field"><label for="tax">Tax reserve (%)</label><input id="tax" type="number" min="0" max="100" step=".1" value="15" required><small>Applied to positive profit after fees and expenses.</small></div>
+</div>
+<p class="error" id="error" role="alert" hidden></p>
+<div class="actions">
+<button class="button button-primary" type="submit">Calculate income</button>
+<button class="secondary" type="button" id="reset">Reset</button>
+<button class="secondary" type="button" id="copy">Copy summary</button>
+</div>
+<p class="status" id="status" aria-live="polite"></p>
+</form>
+<section class="panel results" aria-live="polite">
+<h2>Your estimated take-home income</h2>
+<span class="muted">Monthly after estimated deductions</span>
+<strong class="big" id="net">—</strong>
+<div class="tiles">
+<div class="tile"><span>Annual take-home</span><strong id="annual">—</strong></div>
+<div class="tile"><span>Effective deductions</span><strong id="effective">—</strong></div>
+<div class="tile"><span>Profit before tax reserve</span><strong id="pretax">—</strong></div>
+<div class="tile"><span>Income kept</span><strong id="kept">—</strong></div>
+</div>
+<h3>Monthly breakdown</h3>
+<ul class="breakdown">
+<li><span>Gross income</span><strong id="o-gross">—</strong></li>
+<li><span>Platform fees</span><strong id="o-platform">—</strong></li>
+<li><span>Payment fees</span><strong id="o-payment">—</strong></li>
+<li><span>Fixed payout fees</span><strong id="o-fixed">—</strong></li>
+<li><span>Business expenses</span><strong id="o-expenses">—</strong></li>
+<li><span>Estimated tax reserve</span><strong id="o-tax">—</strong></li>
+</ul>
+<p class="muted">Percentage fees use gross income. The tax reserve applies only to positive income remaining after fees and expenses.</p>
+</section>
+</div></section>
+<section class="section" style="padding-top:0"><div class="container content-grid content">
+<article class="panel"><h2>How freelance take-home income is estimated</h2><p>Start with average monthly earnings. Subtract platform commissions, payment or withdrawal costs, fixed payout charges, and business expenses. Then reserve a percentage of positive profit for estimated taxes.</p><p><strong>Take-home = gross income − percentage fees − fixed fees − expenses − tax reserve.</strong></p><p>Annual figures multiply the monthly estimate by 12. Compare low, typical, and high scenarios if your income varies.</p></article>
+<article class="panel"><h2>What should you include?</h2><ul><li><strong>Gross income:</strong> client billings before deductions.</li><li><strong>Platform fees:</strong> marketplace commissions (e.g., Upwork, Fiverr).</li><li><strong>Payment costs:</strong> card processing, withdrawal, or conversion fees.</li><li><strong>Business expenses:</strong> software, internet, equipment, and recurring work costs.</li><li><strong>Tax reserve:</strong> a planning percentage chosen for your jurisdiction.</li></ul></article>
+</div></section>
+<section class="section" style="padding-top:0"><div class="container"><div class="panel faq">
+<h2>Frequently asked questions</h2>
+<details><summary><h3>Is this my exact after-tax income?</h3></summary><p>No. It is an estimate, not a tax return or statutory tax calculation. Rules vary by country and individual circumstances; consult a qualified tax professional.</p></details>
+<details><summary><h3>Does it support different currencies?</h3></summary><p>Yes. Choose a display currency. It does not convert currencies or fetch exchange rates, so enter all amounts in the selected currency.</p></details>
+<details><summary><h3>What if my freelance income changes every month?</h3></summary><p>Change gross monthly income to compare low, typical, and high scenarios. Annual figures are monthly estimates multiplied by 12.</p></details>
+<details><summary><h3>Can I use this for direct client work without marketplace fees?</h3></summary><p>Yes. Set platform fees to zero when no platform commission applies.</p></details>
+<details><summary><h3>How is the tax reserve applied when expenses exceed income?</h3></summary><p>The tax reserve percentage applies only to positive pre-tax profit remaining after fees and business expenses. If pre-tax profit is zero or negative, the tax reserve is 0.</p></details>
+</div></div></section>
+<section class="section" style="padding-top:0"><div class="container">
+<div class="section-heading"><div><p class="eyebrow">More on Toolvantas</p><h2>Related freelance &amp; business tools</h2></div><a class="text-link" href="/tools.html">Browse all tools <span>→</span></a></div>
+<div class="tool-grid" style="grid-template-columns:repeat(auto-fit,minmax(230px,1fr))">
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">⏱️</div><p class="card-category">Freelance &amp; Business</p><h3><a href="/freelance-rate-calculator.html">Freelance Hourly Rate Calculator</a></h3><p>Calculate sustainable hourly and day rates from annual income targets.</p><a class="card-link" href="/freelance-rate-calculator.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">📋</div><p class="card-category">Freelance &amp; Business</p><h3><a href="/freelance-project-pricing-calculator.html">Project Pricing Calculator</a></h3><p>Build fixed-price client quotes from tasks, expenses, and deposits.</p><a class="card-link" href="/freelance-project-pricing-calculator.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">📈</div><p class="card-category">Freelance &amp; Business</p><h3><a href="/freelance-profit-margin-calculator.html">Profit Margin Calculator</a></h3><p>Evaluate gross margin, net profit margin, markup, and hourly return.</p><a class="card-link" href="/freelance-profit-margin-calculator.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">🧾</div><p class="card-category">Freelance &amp; Business</p><h3><a href="/invoice-generator.html">Free Invoice Generator</a></h3><p>Generate and print itemized PDF invoices with tax and discounts.</p><a class="card-link" href="/invoice-generator.html">Open tool →</a></article>
+</div>
+</div></section>
+</main>
+<footer class="site-footer"><div class="container footer-top">
+<a class="brand brand-footer" href="/"><span class="brand-mark" aria-hidden="true">T</span><span>Toolvantas</span></a><p>Practical tools for everyday tasks.</p>
+<nav aria-label="Footer navigation"><a href="/">Home</a><a href="/tools.html">All tools</a><a href="/#about">About</a></nav>
+</div><div class="container footer-bottom"><small>© <span data-current-year>2026</span> Toolvantas</small><small>Built to be useful.</small></div></footer>
 <script>
 (()=>{"use strict";
 const defaults={currency:"USD",gross:4000,platform:10,payment:2,fixed:5,expenses:250,tax:15},ids=Object.keys(defaults),form=document.getElementById("form"),error=document.getElementById("error"),status=document.getElementById("status");let summary="";
-const val=id=>id==="currency"?document.getElementById(id).value:document.getElementById(id).valueAsNumber;
-const money=(n,c)=>{try{return new Intl.NumberFormat(undefined,{style:"currency",currency:c,maximumFractionDigits:2}).format(n)}catch{return c+" "+n.toFixed(2)}};
-function calc(){const d={};ids.forEach(id=>d[id]=val(id));for(const id of ids.slice(1)){const el=document.getElementById(id),n=d[id];if(!Number.isFinite(n)||n<Number(el.min)||n>Number(el.max))throw Error("Enter a valid value for "+id+".");}
-const platform=d.gross*d.platform/100,payment=d.gross*d.payment/100,pre=d.gross-platform-payment-d.fixed-d.expenses,tax=Math.max(0,pre)*d.tax/100,net=pre-tax;return{d,platform,payment,pre,tax,net,effective:d.gross>0?(d.gross-net)/d.gross*100:0,kept:d.gross>0?net/d.gross*100:0};}
-function render(){try{const r=calc(),c=r.d.currency;error.hidden=true;error.textContent="";document.getElementById("net").textContent=money(r.net,c);document.getElementById("annual").textContent=money(r.net*12,c);document.getElementById("effective").textContent=r.d.gross?r.effective.toFixed(1)+"%":"—";document.getElementById("pretax").textContent=money(r.pre,c);document.getElementById("kept").textContent=r.d.gross?r.kept.toFixed(1)+"%":"—";
-const rows=[["o-gross",r.d.gross],["o-platform",-r.platform],["o-payment",-r.payment],["o-fixed",-r.d.fixed],["o-expenses",-r.d.expenses],["o-tax",-r.tax]];rows.forEach(([id,n])=>document.getElementById(id).textContent=(n<0?"− ":"")+money(Math.abs(n),c));
-summary=["Freelance income estimate","Monthly gross: "+money(r.d.gross,c),"Monthly take-home: "+money(r.net,c),"Annual take-home: "+money(r.net*12,c),"Platform fees: "+money(r.platform,c),"Payment fees: "+money(r.payment,c),"Fixed payout fees: "+money(r.d.fixed,c),"Business expenses: "+money(r.d.expenses,c),"Tax reserve: "+money(r.tax,c),"Estimate only; not tax advice."].join("\n");return true;
-}catch(e){error.textContent=e.message;error.hidden=false;return false;}}
-form.addEventListener("submit",e=>{e.preventDefault();status.textContent=render()?"Income estimate updated.":"Please correct the input values."});
-ids.forEach(id=>document.getElementById(id).addEventListener("input",()=>{if(render())status.textContent=""}));
-document.getElementById("reset").addEventListener("click",()=>{ids.forEach(id=>document.getElementById(id).value=defaults[id]);render();status.textContent="Default values restored."});
-document.getElementById("copy").addEventListener("click",async()=>{if(!render())return;try{if(navigator.clipboard&&window.isSecureContext)await navigator.clipboard.writeText(summary);else{const t=document.createElement("textarea");t.value=summary;t.readOnly=true;t.style.position="fixed";t.style.opacity="0";document.body.appendChild(t);try{t.select();if(!document.execCommand("copy"))throw Error()}finally{t.remove()}}status.textContent="Summary copied."}catch{status.textContent="Copy failed. Select and copy the results manually."}});
+const val=id=>{
+ if(id==="currency")return document.getElementById(id).value;
+ const raw=document.getElementById(id).value.trim();
+ return raw===""?NaN:Number(raw);
+};
+const money=(n,c)=>{try{return new Intl.NumberFormat("en-US",{style:"currency",currency:c,maximumFractionDigits:2}).format(n)}catch{return c+" "+n.toFixed(2)}};
+function calc(){
+ const d={};
+ ids.forEach(id=>{d[id]=val(id);});
+ for(const id of ids.slice(1)){
+  const el=document.getElementById(id),n=d[id];
+  if(!Number.isFinite(n)||n<Number(el.min)||n>Number(el.max))throw Error("Enter a valid numeric value for "+id+".");
+ }
+ if(d.platform+d.payment>100){
+  throw Error("Combined platform and payment percentage fees cannot exceed 100%.");
+ }
+ const platform=d.gross*d.platform/100,payment=d.gross*d.payment/100,pre=d.gross-platform-payment-d.fixed-d.expenses,tax=Math.max(0,pre)*d.tax/100,net=pre-tax;
+ return{d,platform,payment,pre,tax,net,effective:d.gross>0?(d.gross-net)/d.gross*100:0,kept:d.gross>0?net/d.gross*100:0};
+}
+function render(){
+ try{
+  const r=calc(),c=r.d.currency;
+  error.hidden=true;error.textContent="";
+  document.getElementById("net").textContent=money(r.net,c);
+  document.getElementById("annual").textContent=money(r.net*12,c);
+  document.getElementById("effective").textContent=r.d.gross?r.effective.toFixed(1)+"%":"—";
+  document.getElementById("pretax").textContent=money(r.pre,c);
+  document.getElementById("kept").textContent=r.d.gross?r.kept.toFixed(1)+"%":"—";
+  const rows=[["o-gross",r.d.gross],["o-platform",-r.platform],["o-payment",-r.payment],["o-fixed",-r.d.fixed],["o-expenses",-r.d.expenses],["o-tax",-r.tax]];
+  rows.forEach(([id,n])=>{document.getElementById(id).textContent=(n<0?"− ":"")+money(Math.abs(n),c);});
+  summary=["Toolvantas Freelance Income Estimate","Monthly gross: "+money(r.d.gross,c),"Monthly take-home: "+money(r.net,c),"Annual take-home: "+money(r.net*12,c),"Platform fees: "+money(r.platform,c),"Payment fees: "+money(r.payment,c),"Fixed payout fees: "+money(r.d.fixed,c),"Business expenses: "+money(r.d.expenses,c),"Tax reserve: "+money(r.tax,c),"Estimate only; not tax advice."].join("\n");
+  return true;
+ }catch(e){
+  error.textContent=e.message;error.hidden=false;return false;
+ }
+}
+form.addEventListener("submit",e=>{e.preventDefault();status.textContent=render()?"Income estimate updated.":"Please correct the input values.";});
+ids.forEach(id=>{
+ const el=document.getElementById(id);
+ el.addEventListener("input",()=>{if(render())status.textContent="";});
+ el.addEventListener("change",()=>{if(render())status.textContent="";});
+});
+document.getElementById("reset").addEventListener("click",()=>{ids.forEach(id=>{document.getElementById(id).value=defaults[id];});render();status.textContent="Default values restored.";});
+document.getElementById("copy").addEventListener("click",async()=>{
+ if(!render())return;
+ try{
+  if(navigator.clipboard&&navigator.clipboard.writeText)await navigator.clipboard.writeText(summary);
+  else{
+   const t=document.createElement("textarea");t.value=summary;t.readOnly=true;t.style.position="fixed";t.style.opacity="0";document.body.appendChild(t);
+   try{t.select();if(!document.execCommand("copy"))throw Error();}finally{t.remove();}
+  }
+  status.textContent="Summary copied.";
+ }catch{
+  status.textContent="Copy failed. Select and copy the results manually.";
+ }
+});
 render();
 })();
-</script></body></html>
+</script>
+</body>
+</html>

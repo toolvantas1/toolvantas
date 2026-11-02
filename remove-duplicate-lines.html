@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Remove Duplicate Lines — Clean &amp; Sort Lists | Toolvantas</title>
+<meta name="description" content="Remove duplicate lines online from text lists, emails, keywords, or logs with case-sensitivity toggles, space trimming, and natural sorting.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#173d35">
+<link rel="canonical" href="https://toolvantas.pages.dev/remove-duplicate-lines.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Toolvantas">
+<meta property="og:title" content="Remove Duplicate Lines — Clean &amp; Sort Lists | Toolvantas">
+<meta property="og:description" content="Remove duplicate lines online from text lists, emails, keywords, or logs with case-sensitivity toggles, space trimming, and natural sorting.">
+<meta property="og:url" content="https://toolvantas.pages.dev/remove-duplicate-lines.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Remove Duplicate Lines — Clean &amp; Sort Lists | Toolvantas">
+<meta name="twitter:description" content="Remove duplicate lines online from text lists, emails, keywords, or logs with case-sensitivity toggles, space trimming, and natural sorting.">
+<link rel="stylesheet" href="/site.css">
+<script src="/site.js" defer></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Remove Duplicate Lines",
+      "url": "https://toolvantas.pages.dev/remove-duplicate-lines.html",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "description": "Remove duplicate lines online from text lists, emails, keywords, or logs with case-sensitivity toggles, space trimming, and natural sorting.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Which copy of a duplicate line is kept?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The tool always keeps the very first occurrence it encounters from top to bottom (preserving its original capitalization when case-sensitive mode is off) and discards later repeats."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why weren't two identical-looking lines merged?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Usually one line has invisible trailing spaces or tabs, or differs in letter casing. Make sure \"Trim leading/trailing spaces\" is checked and uncheck \"Case-sensitive\"."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How can I find which items are duplicated in my list?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Change \"Output filter\" to \"Show only duplicated lines\". The output box will list each repeated item once so you can audit collisions quickly."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How large a list can I paste into this tool?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Because deduplication uses a linear-time JavaScript Map/Set in your browser, lists of 50,000+ lines process in a fraction of a second on modern devices."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does Numeric sort handle text mixed with numbers?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It uses locale-aware natural collation (numeric: true), ordering Item 2 before Item 10 instead of sorting character-by-character."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are my email lists or log lines sent to a server?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. All processing happens locally inside your browser tab; your data is never transmitted or saved externally."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://toolvantas.pages.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "All Tools",
+          "item": "https://toolvantas.pages.dev/tools.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Remove Duplicate Lines",
+          "item": "https://toolvantas.pages.dev/remove-duplicate-lines.html"
+        }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+.calc-layout{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(280px,.92fr);gap:22px;align-items:start}
+.calc-card,.results,.content-card{padding:22px;border:1px solid var(--line);border-radius:14px;background:#fff;min-width:0}
+.calc-card h2,.results h2,.content-card h2{margin:0 0 8px;font-size:1.2rem}
+.results h3,.calc-card h3{margin:16px 0 8px;font-size:.98rem}
+.muted{color:var(--muted);font-size:.88rem;line-height:1.55}
+.editor{box-sizing:border-box;width:100%;min-height:215px;padding:12px;border:1px solid #cfdad2;border-radius:10px;background:#fff;color:var(--ink);font:inherit;line-height:1.6;resize:vertical}
+.editor:focus-visible,.field select:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible{outline:3px solid #8bb7a5;outline-offset:2px}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}
+.field{min-width:0}
+.field label{display:block;font-size:.84rem;font-weight:750;margin-bottom:5px}
+.field select{box-sizing:border-box;width:100%;min-height:42px;padding:8px 10px;border:1px solid #cfdad2;border-radius:8px;background:#fff;color:var(--ink);font:inherit}
+.checks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:12px}
+.check-row{display:flex;align-items:center;gap:8px;font-size:.83rem;font-weight:650;color:var(--ink);cursor:pointer}
+.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:16px}
+.actions button{cursor:pointer;font:inherit;font-weight:700;min-height:42px}
+.secondary{padding:10px 14px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--ink)}
+.secondary:hover{border-color:#b9d1c1}
+.results{background:#f7faf7;border-color:#dbe8dd}
+.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:14px 0 0}
+.tile{padding:11px;border:1px solid #e0e9e1;border-radius:9px;background:#fff;min-width:0}
+.tile span{display:block;color:var(--muted);font-size:.75rem;line-height:1.4}
+.tile strong{display:block;margin-top:4px;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+.status{min-height:1.3em}
+.content-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.content-card p,.content-card li{color:#52675d;font-size:.93rem;line-height:1.75}
+.content-card ul{padding-left:22px}
+.faq-list details{border-bottom:1px solid var(--line);padding:14px 0}
+.faq-list summary{cursor:pointer;font-weight:750;line-height:1.5}
+.faq-list summary h3{display:inline;margin:0;font-size:1rem;font-weight:750}
+.faq-list details p{margin:10px 0 0}
+@media(max-width:760px){.calc-layout,.content-grid{grid-template-columns:1fr}.calc-card,.results,.content-card{padding:18px}}
+@media(max-width:460px){.fields,.checks,.tiles{grid-template-columns:1fr}.calc-card,.results,.content-card{padding:15px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="container header-inner">
+<a class="brand" href="/" aria-label="Toolvantas home"><span class="brand-mark" aria-hidden="true">T</span><span>Toolvantas</span></a>
+<button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+<nav class="primary-nav" id="primary-nav" aria-label="Main navigation"><a href="/">Home</a><a href="/tools.html">All tools</a><a href="/#about">About</a></nav>
+</div></header>
+<main id="main">
+<section class="page-hero"><div class="container">
+<p class="eyebrow">Text &amp; data cleaning</p>
+<h1>Remove Duplicate Lines</h1>
+<p>Use this free remove duplicate lines tool to deduplicate lists of keywords, URLs, emails, SKUs, or logs with trimming, sorting, and audit modes.</p>
+</div></section>
+<section class="section"><div class="container"><div class="calc-layout">
+<div class="calc-card">
+<h2>Input lines &amp; deduplication rules</h2>
+<p class="muted">Paste one item per line. Results update automatically whenever your list or rules change.</p>
+<label for="raw-lines" class="skip-link">Input lines</label>
+<textarea id="raw-lines" class="editor" placeholder="Paste your list here (one entry per line)...">apple@example.com
+banana@example.com
+Apple@example.com
+  cherry@example.com  
+
+banana@example.com
+date@example.com</textarea>
+
+<div class="fields">
+<div class="field">
+<label for="keepMode">Output filter</label>
+<select id="keepMode">
+<option value="unique" selected>Keep unique lines (deduplicate)</option>
+<option value="duplicates">Show only duplicated lines</option>
+<option value="singletons">Show only lines appearing once</option>
+</select>
+</div>
+<div class="field">
+<label for="sortMode">Sort order</label>
+<select id="sortMode">
+<option value="original" selected>Keep original order</option>
+<option value="az">Alphabetical (A → Z)</option>
+<option value="za">Reverse alphabetical (Z → A)</option>
+<option value="numeric">Numeric (low → high)</option>
+<option value="short">Shortest to longest</option>
+<option value="long">Longest to shortest</option>
+</select>
+</div>
+</div>
+
+<div class="checks">
+<label class="check-row"><input type="checkbox" id="caseSensitive"> Case-sensitive ("Apple" ≠ "apple")</label>
+<label class="check-row"><input type="checkbox" id="trimLines" checked> Trim leading/trailing spaces</label>
+<label class="check-row"><input type="checkbox" id="removeBlank" checked> Remove empty / blank lines</label>
+<label class="check-row"><input type="checkbox" id="lineNumbers"> Add line numbers (1. 2. 3.)</label>
+</div>
+
+<div class="actions">
+<button class="button button-primary" type="button" id="run-btn">Clean lines</button>
+<button class="secondary" type="button" id="reset-btn">Reset sample</button>
+<button class="secondary" type="button" id="clear-btn">Clear</button>
+</div>
+</div>
+
+<section class="results" aria-live="polite" aria-labelledby="results-title">
+<h2 id="results-title">Cleaned output</h2>
+<p class="muted" id="summary-line">4 unique lines kept · 2 duplicates &amp; 1 blank line removed</p>
+<label for="clean-lines" class="skip-link">Cleaned output lines</label>
+<textarea id="clean-lines" class="editor" readonly></textarea>
+<div class="actions">
+<button class="button button-primary" type="button" id="copy-out">Copy cleaned list</button>
+<button class="secondary" type="button" id="download-txt">Download .txt</button>
+<button class="secondary" type="button" id="replace-in">Move to input</button>
+</div>
+<p id="copy-status" class="muted status" aria-live="polite"></p>
+<div class="tiles">
+<div class="tile"><span>Original lines</span><strong id="orig-out">0</strong></div>
+<div class="tile"><span>Output lines</span><strong id="kept-out">0</strong></div>
+<div class="tile"><span>Duplicates removed</span><strong id="dupes-out">0</strong></div>
+<div class="tile"><span>Blank lines removed</span><strong id="blanks-out">0</strong></div>
+</div>
+</section>
+</div></div></section>
+
+<section class="section" style="padding-top:0"><div class="container content-grid">
+<article class="content-card">
+<h2>How line deduplication works</h2>
+<p>Raw lists exported from spreadsheets, CRMs, server logs, or keyword research tools frequently contain hidden trailing spaces and mixed capitalization that cause naive deduplicators to miss duplicates:</p>
+<ul>
+<li><strong>Trim before matching:</strong> Enabling <em>Trim leading/trailing spaces</em> ensures <code>"item"</code> and <code>"item  "</code> are recognized as identical.</li>
+<li><strong>Case-insensitive retention:</strong> When <em>Case-sensitive</em> is unchecked (recommended for emails, domains, and SEO keywords), <code>Apple@example.com</code> matches <code>apple@example.com</code> while preserving the capitalization of the first entry in your list.</li>
+<li><strong>Duplicate audit mode:</strong> Switch <em>Output filter</em> to <em>Show only duplicated lines</em> when you want to see which entries appeared two or more times rather than removing them silently.</li>
+</ul>
+</article>
+<article class="content-card">
+<h2>Common data-cleaning workflows</h2>
+<ul>
+<li><strong>Email &amp; newsletter lists:</strong> Keep <em>Case-sensitive</em> off and <em>Trim spaces</em> on so subscribers never receive duplicate messages.</li>
+<li><strong>Linux paths, IDs &amp; URLs with query tokens:</strong> Turn <em>Case-sensitive</em> on when uppercase and lowercase strings represent distinct file paths or base64 IDs.</li>
+<li><strong>Inventory SKUs &amp; invoice numbers:</strong> Use <em>Numeric (low → high)</em> sorting to organize numbered identifiers naturally (so <code>2</code> comes before <code>10</code>).</li>
+</ul>
+</article>
+</div></section>
+
+<section class="section" style="padding-top:0"><div class="container content-card faq-list">
+<h2>Frequently asked questions</h2>
+<details><summary><h3>Which copy of a duplicate line is kept?</h3></summary><p>The tool always keeps the very first occurrence it encounters from top to bottom (preserving its original capitalization when case-sensitive mode is off) and discards later repeats.</p></details>
+<details><summary><h3>Why weren't two identical-looking lines merged?</h3></summary><p>Usually one line has invisible trailing spaces or tabs, or differs in letter casing. Make sure "Trim leading/trailing spaces" is checked and uncheck "Case-sensitive".</p></details>
+<details><summary><h3>How can I find which items are duplicated in my list?</h3></summary><p>Change "Output filter" to "Show only duplicated lines". The output box will list each repeated item once so you can audit collisions quickly.</p></details>
+<details><summary><h3>How large a list can I paste into this tool?</h3></summary><p>Because deduplication uses a linear-time JavaScript Map/Set in your browser, lists of 50,000+ lines process in a fraction of a second on modern devices.</p></details>
+<details><summary><h3>How does Numeric sort handle text mixed with numbers?</h3></summary><p>It uses locale-aware natural collation (<code>numeric: true</code>), ordering <code>Item 2</code> before <code>Item 10</code> instead of sorting character-by-character.</p></details>
+<details><summary><h3>Are my email lists or log lines sent to a server?</h3></summary><p>No. All processing happens locally inside your browser tab; your data is never transmitted or saved externally.</p></details>
+</div></section>
+<section class="section" style="padding-top:0"><div class="container">
+<div class="section-heading"><div><p class="eyebrow">More on Toolvantas</p><h2>Related tools you may need</h2></div><a class="text-link" href="/tools.html">Browse all tools <span>→</span></a></div>
+<div class="tool-grid" style="grid-template-columns:repeat(auto-fit,minmax(230px,1fr))">
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">⇄</div><p class="card-category">Text Tools</p><h3><a href="/find-and-replace-text.html">Find and Replace Text</a></h3><p>Bulk find and replace plain text or Regex patterns.</p><a class="card-link" href="/find-and-replace-text.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">Tt</div><p class="card-category">Text Tools</p><h3><a href="/text-case-converter.html">Text Case Converter</a></h3><p>Convert text to Title Case, Sentence case, or snake_case.</p><a class="card-link" href="/text-case-converter.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">Aa</div><p class="card-category">Text Tools</p><h3><a href="/word-counter.html">Word Counter</a></h3><p>Count words, reading time, readability, and keywords.</p><a class="card-link" href="/word-counter.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">#</div><p class="card-category">Text Tools</p><h3><a href="/character-counter.html">Character Counter</a></h3><p>Track characters, UTF-8 bytes, SMS, and SEO limits.</p><a class="card-link" href="/character-counter.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">{}</div><p class="card-category">Developer Tools</p><h3><a href="/json-formatter-and-validator.html">JSON Formatter and Validator</a></h3><p>Format, validate, and inspect structured JSON arrays.</p><a class="card-link" href="/json-formatter-and-validator.html">Open tool →</a></article>
+</div>
+</div></section>
+</main>
+<footer class="site-footer"><div class="container footer-top">
+<a class="brand brand-footer" href="/"><span class="brand-mark" aria-hidden="true">T</span><span>Toolvantas</span></a><p>Practical tools for everyday tasks.</p>
+<nav aria-label="Footer navigation"><a href="/">Home</a><a href="/tools.html">All tools</a><a href="/#about">About</a></nav>
+</div><div class="container footer-bottom"><small>© <span data-current-year>2026</span> Toolvantas</small><small>Built to be useful.</small></div></footer>
+<script>
+(() => {
+  'use strict';
+  const SAMPLE = `apple@example.com\nbanana@example.com\nApple@example.com\n  cherry@example.com  \n\nbanana@example.com\ndate@example.com`;
+  const $ = id => document.getElementById(id);
+  const rawEl = $('raw-lines');
+  const outEl = $('clean-lines');
+  const statusEl = $('copy-status');
+  const collator = new Intl.Collator('en', { numeric: true, sensitivity: 'base' });
+
+  function processLines() {
+    const raw = rawEl.value;
+    if (raw.length === 0) {
+      outEl.value = '';
+      $('summary-line').textContent = '0 lines entered';
+      ['orig-out', 'kept-out', 'dupes-out', 'blanks-out'].forEach(id => { $(id).textContent = '0'; });
+      return;
+    }
+
+    const lines = raw.split(/\r\n|\r|\n/);
+    const caseSensitive = $('caseSensitive').checked;
+    const trim = $('trimLines').checked;
+    const removeBlank = $('removeBlank').checked;
+    const addNums = $('lineNumbers').checked;
+    const keepMode = $('keepMode').value;
+    const sortMode = $('sortMode').value;
+
+    let blanksRemoved = 0;
+    let dupesRemoved = 0;
+    const seen = new Map();
+
+    for (const rawLine of lines) {
+      const line = trim ? rawLine.trim() : rawLine;
+      if (line === '' && removeBlank) {
+        blanksRemoved++;
+        continue;
+      }
+      const key = caseSensitive ? line : line.toLowerCase();
+      if (seen.has(key)) {
+        seen.get(key).count += 1;
+        dupesRemoved++;
+      } else {
+        seen.set(key, { text: line, count: 1 });
+      }
+    }
+
+    let result = [];
+    for (const entry of seen.values()) {
+      if (keepMode === 'unique') result.push(entry.text);
+      else if (keepMode === 'duplicates' && entry.count > 1) result.push(entry.text);
+      else if (keepMode === 'singletons' && entry.count === 1) result.push(entry.text);
+    }
+
+    if (sortMode === 'az') result.sort((a, b) => a.localeCompare(b));
+    else if (sortMode === 'za') result.sort((a, b) => b.localeCompare(a));
+    else if (sortMode === 'numeric') result.sort((a, b) => collator.compare(a, b));
+    else if (sortMode === 'short') result.sort((a, b) => Array.from(a).length - Array.from(b).length || a.localeCompare(b));
+    else if (sortMode === 'long') result.sort((a, b) => Array.from(b).length - Array.from(a).length || a.localeCompare(b));
+
+    if (addNums) {
+      result = result.map((line, i) => `${i + 1}. ${line}`);
+    }
+
+    outEl.value = result.join('\n');
+    const fmt = n => new Intl.NumberFormat('en-US').format(n);
+    const reduction = lines.length > 0 ? Math.round(((lines.length - result.length) / lines.length) * 100) : 0;
+    $('summary-line').textContent = `${fmt(result.length)} output ${result.length === 1 ? 'line' : 'lines'} · ${fmt(dupesRemoved)} duplicates & ${fmt(blanksRemoved)} blanks removed (${reduction}% reduction)`;
+    $('orig-out').textContent = fmt(lines.length);
+    $('kept-out').textContent = fmt(result.length);
+    $('dupes-out').textContent = fmt(dupesRemoved);
+    $('blanks-out').textContent = fmt(blanksRemoved);
+  }
+
+  ['raw-lines', 'keepMode', 'sortMode', 'caseSensitive', 'trimLines', 'removeBlank', 'lineNumbers'].forEach(id => {
+    $(id).addEventListener('input', processLines);
+    $(id).addEventListener('change', processLines);
+  });
+
+  $('run-btn').addEventListener('click', processLines);
+  $('reset-btn').addEventListener('click', () => {
+    rawEl.value = SAMPLE;
+    $('keepMode').value = 'unique';
+    $('sortMode').value = 'original';
+    $('caseSensitive').checked = false;
+    $('trimLines').checked = true;
+    $('removeBlank').checked = true;
+    $('lineNumbers').checked = false;
+    statusEl.textContent = '';
+    processLines();
+  });
+
+  $('clear-btn').addEventListener('click', () => {
+    rawEl.value = '';
+    statusEl.textContent = 'Cleared.';
+    processLines();
+    rawEl.focus();
+  });
+
+  $('replace-in').addEventListener('click', () => {
+    rawEl.value = outEl.value;
+    statusEl.textContent = 'Cleaned list moved to input.';
+    processLines();
+  });
+
+  $('copy-out').addEventListener('click', async () => {
+    if (!outEl.value) { statusEl.textContent = 'Nothing to copy yet.'; return; }
+    try {
+      await navigator.clipboard.writeText(outEl.value);
+      statusEl.textContent = 'Cleaned list copied to clipboard.';
+    } catch {
+      statusEl.textContent = 'Clipboard unavailable. Select and copy manually.';
+    }
+  });
+
+  $('download-txt').addEventListener('click', () => {
+    if (!outEl.value) { statusEl.textContent = 'No output lines to download.'; return; }
+    const blob = new Blob([outEl.value], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'deduplicated-lines.txt';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+    statusEl.textContent = 'Downloaded deduplicated-lines.txt.';
+  });
+
+  processLines();
+})();
+</script>
+</body>
+</html>

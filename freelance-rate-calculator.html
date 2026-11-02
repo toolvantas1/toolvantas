@@ -3,23 +3,101 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Calculate your freelance hourly rate, day rate, project quote, and annual billing target using income goals, business expenses, taxes, billable hours, and payment fees.">
+<meta name="description" content="Calculate your freelance hourly rate, day rate, and project quote from target income, business expenses, tax reserve, billable hours, and payment fees.">
 <meta name="robots" content="index,follow">
 <meta name="theme-color" content="#173d35">
 <link rel="canonical" href="https://toolvantas.pages.dev/freelance-rate-calculator.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Toolvantas">
+<meta property="og:title" content="Freelance Hourly Rate Calculator &amp; Day Rate | Toolvantas">
+<meta property="og:description" content="Calculate your freelance hourly rate, day rate, and project quote from target income, business expenses, tax reserve, billable hours, and payment fees.">
+<meta property="og:url" content="https://toolvantas.pages.dev/freelance-rate-calculator.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Freelance Hourly Rate Calculator &amp; Day Rate | Toolvantas">
+<meta name="twitter:description" content="Estimate sustainable freelance hourly and day rates from income goals, expenses, taxes, billable hours, and platform fees.">
 <title>Freelance Hourly Rate Calculator &amp; Day Rate | Toolvantas</title>
 <link rel="stylesheet" href="/site.css">
 <script src="/site.js" defer></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "Freelance Hourly & Day Rate Calculator",
-  "url": "https://toolvantas.pages.dev/freelance-rate-calculator.html",
-  "applicationCategory": "FinanceApplication",
-  "operatingSystem": "Any",
-  "description": "Estimate freelance hourly and day rates from income goals, expenses, taxes, billable time, and payment fees.",
-  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Freelance Hourly Rate Calculator",
+      "url": "https://toolvantas.pages.dev/freelance-rate-calculator.html",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "description": "Estimate sustainable freelance hourly and day rates from target take-home income, business expenses, tax reserves, billable hours, and payment fees.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://toolvantas.pages.dev/" },
+        { "@type": "ListItem", "position": 2, "name": "All Tools", "item": "https://toolvantas.pages.dev/tools.html#calculators" },
+        { "@type": "ListItem", "position": 3, "name": "Freelance Hourly Rate Calculator", "item": "https://toolvantas.pages.dev/freelance-rate-calculator.html" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How much should I charge as a freelancer per hour?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Start with your desired take-home income, business expenses, estimated taxes and fees, then divide the required billings by your realistic annual billable hours. Your experience, specialist skills, client type, and market also affect the rate you can charge."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between a minimum rate and a recommended rate?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The minimum rate estimates the hourly amount needed to cover the inputs you entered. The recommended rate adds the optional buffer you choose for profit margin or slower periods."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How many hours should I count as billable?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Count hours you can invoice to clients. Prospecting, proposals, bookkeeping, training, administration, and business development often take time but may not be billable. Use a conservative estimate if you are unsure."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do platform and payout fees affect my rate?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Fees reduce the share of client billings you keep. This calculator increases the required billings to account for the platform fee and payout or conversion percentage you enter."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does this calculator calculate my actual taxes?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. It applies a single percentage as a simplified tax reserve estimate. Actual tax depends on your jurisdiction, income, business structure, deductions, and other circumstances."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use this calculator for a day rate or project quote?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. The day rate multiplies your recommended hourly rate by the billable hours per day you enter. The project quote multiplies it by your estimated project hours."
+          }
+        }
+      ]
+    }
+  ]
 }
 </script>
 <style>
@@ -53,6 +131,7 @@
 .content-card ul{padding-left:22px}
 .faq-list details{border-bottom:1px solid var(--line);padding:14px 0}
 .faq-list summary{cursor:pointer;font-weight:750;line-height:1.5}
+.faq-list summary h3{display:inline;font-size:1rem;font-weight:750;margin:0}
 .faq-list details p{margin:10px 0 0}
 @media(max-width:760px){.rate-layout,.content-grid{grid-template-columns:1fr}.rate-card,.results,.content-card{padding:18px}}
 @media(max-width:420px){.fields{grid-template-columns:1fr}.rate-card,.results,.content-card{padding:15px}.tiles{gap:7px}.tile{padding:9px}}
@@ -73,8 +152,8 @@
 <p>Estimate a sustainable freelance hourly rate, day rate, and project quote from your income goal, business expenses, tax reserve, billable time, and payment fees. Your calculations run in this browser.</p>
 </div></section>
 <section class="section"><div class="container"><div class="rate-layout">
-<form class="rate-card" id="rate-form">
-<h2>Your rate plan</h2><p class="muted">Use annual amounts and realistic estimates. You can change any value and calculate again.</p>
+<form class="rate-card" id="rate-form" novalidate>
+<h2>Your rate plan</h2><p class="muted">Use annual amounts and realistic estimates. Results update automatically or when you click calculate.</p>
 <div class="fields">
 <div class="field"><label for="currency">Currency</label><select id="currency" name="currency"><option value="USD">USD — US Dollar</option><option value="BDT">BDT — Bangladeshi Taka</option><option value="GBP">GBP — British Pound</option><option value="EUR">EUR — Euro</option><option value="CAD">CAD — Canadian Dollar</option><option value="AUD">AUD — Australian Dollar</option><option value="INR">INR — Indian Rupee</option><option value="PKR">PKR — Pakistani Rupee</option></select></div>
 <div class="field"><label for="income">Target annual take-home income</label><input id="income" name="income" type="number" min="0" step="any" value="50000" required><small>Income you want to retain after the tax reserve, before business expenses.</small></div>
@@ -150,12 +229,21 @@
 </div></section>
 <section class="section" style="padding-top:0"><div class="container content-card faq-list">
 <h2>Frequently asked questions</h2>
-<details><summary>How much should I charge as a freelancer per hour?</summary><p>Start with your desired take-home income, business expenses, estimated taxes and fees, then divide the required billings by your realistic annual billable hours. Your experience, specialist skills, client type, and market also affect the rate you can charge.</p></details>
-<details><summary>What is the difference between a minimum rate and a recommended rate?</summary><p>The minimum rate estimates the hourly amount needed to cover the inputs you entered. The recommended rate adds the optional buffer you choose for profit margin or slower periods.</p></details>
-<details><summary>How many hours should I count as billable?</summary><p>Count hours you can invoice to clients. Prospecting, proposals, bookkeeping, training, administration, and business development often take time but may not be billable. Use a conservative estimate if you are unsure.</p></details>
-<details><summary>How do platform and payout fees affect my rate?</summary><p>Fees reduce the share of client billings you keep. This calculator increases the required billings to account for the platform fee and payout or conversion percentage you enter.</p></details>
-<details><summary>Does this calculator calculate my actual taxes?</summary><p>No. It applies a single percentage as a simplified tax reserve estimate. Actual tax depends on your jurisdiction, income, business structure, deductions, and other circumstances. Consult official guidance or a qualified tax professional.</p></details>
-<details><summary>Can I use this calculator for a day rate or project quote?</summary><p>Yes. The day rate multiplies your recommended hourly rate by the billable hours per day you enter. The project quote multiplies it by your estimated project hours; adjust for scope risk, revisions, and deliverables as needed.</p></details>
+<details><summary><h3>How much should I charge as a freelancer per hour?</h3></summary><p>Start with your desired take-home income, business expenses, estimated taxes and fees, then divide the required billings by your realistic annual billable hours. Your experience, specialist skills, client type, and market also affect the rate you can charge.</p></details>
+<details><summary><h3>What is the difference between a minimum rate and a recommended rate?</h3></summary><p>The minimum rate estimates the hourly amount needed to cover the inputs you entered. The recommended rate adds the optional buffer you choose for profit margin or slower periods.</p></details>
+<details><summary><h3>How many hours should I count as billable?</h3></summary><p>Count hours you can invoice to clients. Prospecting, proposals, bookkeeping, training, administration, and business development often take time but may not be billable. Use a conservative estimate if you are unsure.</p></details>
+<details><summary><h3>How do platform and payout fees affect my rate?</h3></summary><p>Fees reduce the share of client billings you keep. This calculator increases the required billings to account for the platform fee and payout or conversion percentage you enter.</p></details>
+<details><summary><h3>Does this calculator calculate my actual taxes?</h3></summary><p>No. It applies a single percentage as a simplified tax reserve estimate. Actual tax depends on your jurisdiction, income, business structure, deductions, and other circumstances. Consult official guidance or a qualified tax professional.</p></details>
+<details><summary><h3>Can I use this calculator for a day rate or project quote?</h3></summary><p>Yes. The day rate multiplies your recommended hourly rate by the billable hours per day you enter. The project quote multiplies it by your estimated project hours; adjust for scope risk, revisions, and deliverables as needed.</p></details>
+</div></section>
+<section class="section" style="padding-top:0"><div class="container">
+<div class="section-heading"><div><p class="eyebrow">More on Toolvantas</p><h2>Related freelance &amp; business tools</h2></div><a class="text-link" href="/tools.html">Browse all tools <span>→</span></a></div>
+<div class="tool-grid" style="grid-template-columns:repeat(auto-fit,minmax(230px,1fr))">
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">💵</div><p class="card-category">Freelance &amp; Business</p><h3><a href="/freelance-income-calculator.html">Freelance Income Calculator</a></h3><p>Estimate monthly and annual net take-home pay from gross billings.</p><a class="card-link" href="/freelance-income-calculator.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">📋</div><p class="card-category">Freelance &amp; Business</p><h3><a href="/freelance-project-pricing-calculator.html">Project Pricing Calculator</a></h3><p>Build fixed-price client quotes from itemized tasks, risk, and deposit splits.</p><a class="card-link" href="/freelance-project-pricing-calculator.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">📈</div><p class="card-category">Freelance &amp; Business</p><h3><a href="/freelance-profit-margin-calculator.html">Profit Margin Calculator</a></h3><p>Measure gross margin, net margin, markup, and effective hourly wage.</p><a class="card-link" href="/freelance-profit-margin-calculator.html">Open tool →</a></article>
+<article class="tool-card"><div class="tool-icon" aria-hidden="true">🧾</div><p class="card-category">Freelance &amp; Business</p><h3><a href="/invoice-generator.html">Free Invoice Generator</a></h3><p>Create, preview, and print clean itemized client PDF invoices.</p><a class="card-link" href="/invoice-generator.html">Open tool →</a></article>
+</div>
 </div></section>
 </main>
 <footer class="site-footer"><div class="container footer-top">
@@ -169,7 +257,11 @@ const form=document.querySelector('#rate-form');
 const $=id=>document.getElementById(id);
 const error=$('error');
 const defaults={currency:'USD',income:'50000',expenses:'6000',tax:'0',fee:'0',payoutFee:'0',overhead:'0',weeksOff:'4',workHours:'40',billable:'60',dayHours:'6',buffer:'10',projectHours:'10',marketRate:''};
-const number=id=>Number($(id).value);
+const requiredIds=['income','expenses','tax','fee','payoutFee','overhead','weeksOff','workHours','billable','dayHours','buffer','projectHours'];
+const number=id=>{
+ const raw=$(id).value.trim();
+ return raw===''?NaN:Number(raw);
+};
 const currency=()=> $('currency').value;
 const fmt=n=>new Intl.NumberFormat('en-US',{style:'currency',currency:currency(),maximumFractionDigits:2}).format(n);
 const num=n=>new Intl.NumberFormat('en-US',{maximumFractionDigits:1}).format(n);
@@ -177,7 +269,10 @@ const put=(id,value)=>{$(id).textContent=value;};
 function showError(message){error.hidden=!message;error.textContent=message||'';}
 function calc(event){
  if(event)event.preventDefault();
- if(!form.reportValidity())return;
+ if(requiredIds.some(id=>$(id).value.trim()==='')){
+  showError('Enter a numeric value in every required rate field before calculating.');
+  return false;
+ }
  const income=number('income'),expenses=number('expenses'),tax=number('tax')/100,fee=number('fee')/100,
  payoutFee=number('payoutFee')/100,overhead=number('overhead')/100,weeksOff=number('weeksOff'),
  work=number('workHours'),bill=number('billable')/100,dayHours=number('dayHours'),
@@ -188,12 +283,12 @@ function calc(event){
  tax>=1||fee>=1||payoutFee>=1||overhead>5||buffer>5||weeksOff>=52||work<=0||work>100||
  bill<=0||bill>1||dayHours<=0||dayHours>24||projectHours>100000){
   showError('Check your inputs. Values must be non-negative; tax, platform and payout fees must each be below 100%; overhead and buffer must not exceed 500%; weeks off must be below 52; and working hours must be greater than zero and no more than 100 per week.');
-  return;
+  return false;
  }
  const weeks=52-weeksOff;
  const working=weeks*work;
  const hours=working*bill;
- if(!Number.isFinite(hours)||hours<=0){showError('These settings leave no annual billable hours. Adjust your work schedule.');return;}
+ if(!Number.isFinite(hours)||hours<=0){showError('These settings leave no annual billable hours. Adjust your work schedule.');return false;}
  const taxAdjusted=income/(1-tax);
  const costs=expenses*(1+overhead);
  const beforeFees=taxAdjusted+costs;
@@ -207,7 +302,7 @@ function calc(event){
  const payoutAmount=annualRecommended*(1-fee)*payoutFee;
  const bufferAmount=(recommended-minimum)*hours;
  const valuesToCheck=[taxAdjusted,costs,beforeFees,retention,revenue,minimum,recommended,annualRecommended,taxAmount,feeAmount,payoutAmount,bufferAmount];
- if(valuesToCheck.some(n=>!Number.isFinite(n))){showError('These inputs create a result too large to calculate reliably. Reduce the values and try again.');return;}
+ if(valuesToCheck.some(n=>!Number.isFinite(n))){showError('These inputs create a result too large to calculate reliably. Reduce the values and try again.');return false;}
  showError('');
  put('hourly',fmt(recommended)+'/hr');
  put('minimum',fmt(minimum)+'/hr');
@@ -228,8 +323,12 @@ function calc(event){
  put('payout-out',fmt(payoutAmount));
  put('buffer-out',fmt(bufferAmount));
  put('formula','Minimum rate = (income ÷ (1 − tax reserve) + expenses × (1 + overhead markup)) ÷ ((1 − platform fee) × (1 − payout/conversion fee) × annual billable hours). The optional buffer is added to the minimum rate. Tax is an estimate, not a tax calculation.');
+ return true;
 }
 form.addEventListener('submit',calc);
+form.addEventListener('input',e=>{
+ if(e.target&&e.target.matches('input,select'))calc();
+});
 form.addEventListener('reset',()=>{
  setTimeout(()=>{
   Object.entries(defaults).forEach(([id,value])=>{$(id).value=value;});
@@ -239,6 +338,7 @@ form.addEventListener('reset',()=>{
 });
 $('currency').addEventListener('change',()=>calc());
 $('copy').addEventListener('click',async()=>{
+ if(!calc())return;
  const resultText=`Toolvantas Freelance Rate Estimate
 Currency: ${currency()}
 Recommended hourly rate: ${$('hourly').textContent}
