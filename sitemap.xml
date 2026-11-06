@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<url><loc>https://toolvantas.pages.dev/</loc></url>
-<url><loc>https://toolvantas.pages.dev/tools</loc></url>
-<url><loc>https://toolvantas.pages.dev/privacy</loc></url>
-<url><loc>https://toolvantas.pages.dev/terms</loc></url>  
-<url><loc>https://toolvantas.pages.dev/contact</loc></url>
-<url><loc>https://toolvantas.pages.dev/freelance-rate-calculator.html</loc></url>
-<url><loc>https://toolvantas.pages.dev/freelance-income-calculator.html</loc></url>
-<url><loc>https://toolvantas.pages.dev/freelance-project-pricing-calculator.html</loc></url>
-<url><loc>https://toolvantas.pages.dev/freelance-profit-margin-calculator.html</loc></url>
-<url><loc>https://toolvantas.pages.dev/invoice-generator.html</loc></url>
-<url><loc>https://toolvantas.pages.dev/merge-pdf.html</loc></url>
-<url><loc>https://toolvantas.pages.dev/split-pdf.html</loc></url>
-<url><loc>https://toolvantas.pages.dev/rotate-pdf.html</loc></url>
-<url><loc>https://toolvantas.pages.dev/extract-pdf-pages.html</loc></url>
-<url><loc>https://toolvantas.pages.dev/count-pdf-pages.html</loc></url>
-<url><loc>https://toolvantas.pages.dev/json-formatter-and-validator.html</loc></url>
-<url><loc>https://toolvantas.pages.dev/base64-encoder-and-decoder.html</loc></url>
-<url><loc>https://toolvantas.pages.dev/url-encoder-and-decoder.html</loc></url>
-<url><loc>https://toolvantas.pages.dev/html-entity-encoder-and-decoder.html</loc></url>
-<url><loc>https://toolvantas.pages.dev/unix-timestamp-converter.html</loc></url>
-<url><loc>https://toolvantas.pages.dev/length-converter.html</loc></url>
-<url><loc>https://toolvantas.pages.dev/weight-converter.html</loc></url>
-<url><loc>https://toolvantas.pages.dev/temperature-converter.html</loc></url>
-<url><loc>https://toolvantas.pages.dev/speed-converter.html</loc></url>
-<url><loc>https://toolvantas.pages.dev/data-storage-converter.html</loc></url>
-<url><loc>https://toolvantas.pages.dev/word-counter.html</loc></url>
-<url><loc>https://toolvantas.pages.dev/character-counter.html</loc></url>
-<url><loc>https://toolvantas.pages.dev/text-case-converter.html</loc></url>
-<url><loc>https://toolvantas.pages.dev/remove-duplicate-lines.html</loc></url>
-<url><loc>https://toolvantas.pages.dev/find-and-replace-text.html</loc></url>
-<url><loc>https://toolvantas.pages.dev/percentage-calculator.html</loc></url>
-<url><loc>https://toolvantas.pages.dev/age-calculator.html</loc></url>
-<url><loc>https://toolvantas.pages.dev/date-duration-calculator.html</loc></url>
-<url><loc>https://toolvantas.pages.dev/time-duration-calculator.html</loc></url>
-<url><loc>https://toolvantas.pages.dev/discount-calculator.html</loc></url>
+  <url><loc>https://toolvantas.pages.dev/</loc></url>
+  <url><loc>https://toolvantas.pages.dev/tools</loc></url>
+  <url><loc>https://toolvantas.pages.dev/privacy</loc></url>
+  <url><loc>https://toolvantas.pages.dev/terms</loc></url>
+  <url><loc>https://toolvantas.pages.dev/contact</loc></url>
+  <url><loc>https://toolvantas.pages.dev/freelance-rate-calculator</loc></url>
+  <url><loc>https://toolvantas.pages.dev/freelance-income-calculator</loc></url>
+  <url><loc>https://toolvantas.pages.dev/freelance-project-pricing-calculator</loc></url>
+  <url><loc>https://toolvantas.pages.dev/freelance-profit-margin-calculator</loc></url>
+  <url><loc>https://toolvantas.pages.dev/invoice-generator</loc></url>
+  <url><loc>https://toolvantas.pages.dev/merge-pdf</loc></url>
+  <url><loc>https://toolvantas.pages.dev/split-pdf</loc></url>
+  <url><loc>https://toolvantas.pages.dev/rotate-pdf</loc></url>
+  <url><loc>https://toolvantas.pages.dev/extract-pdf-pages</loc></url>
+  <url><loc>https://toolvantas.pages.dev/count-pdf-pages</loc></url>
+  <url><loc>https://toolvantas.pages.dev/json-formatter-and-validator</loc></url>
+  <url><loc>https://toolvantas.pages.dev/base64-encoder-and-decoder</loc></url>
+  <url><loc>https://toolvantas.pages.dev/url-encoder-and-decoder</loc></url>
+  <url><loc>https://toolvantas.pages.dev/html-entity-encoder-and-decoder</loc></url>
+  <url><loc>https://toolvantas.pages.dev/unix-timestamp-converter</loc></url>
+  <url><loc>https://toolvantas.pages.dev/length-converter</loc></url>
+  <url><loc>https://toolvantas.pages.dev/weight-converter</loc></url>
+  <url><loc>https://toolvantas.pages.dev/temperature-converter</loc></url>
+  <url><loc>https://toolvantas.pages.dev/speed-converter</loc></url>
+  <url><loc>https://toolvantas.pages.dev/data-storage-converter</loc></url>
+  <url><loc>https://toolvantas.pages.dev/word-counter</loc></url>
+  <url><loc>https://toolvantas.pages.dev/character-counter</loc></url>
+  <url><loc>https://toolvantas.pages.dev/text-case-converter</loc></url>
+  <url><loc>https://toolvantas.pages.dev/remove-duplicate-lines</loc></url>
+  <url><loc>https://toolvantas.pages.dev/find-and-replace-text</loc></url>
+  <url><loc>https://toolvantas.pages.dev/percentage-calculator</loc></url>
+  <url><loc>https://toolvantas.pages.dev/age-calculator</loc></url>
+  <url><loc>https://toolvantas.pages.dev/date-duration-calculator</loc></url>
+  <url><loc>https://toolvantas.pages.dev/time-duration-calculator</loc></url>
+  <url><loc>https://toolvantas.pages.dev/discount-calculator</loc></url>
 </urlset>

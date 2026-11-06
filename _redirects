@@ -1,0 +1,45 @@
+# Toolvantas — Cloudflare Pages Redirect Rules
+# Enforces 301 permanent redirects from legacy .html extensions to extensionless URLs
+# Resolves duplicate homepage routes to the root homepage
+
+# 1. Duplicate Homepage Route Redirects
+/toolvantas-home.html / 301
+/toolvantas-home / 301
+
+# 2. Main Directory & Trust Pages
+/tools.html /tools 301
+/privacy.html /privacy 301
+/terms.html /terms 301
+/contact.html /contact 301
+
+# 3. 30 Locked Tool Pages
+/freelance-rate-calculator.html /freelance-rate-calculator 301
+/freelance-income-calculator.html /freelance-income-calculator 301
+/freelance-project-pricing-calculator.html /freelance-project-pricing-calculator 301
+/freelance-profit-margin-calculator.html /freelance-profit-margin-calculator 301
+/invoice-generator.html /invoice-generator 301
+/merge-pdf.html /merge-pdf 301
+/split-pdf.html /split-pdf 301
+/rotate-pdf.html /rotate-pdf 301
+/extract-pdf-pages.html /extract-pdf-pages 301
+/count-pdf-pages.html /count-pdf-pages 301
+/json-formatter-and-validator.html /json-formatter-and-validator 301
+/base64-encoder-and-decoder.html /base64-encoder-and-decoder 301
+/url-encoder-and-decoder.html /url-encoder-and-decoder 301
+/html-entity-encoder-and-decoder.html /html-entity-encoder-and-decoder 301
+/unix-timestamp-converter.html /unix-timestamp-converter 301
+/length-converter.html /length-converter 301
+/weight-converter.html /weight-converter 301
+/temperature-converter.html /temperature-converter 301
+/speed-converter.html /speed-converter 301
+/data-storage-converter.html /data-storage-converter 301
+/word-counter.html /word-counter 301
+/character-counter.html /character-counter 301
+/text-case-converter.html /text-case-converter 301
+/remove-duplicate-lines.html /remove-duplicate-lines 301
+/find-and-replace-text.html /find-and-replace-text 301
+/percentage-calculator.html /percentage-calculator 301
+/age-calculator.html /age-calculator 301
+/date-duration-calculator.html /date-duration-calculator 301
+/time-duration-calculator.html /time-duration-calculator 301
+/discount-calculator.html /discount-calculator 301
